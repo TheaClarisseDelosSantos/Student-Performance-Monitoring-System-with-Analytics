@@ -1,0 +1,54 @@
+*{
+    font-family: 'Montserrat', sans-serif;
+}
+ion-content{
+    --ion-background-color: #FFF!important;
+}
+ion-header{
+    position: absolute;
+}
+ion-toolbar{
+    --ion-background-color: transparent;
+    --opacity:0;
+}
+ion-card{
+    --ion-background-color:transparent;
+    box-shadow: none !important;
+}
+ion-card-title{
+    text-align: center;
+}
+.welcomebg{
+    position: relative;
+}
+
+.logo{
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+
+.student-btns{
+    margin-top: 25px;
+    text-align: center;
+    color: #000;
+}
+.teacher-btns{
+    margin-top: 25px;
+    text-align: center;
+}
+.studloginbtn{
+    background-color: white;
+    color: black;
+    border-color: #04AA6D;
+    --border-color: black;
+    
+}
+.studloginbtn:active{
+    --background-activated: #a70000;
+    color: white;
+    --border-color: #a70000;
+}
