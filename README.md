@@ -1,4 +1,4 @@
-# Student Performance Monitoring System with Analytics
+# Lipa Grace Academy Student Performance Monitoring System with Analytics
 
 ## Project Description
 The advent of digital technologies had a profound impact on different facets of human existence, education being one of them. In recent times, technological advancements have presented novel possibilities for improving the monitoring of student performance.<br>
