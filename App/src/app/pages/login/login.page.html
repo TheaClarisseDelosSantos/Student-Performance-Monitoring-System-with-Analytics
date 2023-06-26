@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <!-- <ion-title>login</ion-title> -->
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-no-margin">
+      <ion-img src ="assets/icon/loginbg.PNG"></ion-img>
+      <ion-card-title class="signin">SIGN IN</ion-card-title>
+      <ion-card-content>
+
+        <div class="wrapform">
+          <div class="emailtxt">
+            <ion-label>EMAIL</ion-label>
+          </div>
+            <ion-input class="round-input" type="text" required></ion-input>
+            <div class="passtxt">
+              <ion-label>PASSWORD</ion-label>
+            </div>
+            <div class="password-input">
+              <ion-input class="round-input" type="{{ passwordVisible ? 'text' : 'password' }}" name="password" required></ion-input>
+              <button class="password-toggle" (click)="togglePasswordVisibility()">
+                <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+              </button>
+            </div>
+        </div>
+        <div class="fpassword">
+          <ion-button fill="clear" class="ion-no-padding">Forgot Password?</ion-button>
+        </div>
+        <div class="logindiv">
+          <ion-button class="loginbutton">Login</ion-button>
+        </div>
+      </ion-card-content>
+  </ion-card>
+
+  
+</ion-content>
