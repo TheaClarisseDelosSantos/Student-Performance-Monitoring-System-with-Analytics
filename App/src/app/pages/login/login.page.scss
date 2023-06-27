@@ -1,162 +1,164 @@
 ion-header{
-    position: absolute;
+  position: absolute;
 }
 ion-toolbar{
-    --ion-background-color:#FFFFFF;
-    opacity: 0;
+  --ion-background-color:#FFFFFF;
+  opacity: 0;
 }
 ion-content{
-    --ion-background-color:#FFFFFF;
-    margin-right: 37px;
+  --ion-background-color:#FFFFFF;
+  margin-right: 37px;
 }
 .wrapform{
-    margin-top: 15px;
+  margin-top: 15px;
 }
 
 ion-icon{
-    padding-right: 6px;
-    font-size: 20px;
+  padding-right: 6px;
+  font-size: 20px;
 }
 
 .fpassword{
-    text-align: center;
-    ion-button{
-        font-size: 11px;
-    }
+  text-align: center;
+  ion-button{
+      font-size: 11px;
+  }
 }
 
 ion-card{
-    --ion-background-color:transparent;
-    box-shadow: none !important;
+  --ion-background-color:transparent;
+  box-shadow: none !important;
 }
 .signin{
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 500;
-    font-size: 36px;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  font-size: 36px;
 }
 .round-input {
-    --border-radius: 10px; 
-    --padding-start: 20px; 
-    --padding-end: 10px; 
-    --background: #F4F4F4; 
-    --color: #333; 
-  }
-  
+  --border-radius: 10px; 
+  --padding-start: 20px; 
+  --padding-end: 10px; 
+  --background: #F4F4F4; 
+  --color: #333; 
+  font-family: 'DM Sans', sans-serif;
+}
+
 .round-input input {
-    border: none;
-    border-bottom: none;
-    text-decoration: none;
-    outline: none;
+  border: none;
+  border-bottom: none;
+  text-decoration: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
 }
 .round-input::placeholder {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 800; 
-    color: #999;
-  }
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 800; 
+  color: #999;
+}
 ion-label{
-    font-size: 15px;
-    font-family: 'DM Sans', sans-serif;
-    color: #1C2120;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  color: #1C2120;
 }
 .emailtxt{
-    margin-bottom: 10px;
-    margin-right: 37px;
+  margin-bottom: 10px;
+  margin-right: 37px;
 }
 .passtxt{
-    margin-top: 30px;
-    margin-bottom: 10px;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 .password-input {
-    position: relative;
-  
-    ion-input {
-      padding-right: 30px; // Adjust as per your preference
-      
-    }
-  
-    .password-toggle {
-      position: absolute;
-      top: 50%;
-      right: 10px;
-      transform: translateY(-50%);
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-      z-index: 2;
-    }
-  }
-  .logindiv {
-    display: flex; /* Make it a flex container */
-    align-items: center;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  .loginbutton {
-    width: 350px;
-    height: 44px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    flex-shrink: 0;
-    border-radius: 5px;
-    --background: #FF5757;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 700;
+  position: relative;
 
+  ion-input {
+    padding-right: 30px; // Adjust as per your preference
+    
   }
 
-  .fpass{
-    text-decoration: underline;
-    color: #1C2120;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-  }
-  ion-select.custom-select {
-    --background: #F4F4F4;
-    --placeholder-color: #1C2120;
-    --color: #333;
-    --padding-start: 16px;
-    --padding-end: 16px;
-    --border-radius: 8px;
-    --height: 40px;
-    --selected-text-color: #333;
-    --selected-text-font-weight: 500;
-    --selected-placeholder-color: #999;
-    --selected-background: #FFFFFF;
-    --icon-color: #999;
-    --icon-size: 20px;
-    --border-width: 1px;
-    --border-color: #E5E5E5;
-    --caret-color: #333;
-    --caret-size: 10px;
-    --caret-margin-end: 4px;
-    --transition-duration: 200ms;
-    --caret-size: 0;
-  }
-  
-  ion-select.custom-select::part(icon) {
-    display: none; // Hide the default icon
-  }
-  
-  ion-select.custom-select::part(text) {
-    height: 40px;
-    line-height: 40px;
-    font-family: 'DM Sans', sans-serif;
-  }
-  
-  .custom-select::after {
-    content: "";
+  .password-toggle {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 10px;
     transform: translateY(-50%);
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #1C2120;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    z-index: 2;
   }
+}
+.logindiv {
+  display: flex; /* Make it a flex container */
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.loginbutton {
+  width: 350px;
+  height: 44px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 5px;
+  --background: #FF5757;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+
+}
+
+.fpass{
+  text-decoration: underline;
+  color: #1C2120;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+ion-select.custom-select {
+  --background: #F4F4F4;
+  --placeholder-color: #1C2120;
+  --color: #333;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --border-radius: 8px;
+  --height: 40px;
+  --selected-text-color: #333;
+  --selected-text-font-weight: 500;
+  --selected-placeholder-color: #999;
+  --selected-background: #FFFFFF;
+  --icon-color: #999;
+  --icon-size: 20px;
+  --border-width: 1px;
+  --border-color: #E5E5E5;
+  --caret-color: #333;
+  --caret-size: 10px;
+  --caret-margin-end: 4px;
+  --transition-duration: 200ms;
+  --caret-size: 0;
+}
+
+ion-select.custom-select::part(icon) {
+  display: none; // Hide the default icon
+}
+
+ion-select.custom-select::part(text) {
+  height: 40px;
+  line-height: 40px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #1C2120;
+}
