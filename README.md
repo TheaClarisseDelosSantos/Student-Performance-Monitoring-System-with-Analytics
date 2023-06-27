@@ -1,6 +1,6 @@
 # Lipa Grace Academy Student Performance Monitoring System with Analytics
 
-## Project Description
+## PROJECT DESCRIPTION
 <p align="justify">The introduction of digital technologies profoundly affected many facets of
 human existence, including education. Recent technological advancements have
 presented novel opportunities for enhancing student performance monitoring.
@@ -19,7 +19,7 @@ the teachers. Therefore, the developers proposed a Mobile-Based Student Performa
 <p align="justify">The United Nations recognizes the significance of quality education as a fundamental human right and a catalyst for sustainable development. Hence, it has established Sustainable Development Goal 4 (SDG 4) to ensure inclusive and equitable education and promote opportunities for lifelong learning for all. Through developing a Student Performance Monitoring that meets the requirements of both
 teachers and students, Lipa Grace Academy seeks to contribute to the achievement of SDG 4 and provide its students with a quality education.</p>
 
-## Development Model
+## DEVELOPMENT MODEL
 <img src="Documentation%20Assets/agile.png" alt="Agile" width="90%" height="90%">
 
 <p align="justify">The developers will utilize an agile methodology to ensure the project is completed efficiently. This method is an iterative approach that involves collaboration between cross-functional teams to deliver a product that meets the client's needs. This methodology will allow the project to be completed promptly and efficiently, ensuring that the final product meets the objectives set.</p>
