@@ -13,6 +13,11 @@ can streamline and automate the monitoring of student performance.</p>
 faculty members from elementary to senior high school. As the school continues to grow, it faces various challenges. The current process of generating weekly reports using a macro spreadsheet and sending them individually through email to the students is time-consuming and prone to errors. Additionally, students cannot view their grades online, and the reports in the macro spreadsheet are only accessible by
 the teachers. Therefore, the developers proposed a Mobile-Based Student Performance Monitoring System that can fully address their specific needs. The proposed system aims to provide features such as online viewing of grades and tracking students’ weekly progress of activities and quizzes which can improve the overall learning experience for both students and teachers. By developing a Mobile-based Student Performance Monitoring System that meets the needs of both teachers and students, Lipa Grace Academy aims to contribute to the achievement of SDG 4 which is to ensure inclusive and equitable quality education and promote lifelong learning opportunities for all and provide quality education to its students.</p>
 
+##SUSTAINABLE DEVELOPMENT GOAL
+<img src="Documentation%20Assets/sdg4.jpg">
+<p align="justify">The United Nations recognizes the significance of quality education as a fundamental human right and a catalyst for sustainable development. Hence, it has established Sustainable Development Goal 4 (SDG 4) to ensure inclusive and equitable education and promote opportunities for lifelong learning for all. Through developing a Student Performance Monitoring that meets the requirements of both
+teachers and students, Lipa Grace Academy seeks to contribute to the achievement of SDG 4 and provide its students with a quality education.</p>
+
 ## Development Model
 <img src="Documentation%20Assets/agile.png" alt="Agile" width="90%" height="90%">
 
