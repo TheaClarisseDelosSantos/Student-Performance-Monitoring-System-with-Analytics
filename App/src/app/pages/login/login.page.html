@@ -25,12 +25,21 @@
                 <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
               </button>
             </div>
+            <div class="passtxt">
+              <ion-label>ROLE</ion-label>
+            </div>
+            <ion-select label-placement="floating" fill="outline" class="custom-select">
+              <ion-select-option value="apple">STUDENT</ion-select-option>
+              <ion-select-option value="banana">TEACHER</ion-select-option>
+              <ion-select-option value="orange">ADMIN</ion-select-option>
+            </ion-select>
         </div>
-        <div class="fpassword">
-          <ion-button fill="clear" class="ion-no-padding">Forgot Password?</ion-button>
-        </div>
+        
         <div class="logindiv">
           <ion-button class="loginbutton">Login</ion-button>
+        </div>
+        <div class="fpassword">
+          <ion-button fill="clear" class="fpass ion-no-padding">Forgot Password?</ion-button>
         </div>
       </ion-card-content>
   </ion-card>

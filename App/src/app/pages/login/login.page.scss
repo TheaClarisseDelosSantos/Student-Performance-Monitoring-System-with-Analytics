@@ -12,19 +12,14 @@ ion-content{
 .wrapform{
     margin-top: 15px;
 }
-ion-item{
-    color:#000;
-    --padding-start:0;
-    --inner-padding-end:0;
-    font-size: 12px;
-    ion-icon{
-        padding-right: 6px;
-        font-size: 11px;
 
-    }
+ion-icon{
+    padding-right: 6px;
+    font-size: 20px;
 }
+
 .fpassword{
-    text-align: right;
+    text-align: center;
     ion-button{
         font-size: 11px;
     }
@@ -44,7 +39,7 @@ ion-card{
     --border-radius: 10px; 
     --padding-start: 20px; 
     --padding-end: 10px; 
-    --background: #D9D9D9; 
+    --background: #F4F4F4; 
     --color: #333; 
   }
   
@@ -57,7 +52,7 @@ ion-card{
 .round-input::placeholder {
     font-family: 'DM Sans', sans-serif;
     font-size: 11px;
-    font-weight: 800; // or font-weight: bold;
+    font-weight: 800; 
     color: #999;
   }
 ion-label{
@@ -96,15 +91,72 @@ ion-label{
     display: flex; /* Make it a flex container */
     align-items: center;
     justify-content: center;
+    margin-top: 20px;
   }
   
   .loginbutton {
     width: 350px;
-    height: 34px;
+    height: 44px;
     justify-content: center;
     align-items: center;
     gap: 10px;
     flex-shrink: 0;
     border-radius: 5px;
     --background: #FF5757;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+
+  }
+
+  .fpass{
+    text-decoration: underline;
+    color: #1C2120;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+  }
+  ion-select.custom-select {
+    --background: #F4F4F4;
+    --placeholder-color: #1C2120;
+    --color: #333;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --border-radius: 8px;
+    --height: 40px;
+    --selected-text-color: #333;
+    --selected-text-font-weight: 500;
+    --selected-placeholder-color: #999;
+    --selected-background: #FFFFFF;
+    --icon-color: #999;
+    --icon-size: 20px;
+    --border-width: 1px;
+    --border-color: #E5E5E5;
+    --caret-color: #333;
+    --caret-size: 10px;
+    --caret-margin-end: 4px;
+    --transition-duration: 200ms;
+    --caret-size: 0;
+  }
+  
+  ion-select.custom-select::part(icon) {
+    display: none; // Hide the default icon
+  }
+  
+  ion-select.custom-select::part(text) {
+    height: 40px;
+    line-height: 40px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  .custom-select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1C2120;
   }
