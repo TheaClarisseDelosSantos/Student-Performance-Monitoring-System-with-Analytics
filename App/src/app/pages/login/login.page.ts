@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AuthService} from 'src/app/services/auth.service'
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -15,7 +17,7 @@ export class LoginPage implements OnInit {
   }
 
 
-  constructor(public formbuider: FormBuilder) { }
+  constructor(public formbuider: FormBuilder, public authservice: AuthService) { }
 
   ngOnInit() {
     this.validationUserMessage = {
@@ -42,7 +44,14 @@ export class LoginPage implements OnInit {
   }
 
   LoginUser(value:any){
-    console.log("Am logged in")
+    console.log("Am logged in");
+    try{
+      this.authservice.loginFireauth(value).then(resp=>{
+        console.log(resp);
+      })
+    }catch(err){
+      console.log(err);
+    }
   }
 
 }
