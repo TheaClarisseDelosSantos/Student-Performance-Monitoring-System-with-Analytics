@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/services/auth.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,13 +12,15 @@ export class LoginPage implements OnInit {
   passwordVisible: boolean = false;
   validationUserMessage: any;
   validationFormUser!: FormGroup;
+  selectedRole: string = '';
 
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
 
 
-  constructor(public formbuider: FormBuilder, public authservice: AuthService) { }
+  constructor(public formbuider: FormBuilder, public authservice: AuthService, 
+    private router: Router) { }
 
   ngOnInit() {
     this.validationUserMessage = {
@@ -39,7 +42,8 @@ export class LoginPage implements OnInit {
       password: new FormControl('',Validators.compose([
         Validators.required,
         Validators.minLength(5)
-      ]))
+      ])),
+      role: new FormControl('', Validators.required)
     })
   }
 
@@ -48,6 +52,8 @@ export class LoginPage implements OnInit {
     try{
       this.authservice.loginFireauth(value).then(resp=>{
         console.log(resp);
+        this.authservice.updateUserRole(resp.user.uid, value.role);
+        this.router.navigate(['tabs'])
       })
     }catch(err){
       console.log(err);

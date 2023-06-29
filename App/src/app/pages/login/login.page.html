@@ -46,10 +46,10 @@
               <div class="passtxt">
                 <ion-label>ROLE</ion-label>
               </div>
-              <ion-select label-placement="floating" fill="outline" class="custom-select">
-                <ion-select-option value="apple">STUDENT</ion-select-option>
-                <ion-select-option value="banana">TEACHER</ion-select-option>
-                <ion-select-option value="orange">ADMIN</ion-select-option>
+              <ion-select label-placement="floating" fill="outline" class="custom-select" formControlName="role" [(ngModel)]="selectedRole">
+                <ion-select-option value="student">STUDENT</ion-select-option>
+                <ion-select-option value="teacher">TEACHER</ion-select-option>
+                <ion-select-option value="admin">ADMIN</ion-select-option>
               </ion-select>
           </div>
           

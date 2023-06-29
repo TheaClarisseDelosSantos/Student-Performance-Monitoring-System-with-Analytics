@@ -18,7 +18,23 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },  {
+    path: 'tabs',
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
+  {
+    path: 'weeklyprog',
+    loadChildren: () => import('./pages/weeklyprog/weeklyprog.module').then( m => m.WeeklyprogPageModule)
+  },
+  {
+    path: 'grades',
+    loadChildren: () => import('./pages/grades/grades.module').then( m => m.GradesPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+
 ];
 
 @NgModule({
