@@ -1,0 +1,92 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Add Student</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="bg-color">
+  <ion-card class="ion-no-margin">
+    <ion-card-header>
+      <ion-label>PERSONAL INFORMATION</ion-label>
+    </ion-card-header>
+
+    <ion-card-content>
+      <div class="fmname">
+        <div class="input-container">
+          <ion-label>First Name</ion-label>
+          <ion-input class="round-input" type="text" name="fname"></ion-input>
+        </div>
+        <div class="input-container">
+          <ion-label>Middle Name</ion-label>
+          <ion-input class="round-input" type="text" name="mname"></ion-input>
+        </div>
+      </div>
+      <div>
+        <ion-label>Last Name</ion-label>
+        <ion-input class="round-input" type="text" name="lname"></ion-input>
+      </div>
+      <div>
+        <ion-label>Address</ion-label>
+        <ion-input class="round-input" type="text" name="address"></ion-input>
+      </div>
+      <div class="gend-bday">
+        <div class="input-container">
+          <ion-label>Gender</ion-label>
+          <ion-select label-placement="floating" fill="outline" class="custom-select">
+            <ion-select-option value="female">Female</ion-select-option>
+            <ion-select-option value="male">Male</ion-select-option>
+          </ion-select>
+        </div>
+          
+        </div>
+        <div>
+          <ion-label>Birthday</ion-label>
+          <div class="input-with-button">
+            <ion-input class="round-input-calendar" type="text" name="calendar" readonly></ion-input>
+            <ion-button fill="clear" class="calendar-button" (click)="showPicker = !showPicker">
+              <ion-icon name="calendar"></ion-icon>
+            </ion-button>
+            <ion-text slot="end">
+              {{formattedString}}
+            </ion-text>
+            <ion-datetime [presentation]="date" *ngIf="showPicker"
+            #date
+            [value]="dateValue" 
+            size="cover"
+            (ionChange)="dateChanged(date.value)"
+            showDefaultButtons="true">
+
+            </ion-datetime>
+            
+          </div>
+      </div>
+      <div class="gr-sec">
+        <div class="input-container">
+          <ion-label>Grade Level</ion-label>
+          <ion-select label-placement="floating" fill="outline" class="custom-select">
+            <ion-select-option value="grade1">Grade 1</ion-select-option>
+            <ion-select-option value="grade2">Grade 2</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="input-container">
+          <ion-label>Section</ion-label>
+          <ion-select label-placement="floating" fill="outline" class="custom-select-section">
+            <ion-select-option value="section1">Section 1</ion-select-option>
+            <ion-select-option value="section2">Section 2</ion-select-option>
+          </ion-select>
+        </div>
+      </div>
+
+      <ion-label>ACCOUNT DETAILS</ion-label>
+      <div>
+        <ion-label>Email</ion-label>
+        <ion-input class="round-input" type="email" name="email"></ion-input>
+        <ion-label>Password</ion-label>
+        <ion-input class="round-input" type="password" name="password"></ion-input>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
