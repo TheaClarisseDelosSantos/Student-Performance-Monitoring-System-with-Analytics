@@ -1,5 +1,9 @@
 ion-content{
-    --ion-background-color:#f7f7f7;
+    --ion-background-color:#fff;
+}
+ion-toolbar{
+    --ion-background-color: transparent;
+    --opacity: 0;
 }
 .wrapContent{
     height: 100%;

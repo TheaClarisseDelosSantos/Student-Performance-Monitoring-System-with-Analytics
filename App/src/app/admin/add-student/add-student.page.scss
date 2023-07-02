@@ -18,27 +18,27 @@ ion-content {
   ion-card {
     --ion-background-color: transparent;
     box-shadow: none !important;
+    margin-right: 10px;
   }
   
   ion-card-title {
-    margin-top: 20px;
     font-size: 20px;
+    text-align: center;
   }
   
-  .round-input,
-  ion-select.custom-select,
-  .round-input-calendar {
+  .round-input, .round-input-calendar
+  ion-select.custom-select{
     --border-radius: 5px;
     --padding-start: 20px;
     --padding-end: 10px;
     --background: #f4f4f4;
     --color: #333;
     font-family: 'DM Sans', sans-serif;
-    height: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
   
-  .round-input input,
-  .round-input-calendar input {
+  .round-input input{
     border: none;
     border-bottom: none;
     text-decoration: none;
@@ -46,8 +46,7 @@ ion-content {
     font-family: 'DM Sans', sans-serif;
   }
   
-  .round-input::placeholder,
-  .round-input-calendar::placeholder {
+  .round-input::placeholder{
     font-family: 'DM Sans', sans-serif;
     font-size: 11px;
     font-weight: 800;
@@ -57,16 +56,22 @@ ion-content {
   .fmname {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
   }
   
-  .input-container {
-    margin-right: 10px;
-  }
+  // .input-container {
+  //   margin-right: 10px;
+  //   flex: 1;
+  // }
   
   .gend-bday {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    
+  }
+  .input-container:first-child {
+    margin-right: 10px;
   }
   
   ion-select.custom-select,
@@ -142,12 +147,37 @@ ion-content {
     flex-direction: row;
     justify-content: space-between;
   }
-  .calendar-popover {
-    .popover-content {
-      ion-datetime {
-        width: 100%;
-        --padding-start: 16px;
-        --padding-end: 16px;
-      }
-    }
-  }  
+   
+  .round-input-calendar {
+    --background: #f4f4f4;
+    padding-left: 30px;
+    border-radius: 5px;
+    height: 56px;
+  }
+  
+  .round-input-calendar ion-icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    z-index: 2;
+    font-size: 16px;
+    --color:#999;
+  }
+  
+  .round-input-calendar ion-label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 30px;
+    pointer-events: none;
+    z-index: 2;
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+    margin-left: 10px;
+  }
+  
+  

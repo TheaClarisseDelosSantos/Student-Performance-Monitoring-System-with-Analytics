@@ -74,7 +74,7 @@ ion-label{
     position: relative;
   
     ion-input {
-      padding-right: 30px; // Adjust as per your preference
+      padding-right: 30px; 
       
     }
   
@@ -89,8 +89,28 @@ ion-label{
       z-index: 2;
     }
   }
+
+  .input-with-button{
+    position: relative;
+  
+    ion-input {
+      padding-right: 30px; 
+    }
+
+    .calendar-button{
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      cursor: pointer;
+      border: none;
+      background-color: transparent;
+      z-index: 2;
+    }
+  }
+  
   .logindiv {
-    display: flex; /* Make it a flex container */
+    display: flex; 
     align-items: center;
     justify-content: center;
     margin-top: 20px;

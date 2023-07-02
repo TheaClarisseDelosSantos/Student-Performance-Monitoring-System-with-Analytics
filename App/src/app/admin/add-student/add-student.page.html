@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>Add Student</ion-title>
+    <!-- <ion-title>Add Student</ion-title> -->
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
@@ -10,10 +10,11 @@
 <ion-content [fullscreen]="true" class="bg-color">
   <ion-card class="ion-no-margin">
     <ion-card-header>
-      <ion-label>PERSONAL INFORMATION</ion-label>
+      <ion-card-title>ADD STUDENT</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>
+      <ion-label>PERSONAL INFORMATION</ion-label>
       <div class="fmname">
         <div class="input-container">
           <ion-label>First Name</ion-label>
@@ -40,29 +41,32 @@
             <ion-select-option value="male">Male</ion-select-option>
           </ion-select>
         </div>
+        <div class="input-container">
           
-        </div>
-        <div>
-          <ion-label>Birthday</ion-label>
-          <div class="input-with-button">
-            <ion-input class="round-input-calendar" type="text" name="calendar" readonly></ion-input>
-            <ion-button fill="clear" class="calendar-button" (click)="showPicker = !showPicker">
-              <ion-icon name="calendar"></ion-icon>
-            </ion-button>
-            <ion-text slot="end">
-              {{formattedString}}
-            </ion-text>
-            <ion-datetime [presentation]="date" *ngIf="showPicker"
-            #date
-            [value]="dateValue" 
-            size="cover"
-            (ionChange)="dateChanged(date.value)"
-            showDefaultButtons="true">
+          <ion-label>Birthday</ion-label>  
+          <ion-input id="open-modal" class="round-input-calendar" type="text" name="calendar" readonly>
+            <ion-icon name="calendar" icon="calendar-outline" slot="start" ></ion-icon>
+            <ion-label>{{ formattedString }}</ion-label>
+          </ion-input>
 
-            </ion-datetime>
-            
-          </div>
+          <ion-modal trigger="open-modal" mode="md">
+            <ng-template>
+              <ion-content>
+                <ion-datetime [presentation]="date"
+                  #date
+                  [value]="dateValue" 
+                  size="cover"
+                  (ionChange)="dateChanged(date.value)"
+                  showDefaultButtons="true"
+                  (ionCancel)="showPicker = false;">
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </div>
       </div>
+
+      
       <div class="gr-sec">
         <div class="input-container">
           <ion-label>Grade Level</ion-label>
@@ -73,7 +77,7 @@
         </div>
         <div class="input-container">
           <ion-label>Section</ion-label>
-          <ion-select label-placement="floating" fill="outline" class="custom-select-section">
+          <ion-select label-placement="floating" fill="outline" class="custom-select">
             <ion-select-option value="section1">Section 1</ion-select-option>
             <ion-select-option value="section2">Section 2</ion-select-option>
           </ion-select>
