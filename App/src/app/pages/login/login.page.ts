@@ -14,10 +14,6 @@ export class LoginPage implements OnInit {
   validationFormUser!: FormGroup;
   selectedRole: string = '';
 
-  togglePasswordVisibility() {
-    this.passwordVisible = !this.passwordVisible;
-  }
-
 
   constructor(public formbuider: FormBuilder, public authservice: AuthService, 
     private router: Router) { }
@@ -58,6 +54,10 @@ export class LoginPage implements OnInit {
     }catch(err){
       console.log(err);
     }
+  }
+
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
 }

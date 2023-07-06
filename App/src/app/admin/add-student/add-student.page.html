@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <!-- <ion-title>Add Student</ion-title> -->
+    <ion-title>ADD STUDENT</ion-title>
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
@@ -9,88 +9,137 @@
 
 <ion-content [fullscreen]="true" class="bg-color">
   <ion-card class="ion-no-margin">
-    <ion-card-header>
-      <ion-card-title>ADD STUDENT</ion-card-title>
-    </ion-card-header>
+    
+    <form [formGroup]="ValidationFormUser">
+      <ion-card-content>
+        <div class="persoinfo">
+          <ion-label class="personalinfo">PERSONAL INFORMATION</ion-label>
+        </div>
+        
+        <div class="fmname">
+          <div class="input-container">
+            <ion-input class="round-input" type="text" name="fname" placeholder="First Name" formControlName="fname"></ion-input>
+            
+          </div>
+          <div class="input-container">
+            <ion-input class="round-input" type="text" placeholder="Middle Name" name="mname"></ion-input>
+          </div>
+        </div>
+        <div class="errordiv">
+          <ng-container *ngFor="let validation of validationMessages.fname">
+            <div class="error_message" *ngIf="ValidationFormUser.get('fname')?.hasError(validation.type) && (ValidationFormUser.get('fname')?.dirty || ValidationFormUser.get('fname')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        
+        <div class="lname">
+          <ion-input class="round-input" type="text" name="lname" placeholder="Last Name" formControlName="lname"></ion-input>
+          <ng-container *ngFor="let validation of validationMessages.lname">
+            <div class="error_message" *ngIf="ValidationFormUser.get('lname')?.hasError(validation.type) && (ValidationFormUser.get('lname')?.dirty || ValidationFormUser.get('lname')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        
+        <div class="address">
+          <ion-input class="round-input" type="text" name="address" placeholder="Address" formControlName="address"></ion-input>
+          <ng-container *ngFor="let validation of validationMessages.address">
+            <div class="error_message" *ngIf="ValidationFormUser.get('address')?.hasError(validation.type) && (ValidationFormUser.get('address')?.dirty || ValidationFormUser.get('address')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        <div class="address">
+          <ion-input class="round-input" type="number" name="phone" placeholder="Phone Number" formControlName="phone"></ion-input>
+          <ng-container *ngFor="let validation of validationMessages.phone">
+            <div class="error_message" *ngIf="ValidationFormUser.get('phone')?.hasError(validation.type) && (ValidationFormUser.get('phone')?.dirty || ValidationFormUser.get('phone')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        <div class="gend-bday">
+          <div class="input-container">
+            <ion-select label-placement="floating" fill="outline" label="Gender" class="custom-select" name="gender" formControlName="gender">
+              <ion-select-option value="female">Female</ion-select-option>
+              <ion-select-option value="male">Male</ion-select-option>
+            </ion-select>
+            <ng-container *ngFor="let validation of validationMessages.gender">
+              <div class="error_message" *ngIf="ValidationFormUser.get('gender')?.hasError(validation.type) && (ValidationFormUser.get('gender')?.dirty || ValidationFormUser.get('gender')?.touched)">
+                {{validation.message}}
+              </div>
+            </ng-container>
+          </div>
+          <div class="input-container">
+            <ion-input id="open-modal" class="round-input-calendar" type="text" name="calendar" readonly>
+              <ion-icon name="calendar" icon="calendar-outline" slot="start" ></ion-icon>
+              <ion-label >{{ formattedString }}</ion-label>
+            </ion-input>
 
-    <ion-card-content>
-      <ion-label>PERSONAL INFORMATION</ion-label>
-      <div class="fmname">
-        <div class="input-container">
-          <ion-label>First Name</ion-label>
-          <ion-input class="round-input" type="text" name="fname"></ion-input>
+            <ion-modal trigger="open-modal" mode="md">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime [presentation]="date"
+                    #date
+                    [value]="dateValue" 
+                    size="cover"
+                    (ionChange)="dateChanged(date.value)"
+                    showDefaultButtons="true"
+                    (ionCancel)="showPicker = false;">
+                  </ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+            
+          </div>
         </div>
-        <div class="input-container">
-          <ion-label>Middle Name</ion-label>
-          <ion-input class="round-input" type="text" name="mname"></ion-input>
-        </div>
-      </div>
-      <div>
-        <ion-label>Last Name</ion-label>
-        <ion-input class="round-input" type="text" name="lname"></ion-input>
-      </div>
-      <div>
-        <ion-label>Address</ion-label>
-        <ion-input class="round-input" type="text" name="address"></ion-input>
-      </div>
-      <div class="gend-bday">
-        <div class="input-container">
-          <ion-label>Gender</ion-label>
-          <ion-select label-placement="floating" fill="outline" class="custom-select">
-            <ion-select-option value="female">Female</ion-select-option>
-            <ion-select-option value="male">Male</ion-select-option>
-          </ion-select>
-        </div>
-        <div class="input-container">
-          
-          <ion-label>Birthday</ion-label>  
-          <ion-input id="open-modal" class="round-input-calendar" type="text" name="calendar" readonly>
-            <ion-icon name="calendar" icon="calendar-outline" slot="start" ></ion-icon>
-            <ion-label>{{ formattedString }}</ion-label>
-          </ion-input>
 
-          <ion-modal trigger="open-modal" mode="md">
-            <ng-template>
-              <ion-content>
-                <ion-datetime [presentation]="date"
-                  #date
-                  [value]="dateValue" 
-                  size="cover"
-                  (ionChange)="dateChanged(date.value)"
-                  showDefaultButtons="true"
-                  (ionCancel)="showPicker = false;">
-                </ion-datetime>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
+        
+        <div class="gr-sec">
+          <div class="input-container">
+            
+            <ion-select label-placement="floating" fill="outline" label="Grade Level" class="custom-select" name="gradelevel" formControlName="gradelevel">
+              <ion-select-option value="grade1">Grade 1</ion-select-option>
+              <ion-select-option value="grade2">Grade 2</ion-select-option>
+            </ion-select>
+            
+          </div>
+          <div class="input-container-section">
+            
+            <ion-select label-placement="floating" fill="outline" label="Section" class="custom-select" name="section" formControlName="section">
+              <ion-select-option value="section1">Section 1</ion-select-option>
+              <ion-select-option value="section2">Section 2</ion-select-option>
+            </ion-select>
+          </div>
         </div>
-      </div>
+        
+        
 
-      
-      <div class="gr-sec">
-        <div class="input-container">
-          <ion-label>Grade Level</ion-label>
-          <ion-select label-placement="floating" fill="outline" class="custom-select">
-            <ion-select-option value="grade1">Grade 1</ion-select-option>
-            <ion-select-option value="grade2">Grade 2</ion-select-option>
-          </ion-select>
+        <div class="accdeets">
+          <ion-label>ACCOUNT DETAILS</ion-label>
         </div>
-        <div class="input-container">
-          <ion-label>Section</ion-label>
-          <ion-select label-placement="floating" fill="outline" class="custom-select">
-            <ion-select-option value="section1">Section 1</ion-select-option>
-            <ion-select-option value="section2">Section 2</ion-select-option>
-          </ion-select>
+        
+        <div class="email">
+          <ion-input class="round-input" type="email" name="email" placeholder="Email" formControlName="email"></ion-input>
+          <ng-container *ngFor="let validation of validationMessages.email">
+            <div class="error_message" *ngIf="ValidationFormUser.get('email')?.hasError(validation.type) && (ValidationFormUser.get('email')?.dirty || ValidationFormUser.get('email')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
         </div>
-      </div>
+        <div class="pw">
+          <ion-input class="round-input" type="password" name="password" placeholder="Password" formControlName="password"></ion-input>
+          <ng-container *ngFor="let validation of validationMessages.password">
+            <div class="error_message" *ngIf="ValidationFormUser.get('password')?.hasError(validation.type) && (ValidationFormUser.get('password')?.dirty || ValidationFormUser.get('password')?.touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
 
-      <ion-label>ACCOUNT DETAILS</ion-label>
-      <div>
-        <ion-label>Email</ion-label>
-        <ion-input class="round-input" type="email" name="email"></ion-input>
-        <ion-label>Password</ion-label>
-        <ion-input class="round-input" type="password" name="password"></ion-input>
-      </div>
-    </ion-card-content>
+        <div class="addstuddiv">
+          <ion-button class="addstudbutton" type="submit" [disabled]="!ValidationFormUser.valid">Add Student</ion-button>
+        </div>
+      </ion-card-content>
+    </form>
   </ion-card>
 </ion-content>
