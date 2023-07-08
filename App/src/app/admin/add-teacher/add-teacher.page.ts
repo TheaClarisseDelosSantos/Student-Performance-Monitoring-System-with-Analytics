@@ -1,18 +1,16 @@
-import { Component,OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { parseISO, parse, format, isValid } from 'date-fns';
 import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import { PostProvider } from '../../providers/post-provider';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 
-
-
 @Component({
-  selector: 'app-add-student',
-  templateUrl: './add-student.page.html',
-  styleUrls: ['./add-student.page.scss'],
+  selector: 'app-add-teacher',
+  templateUrl: './add-teacher.page.html',
+  styleUrls: ['./add-teacher.page.scss'],
 })
-export class AddStudentPage {
+export class AddTeacherPage {
   fname : string = "";
   mname : string = "";
   lname : string = "";
@@ -115,7 +113,7 @@ export class AddStudentPage {
   emailExistsError: boolean = false;
   phoneError: boolean = false;
 
-  async addStudent(value: any) {
+  async addTeacher(value: any) {
     const formattedDate = this.dateValue.split('T')[0]; 
     const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
 
@@ -217,5 +215,4 @@ export class AddStudentPage {
   ngOnInit(){
    
   }
-    
 }

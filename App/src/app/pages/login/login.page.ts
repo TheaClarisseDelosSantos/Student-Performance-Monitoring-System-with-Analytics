@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from 'src/app/services/auth.service'
 import { Router } from '@angular/router';
+import { PostProvider } from '../../providers/post-provider';
+import { Storage } from '@ionic/storage';
+import { HomePage } from '../home/home.page';
+import { NavController, NavParams } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -16,7 +21,7 @@ export class LoginPage implements OnInit {
 
 
   constructor(public formbuider: FormBuilder, public authservice: AuthService, 
-    private router: Router) { }
+    private router: Router, private postPvdr: PostProvider, public navCtrl: NavController) { }
 
   ngOnInit() {
     this.validationUserMessage = {

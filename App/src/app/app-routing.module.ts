@@ -39,6 +39,10 @@ const routes: Routes = [
     path: 'add-student',
     loadChildren: () => import('./admin/add-student/add-student.module').then( m => m.AddStudentPageModule)
   },
+  {
+    path: 'add-teacher',
+    loadChildren: () => import('./admin/add-teacher/add-teacher.module').then( m => m.AddTeacherPageModule)
+  },
 
 
 ];
