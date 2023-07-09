@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {AuthService} from 'src/app/services/auth.service'
-import { Router } from '@angular/router';
 import { PostProvider } from '../../providers/post-provider';
 import { Storage } from '@ionic/storage';
 import { HomePage } from '../home/home.page';
 import { NavController, NavParams } from '@ionic/angular';
+import { AlertController } from '@ionic/angular';
 
 
 @Component({
@@ -20,8 +19,8 @@ export class LoginPage implements OnInit {
   selectedRole: string = '';
 
 
-  constructor(public formbuider: FormBuilder, public authservice: AuthService, 
-    private router: Router, private postPvdr: PostProvider, public navCtrl: NavController) { }
+  constructor(public formbuider: FormBuilder, 
+    private postPvdr: PostProvider, public navCtrl: NavController, public alertController: AlertController,) { }
 
   ngOnInit() {
     this.validationUserMessage = {
@@ -50,15 +49,7 @@ export class LoginPage implements OnInit {
 
   LoginUser(value:any){
     console.log("Am logged in");
-    try{
-      this.authservice.loginFireauth(value).then(resp=>{
-        console.log(resp);
-        this.authservice.updateUserRole(resp.user.uid, value.role);
-        this.router.navigate(['tabs'])
-      })
-    }catch(err){
-      console.log(err);
-    }
+    
   }
 
   togglePasswordVisibility() {

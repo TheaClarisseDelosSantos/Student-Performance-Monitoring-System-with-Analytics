@@ -12,7 +12,11 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './add-student.page.html',
   styleUrls: ['./add-student.page.scss'],
 })
-export class AddStudentPage {
+export class AddStudentPage implements OnInit {
+
+  gradeLevels: string[] = [];
+  sections: string[] = [];
+
   fname : string = "";
   mname : string = "";
   lname : string = "";
@@ -91,6 +95,41 @@ export class AddStudentPage {
         Validators.minLength(5)
       ])),
     })
+  }
+
+  capitalizeFirstLetter(event: any, controlName: string): void {
+    const input = event.target;
+    const value = input.value;
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    this.ValidationFormUser.get(controlName)?.setValue(capitalizedValue, { emitEvent: false });
+  }
+  
+  getGradeLevels(){
+    const body = {aksi : 'get_grade_levels'};
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Grade Levels Response:', response);
+        this.gradeLevels = response.gradeLevels;
+      },
+      (error: any) => {
+        console.error('Grade Levels Error:',error);
+      }
+    );
+  }
+
+  getSections(gradeLevel:string){
+    const body = {aksi: 'get_sections', gradeLevel: gradeLevel};
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Sections Response:', response);
+        this.sections = response.sections;
+      },
+      (error: any) => {
+        console.error('Sections Error:', error);
+      }
+    );
   }
 
   setToday(){
@@ -215,7 +254,7 @@ export class AddStudentPage {
 
   
   ngOnInit(){
-   
+    this.getGradeLevels();
   }
     
 }

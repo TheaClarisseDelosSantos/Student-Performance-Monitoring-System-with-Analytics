@@ -1,25 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { parseISO, parse, format, isValid } from 'date-fns';
-import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, FormArray, Form} from '@angular/forms';
 import { PostProvider } from '../../providers/post-provider';
 import { AlertController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-add-teacher',
   templateUrl: './add-teacher.page.html',
   styleUrls: ['./add-teacher.page.scss'],
 })
-export class AddTeacherPage {
+export class AddTeacherPage{
+
+  ValidationFormUser: FormGroup;
+  emailExistsError: boolean = false;
+  phoneError: boolean = false;
+  subjects: string[] = [];
+  gradeLevels: string[] = []
+  assignments: FormArray;
+
+
   fname : string = "";
   mname : string = "";
   lname : string = "";
   address : string = "";
   phone : string = "";
   gender : string = "";
-  birthdate:string= ""
-  gradelevel : string = "";
-  section : string = "";
+  birthdate:string= "";
+  
   email : string = "";
   password : string = "";
   validationMessages = {
@@ -31,8 +40,7 @@ export class AddTeacherPage {
       {type: 'pattern', message: 'Incorrect Phone Number'},
       {type: 'minlength', message: 'Phone Number must be 11 digits'}],
     gender:[{type: "required", message: "Select Gender"}],
-    gradelevel:[{type:"required", message:"Choose Grade Level"}],
-    section:[{type:"required", message:"Choose section"}],
+    
     email:[
       {type:"required", message:"Enter Email Address"},
       {type:"pattern", message:"Incorrect Email Address"}
@@ -40,14 +48,15 @@ export class AddTeacherPage {
     password: [
       {type: "required", message:"Password required"},
       {type: "minLength", message:"Password must be atleast 5 characters"}
-    ]
+    ],
+    
   }
   selectedMode = 'date';
   showPicker = false;
   dateValue = format(new Date(),'yyyy-MM-dd') + 'T09:00:00.000Z';
   formattedString = '';
 
-  ValidationFormUser: FormGroup;
+  
 
   constructor(private formbuilder:FormBuilder, private postPvdr: PostProvider, private alertController: AlertController, 
     private toastController: ToastController) {
@@ -74,12 +83,6 @@ export class AddTeacherPage {
         Validators.required
       ])),
       birthdate: new FormControl('',Validators.compose([])),
-      gradelevel: new FormControl('',Validators.compose([
-        Validators.required
-      ])),
-      section: new FormControl('',Validators.compose([
-        Validators.required
-      ])),
       email: new FormControl('',Validators.compose([
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
@@ -88,8 +91,54 @@ export class AddTeacherPage {
         Validators.required,
         Validators.minLength(5)
       ])),
-    })
+      assignments: this.formbuilder.array([]),
+    });
+    this.assignments = this.ValidationFormUser.get('assignments') as FormArray;
   }
+
+  
+  getGradeLevels(){
+    const body = {aksi : 'get_grade_levels_sections'};
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Grade Levels Response:', response);
+        this.gradeLevels = response.gradeLevels;
+      },
+      (error: any) => {
+        console.error('Grade Levels Error:',error);
+      }
+    );
+    
+    
+  }
+
+  getSubjects(){
+    const body = {aksi : 'get_subjects'};
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Subjects Response:', response);
+        this.subjects = response.subjects;
+      },
+      (error: any) => {
+        console.error('Subjects Error:',error);
+      }
+    );
+  }
+
+  addSubject(){
+    const assignment = this.formbuilder.group({
+      gradelevel:['',Validators.required],
+      subjects: new FormControl([], Validators.required),
+    });
+    this.assignments.push(assignment);
+  }
+
+  removeAssignment(index: number){
+    this.assignments.removeAt(index);
+  }
+
 
   setToday(){
     this.formattedString = 'Date of Birth';
@@ -110,9 +159,14 @@ export class AddTeacherPage {
     this.showPicker = false;
   }
   
-  emailExistsError: boolean = false;
-  phoneError: boolean = false;
-
+  capitalizeFirstLetter(event: any, controlName: string): void {
+    const input = event.target;
+    const value = input.value;
+    const capitalizedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    this.ValidationFormUser.get(controlName)?.setValue(capitalizedValue, { emitEvent: false });
+  }
+  
+  
   async addTeacher(value: any) {
     const formattedDate = this.dateValue.split('T')[0]; 
     const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
@@ -132,11 +186,10 @@ export class AddTeacherPage {
       phone:value.phone,
       gender: value.gender,
       birthdate: formattedDate,
-      gradelevel: value.gradelevel,
-      section: value.section,
       email: value.email,
       password: value.password,
-      aksi: 'add_student'
+      assignments:value.assignments,
+      aksi: 'add_teacher',
     };
   
     console.log('Request Body:', body);
@@ -154,19 +207,22 @@ export class AddTeacherPage {
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       async (response: any) => {
         console.log('Response:', response);
-
-        const alert = await this.alertController.create({
-          header: 'Success',
-          message: 'Added Student Successfully',
-          buttons: ['OK']
-      });
-      await alert.present();
-      this.ValidationFormUser.reset();
-      this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
-      this.formattedString = 'Date of Birth';
+        if(response.success){
+          const alert = await this.alertController.create({
+            header: 'Success',
+            message: 'Added Student Successfully',
+            buttons: ['OK']
+        });
+          await alert.present();
+          this.ValidationFormUser.reset();
+          this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
+          this.formattedString = 'Date of Birth';
+        }else{
+          console.log(response.msg);
+        }
     },
-      (error: any) => {
-        console.error('Error:', error);
+      (error) =>{
+        console.log(error);
       }
     );
   }
@@ -175,7 +231,7 @@ export class AddTeacherPage {
 
     const body = {
       email: email,
-      aksi:'check_email'
+      aksi:'check_teacher_email'
     };
 
     return new Promise<boolean>((resolve, reject)=>{
@@ -213,6 +269,8 @@ export class AddTeacherPage {
 
   
   ngOnInit(){
-   
+    this.getGradeLevels();
+    this.getSubjects();
+    this.addSubject();
   }
 }
