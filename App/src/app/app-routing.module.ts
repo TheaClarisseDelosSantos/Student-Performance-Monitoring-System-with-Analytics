@@ -22,7 +22,6 @@ const routes: Routes = [
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
-    canActivate:[AuthGuard]
   },
   {
     path: 'weeklyprog',
@@ -35,13 +34,18 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
-  },  {
+  },
+  {
     path: 'add-student',
     loadChildren: () => import('./admin/add-student/add-student.module').then( m => m.AddStudentPageModule)
   },
   {
     path: 'add-teacher',
     loadChildren: () => import('./admin/add-teacher/add-teacher.module').then( m => m.AddTeacherPageModule)
+  },
+  {
+    path: 'teacher-home',
+    loadChildren: () => import('./teacher/teacher-home/teacher-home.module').then( m => m.TeacherHomePageModule)
   },
 
 

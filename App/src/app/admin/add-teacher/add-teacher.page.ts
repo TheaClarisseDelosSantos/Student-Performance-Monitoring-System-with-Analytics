@@ -210,7 +210,7 @@ export class AddTeacherPage{
         if(response.success){
           const alert = await this.alertController.create({
             header: 'Success',
-            message: 'Added Student Successfully',
+            message: 'Added Teacher Successfully',
             buttons: ['OK']
         });
           await alert.present();

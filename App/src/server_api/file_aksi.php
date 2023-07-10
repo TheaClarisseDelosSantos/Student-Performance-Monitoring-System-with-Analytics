@@ -167,3 +167,62 @@ if(isset($postjson) && $postjson['aksi'] == "check_teacher_email"){
     echo json_encode(['emailExists' => $count > 0]);
     exit();
 }
+
+if (isset($postjson) && $postjson['aksi'] == "login") {
+    $email = $postjson['email'];
+    $password = $postjson['password'];
+    $role = $postjson['role'];
+
+    $table = ''; // Specify the correct table name based on the role
+
+    switch ($role) {
+        case 'student':
+            $table = 'users';
+            break;
+        case 'teacher':
+            $table = 'teachers';
+            break;
+        case 'admin':
+            $table = 'admin';
+            break;
+        default:
+            $response = array('success' => false, 'msg' => 'Incorrect role');
+            echo json_encode($response);
+            exit();
+    }
+    // Prepare and execute the query
+    $stmt = $mysqli->prepare("SELECT * FROM $table WHERE email = ?");
+$stmt->bind_param("s", $email);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if ($result->num_rows > 0) {
+    $data = $result->fetch_assoc();
+
+    if (password_verify($password, $data['password'])) {
+        $datauser = array(
+            'user_id' => $data['user_id'],
+            'firstname' => $data['firstname'],
+            'middlename' => $data['middlename'],
+            'lastname' => $data['lastname'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'gender' => $data['gender'],
+            'birthdate' => $data['birthdate'],
+            'email' => $data['email']
+        );
+
+        $response = array('success' => true, 'result' => $datauser);
+    } else {
+        $response = array('success' => false, 'msg' => 'Invalid email or password');
+    }
+} else {
+    $response = array('success' => false, 'msg' => 'Email not found');
+}
+
+// Set the response headers
+header('Content-Type: application/json');
+echo json_encode($response);
+exit();
+}
+

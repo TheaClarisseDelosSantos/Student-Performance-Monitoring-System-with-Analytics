@@ -1,67 +1,61 @@
-<ion-header class="ion-no-border">
-  <ion-toolbar>
-    <!-- <ion-title>login</ion-title> -->
-  </ion-toolbar>
-
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <ion-card class="ion-no-margin">
-      <ion-img src ="assets/icon/loginbg.PNG"></ion-img>
-      <ion-card-title class="signin">SIGN IN</ion-card-title>
-      <ion-card-content>
+    <ion-img src="assets/icon/loginbg.PNG"></ion-img>
+    <ion-card-title class="signin">SIGN IN</ion-card-title>
+    <ion-card-content>
+      
+      <form [formGroup]="validationFormUser" (ngSubmit)="LoginUser()">
 
-        <form [formGroup] = "validationFormUser" (ngSubmit)="LoginUser(validationFormUser.value)">
-          
-          <div class="wrapform">
-            <div class="emailtxt">
-              <ion-label>EMAIL</ion-label>
-            </div>
-              <ion-input class="round-input" type="text" name="email" formControlName="email"></ion-input>
-              <div>
-                <ng-container *ngFor="let validation of validationUserMessage.email">
-                  <div class="error_message" *ngIf = "validationFormUser.get('email')?.hasError(validation.type) && (validationFormUser.get('email')?.dirty || validationFormUser.get('email')?.touched)">
-                    {{validation.message}}
-                  </div>
-                </ng-container>
+        <div class="wrapform">
+          <div class="emailtxt">
+            <ion-label>EMAIL</ion-label>
+          </div>
+          <ion-input class="round-input" type="text" formControlName="email"></ion-input>
+          <div>
+            <ng-container *ngFor="let validation of validationUserMessage.email">
+              <div class="error_message"
+                *ngIf="validationFormUser.get('email')?.hasError(validation.type) && (validationFormUser.get('email')?.dirty || validationFormUser.get('email')?.touched)">
+                {{ validation.message }}
               </div>
-              
-              <div class="passtxt">
-                <ion-label>PASSWORD</ion-label>
-              </div>
-              <div class="password-input">
-                <ion-input formControlName="password" class="round-input" type="{{ passwordVisible ? 'text' : 'password' }}" name="password" required></ion-input>
-                <button class="password-toggle" (click)="togglePasswordVisibility()">
-                  <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
-                </button>
-              </div>
-              <div>
-                <ng-container *ngFor="let validation of validationUserMessage.password">
-                  <div class="error_message" *ngIf = "validationFormUser.get('password')?.hasError(validation.type) && (validationFormUser.get('password')?.dirty || validationFormUser.get('password')?.touched)">
-                    {{validation.message}}
-                  </div>
-                </ng-container>
-              </div>
+            </ng-container>
+          </div>
 
-              <div class="passtxt">
-                <ion-label>ROLE</ion-label>
+          <div class="passtxt">
+            <ion-label>PASSWORD</ion-label>
+          </div>
+          <div class="password-input">
+            <ion-input class="round-input" type="{{ passwordVisible ? 'text' : 'password' }}"
+              formControlName="password" required></ion-input>
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+            </button>
+          </div>
+          <div>
+            <ng-container *ngFor="let validation of validationUserMessage.password">
+              <div class="error_message"
+                *ngIf="validationFormUser.get('password')?.hasError(validation.type) && (validationFormUser.get('password')?.dirty || validationFormUser.get('password')?.touched)">
+                {{ validation.message }}
               </div>
-              <ion-select label-placement="floating" fill="outline" class="custom-select" formControlName="role" [(ngModel)]="selectedRole">
-                <ion-select-option value="student">STUDENT</ion-select-option>
-                <ion-select-option value="teacher">TEACHER</ion-select-option>
-                <ion-select-option value="admin">ADMIN</ion-select-option>
-              </ion-select>
+            </ng-container>
           </div>
-          
-          <div class="logindiv">
-            <ion-button class="loginbutton" type="submit" [disabled]="!validationFormUser.valid">Login</ion-button>
+
+          <div class="passtxt">
+            <ion-label>ROLE</ion-label>
           </div>
-          <div class="fpassword">
-            <ion-button fill="clear" class="fpass ion-no-padding">Forgot Password?</ion-button>
-          </div>
-        </form>
-      </ion-card-content>
+          <ion-select label-placement="floating" fill="outline" class="custom-select" formControlName="role">
+            <ion-select-option value="student">STUDENT</ion-select-option>
+            <ion-select-option value="teacher">TEACHER</ion-select-option>
+            <ion-select-option value="admin">ADMIN</ion-select-option>
+          </ion-select>
+        </div>
+
+        <div class="logindiv">
+          <ion-button class="loginbutton" type="submit" [disabled]="!validationFormUser.valid">Login</ion-button>
+        </div>
+        <div class="fpassword">
+          <ion-button fill="clear" class="fpass ion-no-padding">Forgot Password?</ion-button>
+        </div>
+      </form>
+    </ion-card-content>
   </ion-card>
-
-  
 </ion-content>
