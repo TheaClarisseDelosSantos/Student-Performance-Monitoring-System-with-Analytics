@@ -1,6 +1,6 @@
 ion-content {
     --ion-background-color: transparent;
-    --overflow: hidden;
+    // --overflow: hidden;
     --padding-bottom:0;
   }
 
@@ -45,7 +45,7 @@ ion-card-title {
     display: inline-flex;
     align-items: flex-end;
     gap: 1px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .filter ion-icon{
@@ -58,6 +58,7 @@ ion-card-title {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    color: #000;
 }
 .gr-sec,
 .email,
@@ -157,17 +158,20 @@ position: absolute;
 .subject-item{
   background-color: #F8F0F0;
   margin-bottom: 10px;
-  padding: 15px;
+  padding: 18px;
   font-family: 'Poppins', sans-serif;
-  color:#1c2120;
   border-radius: 10px;
-
 }
 
 .subject-header{
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #000;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
 }
 
 .subject-header ion-label{
@@ -181,4 +185,54 @@ position: absolute;
 .no-progress{
   color:gray;
   margin-top: 10px;
+}
+
+.activity-item{
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 20px;
+  font-size: 17px;
+  color: #000;
+  margin-bottom: 20px;
+
+}
+
+.activity-name{
+  flex: 1;
+  text-align: left;
+
+}
+
+.activity-status {
+  flex: 1;
+  text-align: center;
+
+}
+.activity-score{
+  flex: 1;
+  text-align: right;
+}
+
+.status-icon{
+  margin-right: 10px;
+}
+
+.iconslegend{
+  display: flex;
+  font-size: 14px;
+  margin-top: 20px;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.iconcircle{
+  flex: 1;
+  text-align: center;
+}
+
+.iconss{
+  font-size: 15px;
+  align-items: center;
 }

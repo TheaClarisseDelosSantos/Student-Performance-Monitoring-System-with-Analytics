@@ -16,6 +16,9 @@ export class AddStudentPage implements OnInit {
 
   gradeLevels: string[] = [];
   sections: string[] = [];
+  sectionId: string = '';
+  sectionIds: number[] = [];
+
 
   fname : string = "";
   mname : string = "";
@@ -118,19 +121,36 @@ export class AddStudentPage implements OnInit {
     );
   }
 
-  getSections(gradeLevel:string){
-    const body = {aksi: 'get_sections', gradeLevel: gradeLevel};
+  // getSections(gradeLevel:string){
+  //   const body = {aksi: 'get_sections', gradeLevel: gradeLevel};
+
+  //   this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+  //     (response: any) => {
+  //       console.log('Sections Response:', response);
+  //       this.sections = response.sections;
+  //     },
+  //     (error: any) => {
+  //       console.error('Sections Error:', error);
+  //     }
+  //   );
+  // }
+
+  getSections(gradeLevel: string) {
+    const body = { aksi: 'get_sections', gradeLevel: gradeLevel };
 
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       (response: any) => {
         console.log('Sections Response:', response);
         this.sections = response.sections;
+        this.sectionIds = response.sectionIds; // Assign the section IDs
       },
       (error: any) => {
         console.error('Sections Error:', error);
       }
     );
   }
+
+  
 
   setToday(){
     this.formattedString = 'Date of Birth';
@@ -154,64 +174,124 @@ export class AddStudentPage implements OnInit {
   emailExistsError: boolean = false;
   phoneError: boolean = false;
 
-  async addStudent(value: any) {
-    const formattedDate = this.dateValue.split('T')[0]; 
-    const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
+  // async addStudent(value: any) {
+  //   const formattedDate = this.dateValue.split('T')[0]; 
+  //   const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
 
-    if(phoneNumber.length !== 11){
+  //   if(phoneNumber.length !== 11){
+  //     this.phoneError = true;
+  //     return;
+  //   }
+
+  //   // this.phoneError = false;
+  
+  //   let body = {
+  //     fname: value.fname,
+  //     mname: value.mname,
+  //     lname: value.lname,
+  //     address: value.address,
+  //     phone:value.phone,
+  //     gender: value.gender,
+  //     birthdate: formattedDate,
+  //     email: value.email,
+  //     password: value.password,
+  //     aksi: 'add_student'
+  //   };
+  
+  //   console.log('Request Body:', body);
+
+  //   const emailExists = await this.checkEmailExists(body.email);
+
+  //   if (emailExists) {
+  //     this.emailExistsError = true;
+  //     return;
+  //   }
+
+  //   this.emailExistsError = false;
+
+  
+  //   this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+  //     async (response: any) => {
+  //       console.log('Response:', response);
+
+  //       const alert = await this.alertController.create({
+  //         header: 'Success',
+  //         message: 'Added Student Successfully',
+  //         buttons: ['OK']
+  //     });
+  //     await alert.present();
+  //     this.ValidationFormUser.reset();
+  //     this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
+  //     this.formattedString = 'Date of Birth';
+  //   },
+  //     (error: any) => {
+  //       console.error('Error:', error);
+  //     }
+  //   );
+  // }
+
+  async addStudent(value: any) {
+    const formattedDate = this.dateValue.split('T')[0];
+    const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
+  
+    if (phoneNumber.length !== 11) {
       this.phoneError = true;
       return;
     }
-
-    // this.phoneError = false;
   
-    let body = {
+    this.phoneError = false;
+  
+    const sectionIndex = this.sections.indexOf(value.section);
+    const sectionId = this.sectionIds[sectionIndex];
+  
+    const body = {
       fname: value.fname,
       mname: value.mname,
       lname: value.lname,
       address: value.address,
-      phone:value.phone,
+      phone: value.phone,
       gender: value.gender,
       birthdate: formattedDate,
       gradelevel: value.gradelevel,
       section: value.section,
+      sectionId: sectionId, // Add sectionId to the body
       email: value.email,
       password: value.password,
       aksi: 'add_student'
     };
   
     console.log('Request Body:', body);
-
+  
     const emailExists = await this.checkEmailExists(body.email);
-
+  
     if (emailExists) {
       this.emailExistsError = true;
       return;
     }
-
+  
     this.emailExistsError = false;
-
   
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       async (response: any) => {
         console.log('Response:', response);
-
+  
         const alert = await this.alertController.create({
           header: 'Success',
           message: 'Added Student Successfully',
           buttons: ['OK']
-      });
-      await alert.present();
-      this.ValidationFormUser.reset();
-      this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
-      this.formattedString = 'Date of Birth';
-    },
+        });
+        await alert.present();
+        this.ValidationFormUser.reset();
+        this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
+        this.formattedString = 'Date of Birth';
+      },
       (error: any) => {
         console.error('Error:', error);
       }
     );
   }
-
+  
+  
   async checkEmailExists(email:string):Promise<boolean>{
 
     const body = {

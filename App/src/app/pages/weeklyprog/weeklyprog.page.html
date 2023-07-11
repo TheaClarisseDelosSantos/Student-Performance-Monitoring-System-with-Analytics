@@ -26,19 +26,30 @@
     </div>
     <div class="accordion-container">
       <ng-container *ngFor="let subject of subjects">
-        <div class="subject-item" button (click)="toggleAccordion(subject.subject_id)">
+        <div class="subject-item" (click)="toggleAccordion(subject.subject_id)">
           <div class="subject-header">
             <ion-label>{{ subject.subject_name }}</ion-label>
             <ion-icon [name]="isAccordionOpen(subject.subject_id) ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
           </div>
           <div *ngIf="isAccordionOpen(subject.subject_id)" class="subject-content">
-            <ion-list *ngIf="studentProgress[subject.subject_id] && studentProgress[subject.subject_id].length > 0">
-              <ion-item *ngFor="let activity of studentProgress[subject.subject_id]">
-                <ion-label>{{ activity.activity_name }}</ion-label>
-                <ion-label>{{ activity.score_value }}</ion-label>
-                <ion-label>{{ activity.status_value }}</ion-label>
-              </ion-item>
-            </ion-list>
+            <div *ngIf="studentProgress[subject.subject_id] && studentProgress[subject.subject_id].length > 0">
+              <div class="activity-item" *ngFor="let activity of studentProgress[subject.subject_id]">
+                <ion-icon [name]="getIconName(activity.status_value)" [color]="getIconColor(activity.status_value)" class="status-icon"></ion-icon>
+                <div class="activity-name">{{ activity.activity_name }}</div>
+                <div class="activity-score">{{ activity.score_value }}</div>
+                <!-- <div class="activity-score">{{ activity.status_value }}</div> -->
+
+              </div>
+              
+              <div class="iconslegend">
+                <div class="iconcircle"><ion-icon class="iconss" color="success" name="checkmark-circle"></ion-icon>  Completed</div>
+                <div class="iconcircle"><ion-icon class="iconss" color="warning" name="help-circle"></ion-icon>  Missing</div>
+                <div class="iconcircle"><ion-icon class="iconss" color="danger" name="close-circle"></ion-icon>  Failed</div>
+              </div>
+
+            </div>
+            
+            
             <div class="no-progress" *ngIf="!studentProgress[subject.subject_id] || studentProgress[subject.subject_id].length === 0">
               No progress available for this subject
             </div>

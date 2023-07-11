@@ -11,7 +11,9 @@ include "config.php";
 $postjson = json_decode(file_get_contents('php://input'), true);
 
 
-if(isset($postjson) && $postjson['aksi'] == "check_email"){
+
+
+if (isset($postjson) && $postjson['aksi'] == "check_email") {
     $email = $postjson['email'];
 
     $stmt = $mysqli->prepare("SELECT COUNT(*) AS count FROM users WHERE email = ?");
@@ -23,11 +25,13 @@ if(isset($postjson) && $postjson['aksi'] == "check_email"){
     echo json_encode(['emailExists' => $count > 0]);
     exit();
 }
+
 if (isset($postjson) && $postjson['aksi'] == "add_student") {
     $password = password_hash($postjson['password'], PASSWORD_DEFAULT);
+    $sectionId = $postjson['sectionId'];
 
-    $stmt = $mysqli->prepare("INSERT INTO users (firstname, middlename, lastname, address, phone, gender, birthdate, gradelevel, section, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssssss", $postjson['fname'], $postjson['mname'], $postjson['lname'], $postjson['address'], $postjson['phone'],$postjson['gender'], $postjson['birthdate'], $postjson['gradelevel'], $postjson['section'], $postjson['email'], $password);
+    $stmt = $mysqli->prepare("INSERT INTO users (firstname, middlename, lastname, address, phone, gender, birthdate, section_id, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssss", $postjson['fname'], $postjson['mname'], $postjson['lname'], $postjson['address'], $postjson['phone'], $postjson['gender'], $postjson['birthdate'], $sectionId, $postjson['email'], $password);
     $stmt->execute();
 
     if ($stmt->affected_rows > 0) {
@@ -37,16 +41,16 @@ if (isset($postjson) && $postjson['aksi'] == "add_student") {
     }
 
     echo json_encode($response);
-
+    exit();
 }
 
-if (isset($postjson) && $postjson['aksi'] == "get_grade_levels"){
+if (isset($postjson) && $postjson['aksi'] == "get_grade_levels") {
     $stmt = $mysqli->prepare("SELECT DISTINCT gradelevel FROM sections");
     $stmt->execute();
     $stmt->bind_result($gradeLevel);
 
     $gradeLevels = array();
-    while ($stmt->fetch()){
+    while ($stmt->fetch()) {
         $gradeLevels[] = $gradeLevel;
     }
 
@@ -55,23 +59,25 @@ if (isset($postjson) && $postjson['aksi'] == "get_grade_levels"){
     exit();
 }
 
-if (isset($postjson) && $postjson['aksi'] == "get_sections"){
+if (isset($postjson) && $postjson['aksi'] == "get_sections") {
     $gradeLevel = $postjson['gradeLevel'];
 
-    $stmt = $mysqli->prepare("SELECT sectionname FROM sections WHERE gradelevel = ?");
+    $stmt = $mysqli->prepare("SELECT sectionname, section_id FROM sections WHERE gradelevel = ?");
     $stmt->bind_param("s", $gradeLevel);
     $stmt->execute();
-    $stmt->bind_result($sectionName);
+    $stmt->bind_result($sectionName, $sectionId);
 
     $sections = array();
-    while ($stmt->fetch()){
+    $sectionIds = array(); // Add an array to store section IDs
+
+    while ($stmt->fetch()) {
         $sections[] = $sectionName;
+        $sectionIds[] = $sectionId; // Store section IDs in the array
     }
 
-    $response = array('sections' => $sections);
+    $response = array('sections' => $sections, 'sectionIds' => $sectionIds);
     echo json_encode($response);
     exit();
-
 }
 
 if (isset($postjson) && $postjson['aksi'] == "get_grade_levels_sections"){
@@ -192,9 +198,9 @@ if (isset($postjson) && $postjson['aksi'] == "login") {
     }
     // Prepare and execute the query
     $stmt = $mysqli->prepare("SELECT * FROM $table WHERE email = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$result = $stmt->get_result();
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
 if ($result->num_rows > 0) {
     $data = $result->fetch_assoc();
@@ -202,6 +208,7 @@ if ($result->num_rows > 0) {
     if (password_verify($password, $data['password'])) {
         $datauser = array(
             'user_id' => $data['user_id'],
+            'section_id' => $data['section_id'],
             'firstname' => $data['firstname'],
             'middlename' => $data['middlename'],
             'lastname' => $data['lastname'],
@@ -253,8 +260,8 @@ if (isset($postjson) && $postjson['aksi'] == 'get_student_progress') {
     $sectionId = $postjson['section_id'];
 
     $stmt = $mysqli->prepare("SELECT activity_name, score_value, status_value FROM activities 
-        INNER JOIN scores ON activities.activity_id = scores.activity_id
-        WHERE scores.user_id = ? AND activities.subject_id = ? AND activities.section_id = ?");
+      INNER JOIN scores ON activities.activity_id = scores.activity_id
+      WHERE scores.user_id = ? AND activities.subject_id = ? AND activities.section_id = ?");
     $stmt->bind_param("iii", $studentId, $subjectId, $sectionId);
     $stmt->execute();
     $stmt->bind_result($activityName, $scoreValue, $statusValue);
@@ -275,5 +282,33 @@ if (isset($postjson) && $postjson['aksi'] == 'get_student_progress') {
 }
 
 
+
+if (isset($postjson) && $postjson['aksi'] == 'get_section_id') {
+    $userID = $postjson['user_id'];
+
+    $stmt = $mysqli->prepare("SELECT section_id FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $userID);
+    $stmt->execute();
+    $stmt->bind_result($sectionId);
+
+    if ($stmt->fetch()) {
+        $response = array(
+            'section_id' => $sectionId
+        );
+    } else {
+        $response = array('section_id' => null);
+    }
+
+    $stmt->close();
+
+    echo json_encode($response);
+    exit();
+}
+
+
+
+
+
+  
 
 
