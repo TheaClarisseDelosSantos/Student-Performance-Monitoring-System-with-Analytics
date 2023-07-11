@@ -1,13 +1,50 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>weeklyprog</ion-title>
+    <ion-title>WEEKLY PROGRESS</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">weeklyprog</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="bg-color">
+  <ion-card class="ion-no-margin">
+    <div class="filterdiv">
+      <ion-label class="filter"><ion-icon name="filter"></ion-icon> Filter</ion-label>
+    </div>
+    <div class="gr-sec">
+      <div class="input-container">
+        <ion-select label-placement="floating" fill="outline" label="Month" class="custom-select" name="gradelevel">
+          <ion-select-option>July</ion-select-option>
+        </ion-select>
+      </div>
+      <div class="input-container-section">
+        <ion-select label-placement="floating" fill="outline" label="Week" class="custom-select" name="section">
+          <ion-select-option>Week 1</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+    <div class="accordion-container">
+      <ng-container *ngFor="let subject of subjects">
+        <div class="subject-item" button (click)="toggleAccordion(subject.subject_id)">
+          <div class="subject-header">
+            <ion-label>{{ subject.subject_name }}</ion-label>
+            <ion-icon [name]="isAccordionOpen(subject.subject_id) ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+          </div>
+          <div *ngIf="isAccordionOpen(subject.subject_id)" class="subject-content">
+            <ion-list *ngIf="studentProgress[subject.subject_id] && studentProgress[subject.subject_id].length > 0">
+              <ion-item *ngFor="let activity of studentProgress[subject.subject_id]">
+                <ion-label>{{ activity.activity_name }}</ion-label>
+                <ion-label>{{ activity.score_value }}</ion-label>
+                <ion-label>{{ activity.status_value }}</ion-label>
+              </ion-item>
+            </ion-list>
+            <div class="no-progress" *ngIf="!studentProgress[subject.subject_id] || studentProgress[subject.subject_id].length === 0">
+              No progress available for this subject
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </ion-card>
 </ion-content>

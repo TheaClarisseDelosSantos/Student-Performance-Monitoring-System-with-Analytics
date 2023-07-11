@@ -209,7 +209,8 @@ if ($result->num_rows > 0) {
             'phone' => $data['phone'],
             'gender' => $data['gender'],
             'birthdate' => $data['birthdate'],
-            'email' => $data['email']
+            'email' => $data['email'],
+
         );
 
         $response = array('success' => true, 'result' => $datauser);
@@ -225,4 +226,54 @@ header('Content-Type: application/json');
 echo json_encode($response);
 exit();
 }
+
+
+if (isset($postjson) && $postjson['aksi'] == 'get_subjects') {
+    $stmt = $mysqli->prepare("SELECT subject_id, subjectname FROM subjects");
+    $stmt->execute();
+    $stmt->bind_result($subjectId, $subjectName);
+
+    $subjects = array();
+    while ($stmt->fetch()) {
+        $subject = array(
+            'subject_id' => $subjectId,
+            'subject_name' => $subjectName
+        );
+        $subjects[] = $subject;
+    }
+
+    $response = array('subjects' => $subjects);
+    echo json_encode($response);
+    exit();
+
+}
+if (isset($postjson) && $postjson['aksi'] == 'get_student_progress') {
+    $studentId = $postjson['student_id'];
+    $subjectId = $postjson['subject_id'];
+    $sectionId = $postjson['section_id'];
+
+    $stmt = $mysqli->prepare("SELECT activity_name, score_value, status_value FROM activities 
+        INNER JOIN scores ON activities.activity_id = scores.activity_id
+        WHERE scores.user_id = ? AND activities.subject_id = ? AND activities.section_id = ?");
+    $stmt->bind_param("iii", $studentId, $subjectId, $sectionId);
+    $stmt->execute();
+    $stmt->bind_result($activityName, $scoreValue, $statusValue);
+
+    $progress = array();
+    while ($stmt->fetch()) {
+        $activity = array(
+            'activity_name' => $activityName,
+            'score_value' => $scoreValue,
+            'status_value' => $statusValue
+        );
+        $progress[] = $activity;
+    }
+
+    $response = array('progress' => $progress);
+    echo json_encode($response);
+    exit();
+}
+
+
+
 

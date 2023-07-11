@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Storage } from '@ionic/storage';
+import { IonDatetime } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  userName: string = '';
+  currentDate: Date = new Date();
 
-  constructor() { }
+  constructor(private storage: Storage) {}
 
   ngOnInit() {
+    this.getUserName();
   }
 
+  
+
+  async getUserName() {
+    const user = await this.storage.get('session_storage');
+    if (user) {
+      this.userName = user.firstname;
+    }
+  }
+
+  
 }

@@ -15,13 +15,14 @@ import { firebaseConfig } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { PostProvider } from '../app/providers/post-provider';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { AuthGuard } from './guards/auth.guard';
 
 
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, ReactiveFormsModule, FormsModule, AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule, AngularFirestoreModule,IonicModule, HttpClientModule],
-  providers: [PostProvider, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
+  providers: [PostProvider, AuthGuard, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

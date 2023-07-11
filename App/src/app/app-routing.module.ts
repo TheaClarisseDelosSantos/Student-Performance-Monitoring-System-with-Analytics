@@ -17,23 +17,29 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'tabs',
     loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
+    canActivate: [AuthGuard], 
+    data: { roles: ['student', 'teacher', 'admin'] } 
   },
   {
     path: 'weeklyprog',
-    loadChildren: () => import('./pages/weeklyprog/weeklyprog.module').then( m => m.WeeklyprogPageModule)
+    loadChildren: () => import('./pages/weeklyprog/weeklyprog.module').then( m => m.WeeklyprogPageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'grades',
-    loadChildren: () => import('./pages/grades/grades.module').then( m => m.GradesPageModule)
+    loadChildren: () => import('./pages/grades/grades.module').then( m => m.GradesPageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'profile',
-    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule),
+    canActivate: [AuthGuard] 
   },
   {
     path: 'add-student',
@@ -45,8 +51,32 @@ const routes: Routes = [
   },
   {
     path: 'teacher-home',
-    loadChildren: () => import('./teacher/teacher-home/teacher-home.module').then( m => m.TeacherHomePageModule)
+    loadChildren: () => import('./teacher/teacher-home/teacher-home.module').then( m => m.TeacherHomePageModule),
+    canActivate: [AuthGuard] 
   },
+  {
+    path: 'teacher-tabs',
+    loadChildren: () => import('./teacher/teacher-tabs/teacher-tabs.module').then( m => m.TeacherTabsPageModule),
+    canActivate: [AuthGuard], 
+    data: { roles: ['student', 'teacher', 'admin'] } 
+  },
+  {
+    path: 'teacher-weeklyprog',
+    loadChildren: () => import('./teacher/teacher-weeklyprog/teacher-weeklyprog.module').then( m => m.TeacherWeeklyprogPageModule),
+    canActivate: [AuthGuard] 
+  },
+  {
+    path: 'teacher-grades',
+    loadChildren: () => import('./teacher/teacher-grades/teacher-grades.module').then( m => m.TeacherGradesPageModule),
+    canActivate: [AuthGuard] 
+  },
+  {
+    path: 'teacher-profile',
+    loadChildren: () => import('./teacher/teacher-profile/teacher-profile.module').then( m => m.TeacherProfilePageModule),
+    canActivate: [AuthGuard] 
+  },
+
+
 
 
 ];

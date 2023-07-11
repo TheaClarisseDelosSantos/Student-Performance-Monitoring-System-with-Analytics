@@ -57,30 +57,37 @@ export class LoginPage implements OnInit {
       const email = this.validationFormUser.value.email;
       const password = this.validationFormUser.value.password;
       const role = this.validationFormUser.value.role;
-
+  
       let body = {
         email: email,
         password: password,
         role: role,
         aksi: 'login'
       };
-
+  
       this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
         async (response: any) => {
           console.log('Response:', response);
           if (response.success) {
+            // Set the role property in the user object
+            response.result.role = role;
+            
             this.storage.set('session_storage', response.result);
             switch (role) {
               case 'student':
+                console.log('Navigating to student page...');
                 this.navCtrl.navigateRoot('/tabs');
                 break;
               case 'teacher':
-                this.navCtrl.navigateRoot('/teacher-home');
+                console.log('Navigating to teacher page...');
+                this.navCtrl.navigateRoot('/teacher-tabs');
                 break;
               case 'admin':
+                console.log('Navigating to admin page...');
                 this.navCtrl.navigateRoot('/admin-home');
                 break;
               default:
+                console.log('No matching role found');
                 break;
             }
             const alert = await this.alertController.create({
