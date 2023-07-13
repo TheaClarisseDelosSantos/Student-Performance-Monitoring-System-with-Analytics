@@ -1,0 +1,43 @@
+ion-content {
+    --ion-background-color: transparent;
+    // --overflow: hidden;
+    // --padding-bottom:0;
+  }
+
+
+  
+.bg-color {
+  background: #ffffff;
+}
+
+ion-header {
+  position: relative;
+  background-color: #a70000;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+ion-title{
+  font-size: 20px;
+  color: white;
+  font-weight: 700;
+  font-family: Poppins;
+
+
+}
+ion-toolbar {
+  --ion-background-color: transparent;
+  --opacity: 0;
+}
+
+ion-card {
+  --ion-background-color: transparent;
+  box-shadow: none !important;
+  margin-right: 25px;
+  margin-left: 25px;
+}
+
+ion-card-title {
+  font-size: 20px;
+  text-align: center;
+}

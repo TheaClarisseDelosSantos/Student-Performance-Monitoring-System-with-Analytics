@@ -258,11 +258,23 @@ if (isset($postjson) && $postjson['aksi'] == 'get_student_progress') {
     $studentId = $postjson['student_id'];
     $subjectId = $postjson['subject_id'];
     $sectionId = $postjson['section_id'];
+    $month = isset($postjson['month']) ? $postjson['month'] : null;
 
+    $startDate = '';
+    $endDate = '';
+
+    if($month && $month !== 'This week'){
+        $startDate = date('Y-m-01', strtotime($month));
+        $endDate = date('Y-m-t', strtotime($month));
+    }else{
+        $startDate = date('Y-m-d', strtotime('this week'));
+        $endDate = date('Y-m-d', strtotime('this week +6 days'));
+
+    }
     $stmt = $mysqli->prepare("SELECT activity_name, score_value, status_value FROM activities 
       INNER JOIN scores ON activities.activity_id = scores.activity_id
-      WHERE scores.user_id = ? AND activities.subject_id = ? AND activities.section_id = ?");
-    $stmt->bind_param("iii", $studentId, $subjectId, $sectionId);
+      WHERE scores.user_id = ? AND activities.subject_id = ? AND activities.section_id = ? AND activities.date >= ? AND activities.date <= ?");
+    $stmt->bind_param("iiiss", $studentId, $subjectId, $sectionId, $startDate, $endDate);
     $stmt->execute();
     $stmt->bind_result($activityName, $scoreValue, $statusValue);
 

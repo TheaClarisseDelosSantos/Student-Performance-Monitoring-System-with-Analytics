@@ -14,16 +14,24 @@
     </div>
     <div class="gr-sec">
       <div class="input-container">
-        <ion-select label-placement="floating" fill="outline" label="Month" class="custom-select" name="gradelevel">
-          <ion-select-option>July</ion-select-option>
+        <ion-select 
+          label-placement="floating" 
+          fill="outline" 
+          label="Filter" 
+          class="custom-select"
+          name="gradelevel"
+          [(ngModel)]="selectedMonth" 
+          (ionChange)="onMonthChange()">
+          <ion-select-option *ngFor="let month of months" [value]="month">{{month}}</ion-select-option>
         </ion-select>
       </div>
-      <div class="input-container-section">
+      <!-- <div class="input-container-section">
         <ion-select label-placement="floating" fill="outline" label="Week" class="custom-select" name="section">
           <ion-select-option>Week 1</ion-select-option>
         </ion-select>
-      </div>
+      </div> -->
     </div>
+
     <div class="accordion-container">
       <ng-container *ngFor="let subject of subjects">
         <div class="subject-item" (click)="toggleAccordion(subject.subject_id)">
