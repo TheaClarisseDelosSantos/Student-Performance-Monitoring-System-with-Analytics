@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
     const user = await this.storage.get('session_storage');
     if (user) {
       // User is logged in, check if their role is allowed for the route
-      const allowedRoles = route.data['roles'];
+      const allowedRoles = route.data['roles'] || [];
       const userRole = user.role;
   
       console.log('User:', user);

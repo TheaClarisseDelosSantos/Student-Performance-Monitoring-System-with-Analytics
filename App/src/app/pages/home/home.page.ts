@@ -14,6 +14,9 @@ export class HomePage implements OnInit {
   constructor(private storage: Storage) {}
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
     this.getUserName();
   }
 

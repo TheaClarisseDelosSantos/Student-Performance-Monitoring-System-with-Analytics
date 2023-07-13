@@ -12,4 +12,8 @@ export class GradesPage implements OnInit {
   ngOnInit() {
   }
 
+  ionViewWillEnter(){
+    
+  }
+
 }

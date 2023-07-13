@@ -25,7 +25,9 @@ export class LoginPage implements OnInit {
     private http: HttpClient
   ) {}
 
+
   ngOnInit() {
+
     this.validationUserMessage = {
       email: [
         { type: 'required', message: 'Please enter your email' },
@@ -118,4 +120,7 @@ export class LoginPage implements OnInit {
       await alert.present();
     }
   }
+
+ 
+
 }

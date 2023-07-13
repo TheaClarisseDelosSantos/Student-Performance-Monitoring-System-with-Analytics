@@ -12,6 +12,7 @@ const routes: Routes = [
       {path:"weeklyprog", loadChildren:() => import('src/app/pages/weeklyprog/weeklyprog.module').then(res => res.WeeklyprogPageModule)},
       {path:"grades", loadChildren:() => import('src/app/pages/grades/grades.module').then(res => res.GradesPageModule)},
       {path:"profile", loadChildren:() => import('src/app/pages/profile/profile.module').then(res => res.ProfilePageModule)}
+
     ]
   },
   {

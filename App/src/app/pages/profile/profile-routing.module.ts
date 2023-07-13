@@ -6,7 +6,12 @@ import { ProfilePage } from './profile.page';
 const routes: Routes = [
   {
     path: '',
-    component: ProfilePage
+    component: ProfilePage,
+    children:[
+      {path:"edit-profile",loadChildren:() => import('src/app/pages/edit-profile/edit-profile.module').then(res=> res.EditProfilePageModule)}
+      
+
+    ]
   }
 ];
 

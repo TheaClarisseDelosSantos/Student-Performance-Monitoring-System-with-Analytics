@@ -14,8 +14,8 @@
         <img src="../../../assets/icon/pf.png" alt="Profile Picture">
       </div>
       <div class="profile-info">
-        <h2>name</h2>
-        <p>email</p>
+        <h5>{{lastName}}, {{firstName}} {{middleName}}</h5>
+        <p>{{email}}</p>
       </div>
     </div>
     <div class="edit-prof" (click)="editProfile()">
@@ -57,7 +57,10 @@
           <div class="editicon"><ion-icon class="logout" name="log-out"></ion-icon></div>
         </div>
         <div class="edit-prof-label">Logout</div>
-        <div class="right-icon"><ion-icon name="chevron-forward"></ion-icon></div>
+        <div class="right-icon" (click)="logout()">
+          
+            <ion-icon name="chevron-forward"></ion-icon>
+        </div>
       </div>
     </div>
   </ion-card>

@@ -28,12 +28,20 @@ export class WeeklyprogPage implements OnInit {
   ) {}
 
   ngOnInit() {
+    // this.fetchSubjects();
+    // this.fetchUserInfo();
+    // this.initializeAccordions();
+    // this.setMonths();
+    // this.selectedMonth = 'This week'; 
+
+  }
+
+  ionViewWillEnter() {
     this.fetchSubjects();
     this.fetchUserInfo();
     this.initializeAccordions();
     this.setMonths();
     this.selectedMonth = 'This week'; 
-
   }
 
   fetchSubjects() {

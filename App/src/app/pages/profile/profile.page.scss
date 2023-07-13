@@ -67,8 +67,7 @@ ion-card-title {
     object-fit: cover;
 }
 
-.profile-info h2{
-    font-size: 24px;
+.profile-info h5{
     font-weight: 500;
     margin-bottom: 5px;
     color: #1C2120;
@@ -76,6 +75,7 @@ ion-card-title {
 }
 
 .profile-info p{
+    margin-top: 0;
     font-size: 16px;
     color: #1C2120;
     text-align: center;
@@ -133,4 +133,7 @@ ion-card-title {
 }
 .lock, .logout, .help{
     color: #A70000;
+}
+.btn{
+    background-color: white;
 }

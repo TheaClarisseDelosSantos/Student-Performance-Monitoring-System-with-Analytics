@@ -113,7 +113,7 @@ if(isset($postjson) && $postjson['aksi'] == 'get_subjects'){
 if (isset($postjson) && $postjson['aksi'] == 'add_teacher') {
     $password = password_hash($postjson['password'], PASSWORD_DEFAULT);
 
-    $stmt = $mysqli->prepare("INSERT INTO teachers (fname, mname, lname, address, phone, gender, birthdate, email, password) VALUES (?,?,?,?,?,?,?,?,?)");
+    $stmt = $mysqli->prepare("INSERT INTO teachers (firstname, middlename, lastname, address, phone, gender, birthdate, email, password) VALUES (?,?,?,?,?,?,?,?,?)");
     $stmt->bind_param("sssssssss",$postjson['fname'],$postjson['mname'],$postjson['lname'],$postjson['address'],$postjson['phone'],$postjson['gender'],$postjson['birthdate'],$postjson['email'],$password);
     $stmt->execute();
 
@@ -224,7 +224,7 @@ if ($result->num_rows > 0) {
     } else {
         $response = array('success' => false, 'msg' => 'Invalid email or password');
     }
-} else {
+} else{
     $response = array('success' => false, 'msg' => 'Email not found');
 }
 
