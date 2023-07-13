@@ -1,6 +1,6 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>WEEKLY PROGRESS</ion-title>
+    <ion-title>GRADES</ion-title>
     <ion-buttons slot="start">
       <ion-back-button text=""></ion-back-button>
     </ion-buttons>
@@ -9,6 +9,41 @@
 
 <ion-content [fullscreen]="true" class="bg-color">
   <ion-card class="ion-no-margin">
-    
+    <div class="filterdiv">
+      <ion-label class="filter"><ion-icon name="filter"></ion-icon> Filter</ion-label>
+    </div>
+    <div class="gr-sec">
+      <div class="input-container">
+        <ion-select 
+          label-placement="floating" 
+          fill="outline" 
+          label="Filter" 
+          class="custom-select"
+          name="gradelevel">
+          <ion-select-option>1st Quarter</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+    <table class="grades-table">
+      <thead>
+        <tr>
+          <th>Subjects</th>
+          <th>Grades</th>
+          <th>Remarks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="subjects">Subject 1</td>
+          <td>Grade 1</td>
+          <td>Remark 1</td>
+        </tr>
+        <tr>
+          <td class="subjects">Subject 2</td>
+          <td>Grade 2</td>
+          <td>Remark 2</td>
+        </tr>
+      </tbody>
+    </table>
   </ion-card>
 </ion-content>

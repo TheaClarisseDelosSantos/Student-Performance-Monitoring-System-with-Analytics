@@ -74,7 +74,11 @@ const routes: Routes = [
     path: 'teacher-profile',
     loadChildren: () => import('./teacher/teacher-profile/teacher-profile.module').then( m => m.TeacherProfilePageModule),
     canActivate: [AuthGuard] 
+  },  {
+    path: 'edit-profile',
+    loadChildren: () => import('./pages/edit-profile/edit-profile.module').then( m => m.EditProfilePageModule)
   },
+
 
 
 

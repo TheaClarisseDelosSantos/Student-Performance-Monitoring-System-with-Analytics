@@ -1,3 +1,7 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
+
 ion-content {
     --ion-background-color: transparent;
     // --overflow: hidden;
@@ -40,4 +44,165 @@ ion-card {
 ion-card-title {
   font-size: 20px;
   text-align: center;
+}
+
+.filterdiv{
+    display: inline-flex;
+    align-items: flex-end;
+    gap: 1px;
+    margin-top: 30px;
+}
+
+.filter ion-icon{
+    font-family: Poppins;
+    font-size: 18px;
+} 
+.filter{
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    color: #000;
+}
+.gr-sec {
+    align-items: center;.input-container {
+      width: 100%;
+    }
+}
+
+
+.input-container-section {
+    width: 100%;
+}
+.input-container:first-child   {
+    margin-right: 10px;
+}
+    // margin-bottom: 12px;
+
+.input-container {
+    width: 50%;
+}
+
+.input-container-section {
+width: 50%;
+}
+.input-container:first-child {
+margin-right: 10px;
+}
+
+ion-select.custom-select, ion-select.custom-select-section{
+    --border-radius: 8px;
+    --padding-start: 4vw;
+    --padding-end: 3vw;
+    --background: #f4f4f4;
+    --color: #333;
+    font-family: 'DM Sans', sans-serif;
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+    width: 50%;
+    }
+    ion-select.custom-select,
+    ion-select.custom-select-section {
+    --background: #f4f4f4;
+    --placeholder-color: #1c2120;
+    --color: #333;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --border-radius: 8px;
+    --height: 40px;
+    --selected-text-color: #333;
+    --selected-text-font-weight: 500;
+    --selected-placeholder-color: #999;
+    --selected-background: #ffffff;
+    --icon-color: #999;
+    --icon-size: 20px;
+    --border-width: 1px;
+    --border-color: #e5e5e5;
+    --caret-color: #333;
+    --caret-size: 10px;
+    --caret-margin-end: 4px;
+    --transition-duration: 200ms;
+    --caret-size: 0;
+    width: 50%; 
+    max-width: 100%;
+    }
+ion-select.custom-select-section {
+width: 180px;
+}
+
+ion-select.custom-select::part(icon),
+ion-select.custom-select-section::part(icon) {
+    display: none;
+}
+
+ion-select.custom-select::part(text),
+ion-select.custom-select-section::part(text) {
+    height: 40px;
+    line-height: 40px;
+    font-family: 'DM Sans', sans-serif;
+}
+
+.custom-select::after,
+.custom-select-section::after {
+content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1c2120;
+}
+
+.custom-select-section::after {
+content: '';
+    position: absolute;
+}
+
+.grades-table{
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 16px;
+    border: 5px solid #000;
+
+}
+
+.grades-table th,
+.grades-table td{
+    padding: 10px;
+    text-align: center;
+    
+}
+
+.grades-table thead{
+    background-color: #A70000;
+    color: white;
+}
+
+.grades-table td.subjects{
+    text-align: left;
+}
+
+.grades-table th{
+    font-weight: bold;
+    text-align: center;
+
+}
+
+.grades-table td{
+    color: #000;
+
+}
+
+.grades-table tbody tr:nth-child(even){
+    background-color:rgba(167, 0, 0, 0.20)
+}
+
+.grades-table tbody tr:hover{
+    background-color: #fff;
 }
