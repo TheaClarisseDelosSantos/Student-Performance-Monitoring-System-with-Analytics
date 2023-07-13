@@ -83,14 +83,14 @@ if (isset($postjson) && $postjson['aksi'] == "get_sections") {
 if (isset($postjson) && $postjson['aksi'] == "get_grade_levels_sections"){
     $stmt = $mysqli->prepare("SELECT CONCAT(gradelevel, ' - ', sectionname) AS section FROM sections");
     $stmt->execute();
-    $stmt->bind_result($gradeLevel);
+    $stmt->bind_result($gradeLevels);
 
-    $gradeLevels = array();
+    $gradeLevelss = array();
     while ($stmt->fetch()){
-        $gradeLevels[] = $gradeLevel;
+        $gradeLevelss[] = $gradeLevels;
     }
 
-    $response = array('gradeLevels' => $gradeLevels);
+    $response = array('gradeLevelss' => $gradeLevelss);
     echo json_encode($response);
     exit();
 }
@@ -112,9 +112,10 @@ if(isset($postjson) && $postjson['aksi'] == 'get_subjects'){
 
 if (isset($postjson) && $postjson['aksi'] == 'add_teacher') {
     $password = password_hash($postjson['password'], PASSWORD_DEFAULT);
+    $sectionId = $postjson['sectionId'];
 
-    $stmt = $mysqli->prepare("INSERT INTO teachers (firstname, middlename, lastname, address, phone, gender, birthdate, email, password) VALUES (?,?,?,?,?,?,?,?,?)");
-    $stmt->bind_param("sssssssss",$postjson['fname'],$postjson['mname'],$postjson['lname'],$postjson['address'],$postjson['phone'],$postjson['gender'],$postjson['birthdate'],$postjson['email'],$password);
+    $stmt = $mysqli->prepare("INSERT INTO teachers (firstname, middlename, lastname, address, phone, gender, birthdate, section_id, email, password) VALUES (?,?,?,?,?,?,?,?,?,?)");
+    $stmt->bind_param("ssssssssss",$postjson['fname'],$postjson['mname'],$postjson['lname'],$postjson['address'],$postjson['phone'],$postjson['gender'],$postjson['birthdate'],$sectionId, $postjson['email'],$password);
     $stmt->execute();
 
     if($stmt->affected_rows > 0){

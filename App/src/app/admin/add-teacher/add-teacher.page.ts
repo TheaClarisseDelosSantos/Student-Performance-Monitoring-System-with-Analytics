@@ -17,8 +17,12 @@ export class AddTeacherPage{
   emailExistsError: boolean = false;
   phoneError: boolean = false;
   subjects: string[] = [];
-  gradeLevels: string[] = []
+  gradeLevels: string[] = [];
+  gradeLevelss: string[] = [];
   assignments: FormArray;
+  sections: string[] = [];
+  sectionId: string = '';
+  sectionIds: number[] = [];
 
 
   fname : string = "";
@@ -28,7 +32,9 @@ export class AddTeacherPage{
   phone : string = "";
   gender : string = "";
   birthdate:string= "";
-  
+  gradelevel : string = "";
+  gradelevel1 : string = "";
+  section : string = "";
   email : string = "";
   password : string = "";
   validationMessages = {
@@ -40,7 +46,9 @@ export class AddTeacherPage{
       {type: 'pattern', message: 'Incorrect Phone Number'},
       {type: 'minlength', message: 'Phone Number must be 11 digits'}],
     gender:[{type: "required", message: "Select Gender"}],
-    
+    gradelevel:[{type:"required", message:"Choose Grade Level"}],
+    gradelevel1:[{type:"required", message:"Choose Grade Level"}],
+    section:[{type:"required", message:"Choose section"}],
     email:[
       {type:"required", message:"Enter Email Address"},
       {type:"pattern", message:"Incorrect Email Address"}
@@ -49,6 +57,7 @@ export class AddTeacherPage{
       {type: "required", message:"Password required"},
       {type: "minLength", message:"Password must be atleast 5 characters"}
     ],
+    
     
   }
   selectedMode = 'date';
@@ -82,6 +91,12 @@ export class AddTeacherPage{
       gender: new FormControl('',Validators.compose([
         Validators.required
       ])),
+      gradelevel: new FormControl('',Validators.compose([
+        Validators.required
+      ])),
+      section: new FormControl('',Validators.compose([
+        Validators.required
+      ])),
       birthdate: new FormControl('',Validators.compose([])),
       email: new FormControl('',Validators.compose([
         Validators.required,
@@ -97,8 +112,22 @@ export class AddTeacherPage{
   }
 
   
-  getGradeLevels(){
+  getTGradeLevels(){
     const body = {aksi : 'get_grade_levels_sections'};
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Grade Levels & Sections Response:', response);
+        this.gradeLevelss = response.gradeLevelss;
+      },
+      (error: any) => {
+        console.error('Grade Levels Error:',error);
+      }
+    );
+  }
+
+  getGradeLevels(){
+    const body = {aksi : 'get_grade_levels'};
 
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       (response: any) => {
@@ -109,9 +138,23 @@ export class AddTeacherPage{
         console.error('Grade Levels Error:',error);
       }
     );
-    
-    
   }
+
+  getSections(gradeLevel: string) {
+    const body = { aksi: 'get_sections', gradeLevel: gradeLevel };
+  
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Sections Response:', response);
+        this.sections = response.sections;
+        this.sectionIds = response.sectionIds; // Assign the section IDs
+      },
+      (error: any) => {
+        console.error('Sections Error:', error);
+      }
+    );
+  }
+  
 
   getSubjects(){
     const body = {aksi : 'get_subjects'};
@@ -177,6 +220,8 @@ export class AddTeacherPage{
     }
 
     // this.phoneError = false;
+    const sectionIndex = this.sections.indexOf(value.section);
+    const sectionId = this.sectionIds[sectionIndex];
   
     let body = {
       fname: value.fname,
@@ -185,6 +230,9 @@ export class AddTeacherPage{
       address: value.address,
       phone:value.phone,
       gender: value.gender,
+      gradelevel: value.gradelevel,
+      section: value.section,
+      sectionId: sectionId,
       birthdate: formattedDate,
       email: value.email,
       password: value.password,
@@ -269,8 +317,12 @@ export class AddTeacherPage{
 
   
   ngOnInit(){
+    this.getTGradeLevels();
     this.getGradeLevels();
+    
     this.getSubjects();
     this.addSubject();
+
+    
   }
 }

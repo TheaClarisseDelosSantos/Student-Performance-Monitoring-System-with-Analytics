@@ -98,6 +98,59 @@
         </div>
 
         <div class="assigninfo">
+          <ion-label class="personalinfo">ADVISING SECTION</ion-label>
+        </div>
+        <div class="gr-sec">
+          <div class="input-container">
+            
+            <ion-select label-placement="floating" 
+              fill="outline" 
+              label="Grade Level" 
+              class="custom-select" 
+              name="gradelevel" 
+              formControlName="gradelevel"
+              (ionChange)="getSections(ValidationFormUser?.get('gradelevel')?.value)">
+              <ion-select-option *ngFor="let gradeLevel of gradeLevels" [value]="gradeLevel">{{ gradeLevel }}</ion-select-option>
+            </ion-select>
+            <ng-container *ngFor="let validation of validationMessages.gradelevel">
+              <div
+                class="error_message"
+                *ngIf="
+                  ValidationFormUser.get('gradelevel')?.hasError(validation.type) &&
+                  (ValidationFormUser.get('gradelevel')?.dirty || ValidationFormUser.get('gradelevel')?.touched)
+                "
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+            
+          </div>
+          <div class="input-container-section">
+            
+            <ion-select label-placement="floating" 
+              fill="outline" 
+              label="Section" 
+              class="custom-select" 
+              name="section" 
+              formControlName="section">
+              <ion-select-option *ngFor="let section of sections" [value]="section">{{section}}</ion-select-option>
+            </ion-select>
+            <ng-container *ngFor="let validation of validationMessages.section">
+              <div
+                class="error_message"
+                *ngIf="
+                  ValidationFormUser.get('section')?.hasError(validation.type) &&
+                  (ValidationFormUser.get('section')?.dirty || ValidationFormUser.get('section')?.touched)
+                "
+              >
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+
+        <div class="assigninfo">
           <ion-label class="personalinfo">ASSIGNED SUBJECTS</ion-label>
         </div>
         <div class="addsubjdiv">
@@ -107,8 +160,8 @@
           <div *ngFor="let assignment of assignments.controls; let i = index" [formGroupName]="i">
             <div class="input-container-section">
               <ion-select label-placement="floating" fill="outline" label="Grade & Section" class="custom-select" formControlName="gradelevel">
-                <ion-select-option *ngFor="let gradeLevel of gradeLevels" [value]="gradeLevel">
-                  {{ gradeLevel }}
+                <ion-select-option *ngFor="let gradeLevelss of gradeLevelss" [value]="gradeLevelss">
+                  {{ gradeLevelss }}
                 </ion-select-option>
               </ion-select>
             </div>
