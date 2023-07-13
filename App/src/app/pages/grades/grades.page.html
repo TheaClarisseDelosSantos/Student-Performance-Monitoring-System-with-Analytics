@@ -19,12 +19,24 @@
           fill="outline" 
           label="Filter" 
           class="custom-select"
-          name="gradelevel">
-          <ion-select-option>1st Quarter</ion-select-option>
+          name="gradelevel"
+          [(ngModel)]="selectedQuarter" 
+          (ionChange)="filterGrades()">
+          <ion-select-option>First Quarter</ion-select-option>
+          <ion-select-option>Second Quarter</ion-select-option>
+          <ion-select-option>Third Quarter</ion-select-option>
+          <ion-select-option>Fourth Quarter</ion-select-option>
+
+
         </ion-select>
       </div>
     </div>
-    <table class="grades-table">
+
+    <div *ngIf="noGradesAvailable" class="no-grades-message">
+      No grades available for the {{ selectedQuarter }}
+    </div>
+
+    <table class="grades-table" *ngIf="grades.length > 0">
       <thead>
         <tr>
           <th>Subjects</th>
@@ -33,15 +45,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td class="subjects">Subject 1</td>
-          <td>Grade 1</td>
-          <td>Remark 1</td>
+        <tr *ngFor="let grade of grades">  
+          <td class="subjects">{{ grade.subject }}</td>
+          <td>{{ grade.grade }}</td>
+          <td>{{ grade.remark }}</td>
         </tr>
-        <tr>
-          <td class="subjects">Subject 2</td>
-          <td>Grade 2</td>
-          <td>Remark 2</td>
+        <tr *ngIf="grades.length === 0 || noGradesAvailable">
+          <td colspan="3">No grades available</td>
+        </tr>
+        <tr *ngIf="grades.length > 0">
+          <td class="gwa">GWA</td>
+          <td class="gwa1">{{ averageGrade }}</td>
+          <td [ngClass]="{
+            'text-success': averageGrade >= 75,
+            'text-danger': averageGrade < 75
+          }">
+            {{ averageGrade >= 75 ? 'PASSED' : 'FAILED' }}
+          </td>
         </tr>
       </tbody>
     </table>

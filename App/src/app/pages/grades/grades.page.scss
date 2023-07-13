@@ -169,6 +169,8 @@ content: '';
     overflow: hidden;
     margin-top: 16px;
     border: 5px solid #000;
+      table-layout: fixed;
+
 
 }
 
@@ -206,3 +208,28 @@ content: '';
 .grades-table tbody tr:hover{
     background-color: #fff;
 }
+
+.grades-table .subjects-wrap {
+    max-width: 50px;
+    word-wrap: break-word;
+  }
+
+.grades-table td.gwa{
+    text-align: left;
+    font-weight: bold;
+}
+
+.grades-table td.gwa1{
+    text-align: center;
+    font-weight: bold;
+}
+
+.text-success {
+    color: green !important;
+    font-weight: bold;
+  }
+  
+  .text-danger {
+    color: red !important;
+    font-weight: bold;
+  }

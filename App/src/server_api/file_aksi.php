@@ -318,6 +318,34 @@ if (isset($postjson) && $postjson['aksi'] == 'get_section_id') {
     exit();
 }
 
+if (isset($postjson) && $postjson['aksi'] == 'get_grades') {
+    $quarter = $postjson['quarter'];
+
+    $stmt = $mysqli->prepare("SELECT subjects.subjectname, grades.grade 
+                             FROM grades 
+                             INNER JOIN subjects ON grades.subject_id = subjects.subject_id 
+                             WHERE grades.quarter = ?");
+    $stmt->bind_param("s", $quarter);
+    $stmt->execute();
+    $stmt->bind_result($subjectName, $grade);
+
+    $grades = array();
+    while ($stmt->fetch()) {
+        $remark = $grade >= 75 ? 'PASSED' : 'FAILED'; 
+
+        $gradeData = array(
+            'subject' => $subjectName,
+            'grade' => $grade,
+            'remark' => $remark
+        );
+        $grades[] = $gradeData;
+    }
+
+    $response = array('grades' => $grades);
+    echo json_encode($response);
+    exit();
+}
+
 
 
 
