@@ -18,7 +18,7 @@ export class AuthService {
         .catch(error => reject(error));
     });
   }
-
+  
   updateUserRole(uid:string, role:string){
     const userRef = this.firestore.collection('users').doc(uid);
 

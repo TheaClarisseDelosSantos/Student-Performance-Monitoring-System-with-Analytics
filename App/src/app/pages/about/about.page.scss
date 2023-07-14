@@ -1,0 +1,113 @@
+*{
+    font-family: 'Poppins',sans-serif;
+}
+
+ion-content {
+    --ion-background-color: transparent;
+    // --overflow: hidden;
+    --padding-bottom:0;
+  }
+
+
+  
+.bg-color {
+  background: #a70000;
+}
+
+ion-header {
+  position: relative;
+  background: #a70000;
+}
+
+ion-title{
+  font-size: 25px;
+  color: white;
+  font-weight: 700;
+  font-family: Poppins;
+  text-align: center;
+  margin-bottom: 10px;
+
+
+}
+ion-toolbar {
+  --ion-background-color: transparent;
+  --opacity: 0;
+}
+
+ion-card {
+  --ion-background-color: transparent;
+  box-shadow: none !important;
+}
+
+.about-div{
+    background-color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    height:1000px;
+    width: 100%;
+
+}
+.vision-container{
+    padding-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.vision-title{
+    display: flex;
+    align-items: center;
+}
+
+.eyeicon{
+    border-radius: 50%;
+    background-color: #a70000;
+    
+}
+.icondiv{
+    align-items: center;
+    
+}
+.eyeicon{
+    display: flex;
+    justify-content: center;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background-color: #a70000;
+    align-items: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 7px;
+}
+ion-icon{
+    color: white;
+    font-size: 18px;
+}
+.vision-text{
+    text-align: justify;
+    font-size: 15px;
+}
+
+// hr {
+//     border: 0.5px solid black !important;
+//     width: 50% !important;
+//     display: block !important;
+//     opacity: 0.5 !important;
+//     visibility: visible !important;
+//     text-align: left;
+//   }
+
+.mission-container{
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.bibphi-container{
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}

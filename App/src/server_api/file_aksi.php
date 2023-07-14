@@ -382,8 +382,38 @@ if (isset($postjson) && $postjson['aksi'] == 'fetch_student_data') {
     exit();
   }
 
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && $postjson['aksi'] === 'change_password') {
+    $currentPassword = $postjson['currentPassword'];
+    $newPassword = $postjson['newPassword'];
+    $studentId = $postjson['studentId'];
+
+    $stmt = $mysqli->prepare("SELECT password FROM users WHERE user_id = ?");
+    $stmt->bind_param("i", $studentId);
+    $stmt->execute();
+    $stmt->bind_result($hashedPassword);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (password_verify($currentPassword, $hashedPassword)) {
+        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $stmt = $mysqli->prepare("UPDATE users SET password = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $newHashedPassword, $studentId);
+        $stmt->execute();
+        $stmt->close();
+
+        $response = array('success' => true);
+    } else {
+        $response = array('success' => false);
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+}
 
 
+?>
 
   
 

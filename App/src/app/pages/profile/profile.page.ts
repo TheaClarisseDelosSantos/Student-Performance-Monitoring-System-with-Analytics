@@ -29,6 +29,16 @@ export class ProfilePage implements OnInit {
   editProfile(){
     this.router.navigate(['edit-profile']);
   }
+
+  about(){
+    this.router.navigate(['about'])
+  }
+
+  changePassword(){
+    this.router.navigate(['changepass'])
+  }
+
+
   
   logout(){
     this.storage.clear();

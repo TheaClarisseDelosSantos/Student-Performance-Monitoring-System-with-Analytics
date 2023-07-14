@@ -82,6 +82,22 @@ const routes: Routes = [
     data: { roles: ['student', 'teacher', 'admin'] } 
 
   },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/about.module').then( m => m.AboutPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['student', 'teacher', 'admin'] } 
+
+
+  },
+  {
+    path: 'changepass',
+    loadChildren: () => import('./pages/changepass/changepass.module').then( m => m.ChangepassPageModule),
+    canActivate: [AuthGuard],
+    data: { roles: ['student', 'teacher', 'admin'] } 
+  },
+
+
 
 
 

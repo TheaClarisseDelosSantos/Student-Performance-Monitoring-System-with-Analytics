@@ -31,7 +31,7 @@
     <div class="gensettingdiv">
       <ion-label class="gensettings">GENERAL SETTINGS</ion-label>
     </div>
-    <div class="edit-prof">
+    <div class="edit-prof" (click)="about()">
       <div class="edit-prof-text">
         <div class="editdiv">
           <div class="editicon"><ion-icon class="help" name="help-circle"></ion-icon></div>
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <div class="edit-prof">
+    <div class="edit-prof" (click)="changePassword()">
       <div class="edit-prof-text">
         <div class="editdiv">
           <div class="editicon"><ion-icon class="lock" name="lock-closed"></ion-icon></div>
