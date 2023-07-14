@@ -412,9 +412,96 @@ if (isset($postjson) && $postjson['aksi'] == 'fetch_student_data') {
     exit();
 }
 
-
-?>
-
+if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
+    $stmt = $mysqli->prepare("SELECT subject_id, subjectname FROM subjects");
+    $stmt->execute();
+    $stmt->bind_result($subjectId, $subjectName);
   
-
-
+    $subjects = array();
+    while ($stmt->fetch()) {
+      $subject = array(
+        'subject_id' => $subjectId,
+        'subject_name' => $subjectName
+      );
+      $subjects[] = $subject;
+    }
+  
+    $response = array('subjects' => $subjects);
+    echo json_encode($response);
+    exit();
+  }
+  
+  if (isset($postjson) && $postjson['aksi'] == 'get_assigned_sections') {
+    $teacherId = $postjson['teacherId'];
+  
+    $query = "SELECT sections.gradelevel, sections.sectionname 
+              FROM sections 
+              INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id 
+              WHERE assign_teacher.teacher_id = ?";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $teacherId);
+    $stmt->execute();
+    $stmt->bind_result($gradeLevel, $sectionName);
+  
+    $sections = array();
+    while ($stmt->fetch()) {
+      $section = array(
+        'gradelevel' => $gradeLevel,
+        'sectionname' => $sectionName
+      );
+      $sections[] = $section;
+    }
+  
+    $response = array('sections' => $sections);
+    echo json_encode($response);
+    exit();
+  }
+  
+  if (isset($postjson) && $postjson['aksi'] == 'get_subject_ids') {
+    $selectedSubjects = $postjson['subjects'];
+  
+    // Prepare the query to fetch subject IDs based on subject names
+    $query = "SELECT subject_id FROM subjects WHERE subjectname IN ('" . implode("','", $selectedSubjects) . "')";
+    $stmt = $mysqli->prepare($query);
+    $stmt->execute();
+    $stmt->bind_result($subjectId);
+  
+    $subjectIds = array();
+    while ($stmt->fetch()) {
+      $subjectIds[] = $subjectId;
+    }
+  
+    $response = array('subjectIds' => $subjectIds);
+    echo json_encode($response);
+    exit();
+  }
+  
+  if (isset($postjson) && $postjson['aksi'] == 'filter_sections') {
+    $teacherId = $postjson['teacherId'];
+    $selectedSubjects = $postjson['subjects'];
+  
+    // Prepare the query to fetch filtered sections based on teacher and selected subjects
+    $query = "SELECT sections.gradelevel, sections.sectionname 
+              FROM sections 
+              INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id 
+              WHERE assign_teacher.teacher_id = ? AND assign_teacher.subject_id IN (" . implode(',', $selectedSubjects) . ")";
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $teacherId);
+    $stmt->execute();
+    $stmt->bind_result($gradeLevel, $sectionName);
+  
+    $sections = array();
+    while ($stmt->fetch()) {
+      $section = array(
+        'gradelevel' => $gradeLevel,
+        'sectionname' => $sectionName
+      );
+      $sections[] = $section;
+    }
+  
+    $response = array('sections' => $sections);
+    echo json_encode($response);
+    exit();
+  }
+  
+?>

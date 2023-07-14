@@ -1,13 +1,47 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>teacher-home</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">teacher-home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="bg-color">
+  <ion-card class="ion-no-margin">
+    <ion-card-title>Welcome, {{ userName }}!</ion-card-title>
+    <ion-card-content>
+      <ion-datetime #datetime mode="md" [firstDayOfWeek]="1" readonly class="custom-datetime"></ion-datetime>
+    </ion-card-content>
+    <div class="scheddiv">
+      <ion-label class="sched">Schedule Today</ion-label>
+      <div class="timesubj">
+
+        <div class="timesched">
+          <div class="time">7:00</div>
+          <div class="time">8:00</div>
+          <div class="time">10:00</div>
+          <div class="time">12:00</div>
+          <div class="time">1:00</div>
+    
+        </div>
+        <div class="subjects">
+          <div class="english">
+            English<br>
+            7:00 AM - 8:00 AM
+          </div>
+          <div class="science">
+            Science<br>
+            10:00 AM - 12:00 AM
+          </div>
+          <div class="filipino">
+            Filipino<br>
+            12:00 PM - 1:00 PM
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+  </ion-card>
 </ion-content>

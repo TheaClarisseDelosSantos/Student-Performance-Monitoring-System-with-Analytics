@@ -1,13 +1,41 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>teacher-weeklyprog</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content [fullscreen]="true" class="bg-color">
+  <ion-card class="ion-no-margin">
+    <div class="filterdiv">
+      <ion-label class="filter"><ion-icon name="filter"></ion-icon> Filter</ion-label>
+    </div>
+    <div class="gr-sec">
+      <form [formGroup]="form">
+        <div class="input-container">
+          <ion-select
+            label-placement="floating"
+            fill="outline"
+            label="Subjects"
+            class="custom-select"
+            formControlName="subjects"
+            (ionChange)="filterSections()"
+          >
+            <ion-select-option *ngFor="let subject of subjects" [value]="subject.subject_id">
+              {{ subject.subjectname }}
+            </ion-select-option>
+          </ion-select>
+        </div>
+      </form>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">teacher-weeklyprog</ion-title>
-    </ion-toolbar>
-  </ion-header>
+      <div class="subject-container">
+        <ng-container *ngIf="sections.length > 0; else noSections">
+          <div *ngFor="let section of sections" class="section-item">
+            <div class="section-content">
+              <div class="section-label">{{ section.gradelevel }} - {{ section.sectionname }}</div>
+              <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noSections>
+          <div class="no-sections">
+            No sections assigned for this subject
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </ion-card>
 </ion-content>
