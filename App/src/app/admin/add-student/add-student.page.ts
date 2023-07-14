@@ -174,61 +174,6 @@ export class AddStudentPage implements OnInit {
   emailExistsError: boolean = false;
   phoneError: boolean = false;
 
-  // async addStudent(value: any) {
-  //   const formattedDate = this.dateValue.split('T')[0]; 
-  //   const phoneNumber = this.ValidationFormUser.get('phone')?.value || '';
-
-  //   if(phoneNumber.length !== 11){
-  //     this.phoneError = true;
-  //     return;
-  //   }
-
-  //   // this.phoneError = false;
-  
-  //   let body = {
-  //     fname: value.fname,
-  //     mname: value.mname,
-  //     lname: value.lname,
-  //     address: value.address,
-  //     phone:value.phone,
-  //     gender: value.gender,
-  //     birthdate: formattedDate,
-  //     email: value.email,
-  //     password: value.password,
-  //     aksi: 'add_student'
-  //   };
-  
-  //   console.log('Request Body:', body);
-
-  //   const emailExists = await this.checkEmailExists(body.email);
-
-  //   if (emailExists) {
-  //     this.emailExistsError = true;
-  //     return;
-  //   }
-
-  //   this.emailExistsError = false;
-
-  
-  //   this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
-  //     async (response: any) => {
-  //       console.log('Response:', response);
-
-  //       const alert = await this.alertController.create({
-  //         header: 'Success',
-  //         message: 'Added Student Successfully',
-  //         buttons: ['OK']
-  //     });
-  //     await alert.present();
-  //     this.ValidationFormUser.reset();
-  //     this.dateValue = format(new Date(), 'yyyy-MM-dd') + 'T09:00:00.000Z';
-  //     this.formattedString = 'Date of Birth';
-  //   },
-  //     (error: any) => {
-  //       console.error('Error:', error);
-  //     }
-  //   );
-  // }
 
   async addStudent(value: any) {
     const formattedDate = this.dateValue.split('T')[0];
@@ -254,7 +199,7 @@ export class AddStudentPage implements OnInit {
       birthdate: formattedDate,
       gradelevel: value.gradelevel,
       section: value.section,
-      sectionId: sectionId, // Add sectionId to the body
+      sectionId: sectionId, 
       email: value.email,
       password: value.password,
       aksi: 'add_student'

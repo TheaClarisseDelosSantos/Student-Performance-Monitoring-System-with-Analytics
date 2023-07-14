@@ -238,11 +238,11 @@ ion-card {
    
   .round-input-calendar {
     --background: #f4f4f4;
-    padding-left: 30px;
+    --padding-start: 40px;
     --border-radius: 8px;
     height: 62px;
+    position: relative;
   }
-  
   
   .round-input-calendar ion-icon {
     position: absolute;
@@ -251,9 +251,14 @@ ion-card {
     left: 10px;
     z-index: 2;
     font-size: 16px;
-    --color:#999;
-    
+    color: #999;
   }
+  
+  .round-input-calendar input {
+    padding-left: 40px;
+  }
+  
+  
   
   .round-input-calendar ion-label {
     position: absolute;
@@ -267,7 +272,6 @@ ion-card {
     margin-bottom: 8px;
     display: block;
     margin-left: 10px;
-    
   }
   
   .savediv {

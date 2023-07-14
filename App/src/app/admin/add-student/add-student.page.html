@@ -64,8 +64,8 @@
         <div class="gend-bday">
           <div class="input-container">
             <ion-select label-placement="floating" fill="outline" label="Gender" class="custom-select" name="gender" formControlName="gender">
-              <ion-select-option value="female">Female</ion-select-option>
-              <ion-select-option value="male">Male</ion-select-option>
+              <ion-select-option value="Female">Female</ion-select-option>
+              <ion-select-option value="Male">Male</ion-select-option>
             </ion-select>
             <ng-container *ngFor="let validation of validationMessages.gender">
               <div class="error_message" *ngIf="ValidationFormUser.get('gender')?.hasError(validation.type) && (ValidationFormUser.get('gender')?.dirty || ValidationFormUser.get('gender')?.touched)">

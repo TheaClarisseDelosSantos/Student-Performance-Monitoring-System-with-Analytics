@@ -346,6 +346,41 @@ if (isset($postjson) && $postjson['aksi'] == 'get_grades') {
     exit();
 }
 
+if (isset($postjson) && $postjson['aksi'] == 'fetch_student_data') {
+    $query = "SELECT * FROM users WHERE user_id = ?"; 
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $postjson['studentId']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    
+    
+    if ($result->num_rows > 0) {
+      $studentData = $result->fetch_assoc();
+      $response = array('success' => true, 'data' => $studentData);
+    } else {
+      $response = array('success' => false, 'msg' => 'Student data not found');
+    }
+    
+    echo json_encode($response);
+    exit();
+  }
+  
+  if (isset($postjson) && $postjson['aksi'] == 'update_student_data') {
+    $query = "UPDATE users SET firstname = ?, middlename = ?, lastname = ?, address = ?, phone = ?, gender = ?, birthdate = ? WHERE user_id = ?"; 
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("sssssssi", $postjson['firstName'], $postjson['middleName'], $postjson['lastName'], $postjson['address'], $postjson['phoneNumber'], $postjson['gender'], $postjson['birthdate'], $postjson['studentId']);
+    $stmt->execute();
+  
+    if ($stmt->affected_rows > 0) {
+      $response = array('success' => true, 'msg' => 'Student data updated successfully');
+    } else {
+      $response = array('success' => false, 'msg' => 'Failed to update student data');
+    }
+  
+    echo json_encode($response);
+    exit();
+  }
 
 
 

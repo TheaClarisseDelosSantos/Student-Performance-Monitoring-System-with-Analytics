@@ -52,9 +52,9 @@ export class GradesPage implements OnInit {
           this.calculateAverageGrade();
   
           if (this.grades.length === 0) {
-            this.noGradesAvailable = true; // Flag to indicate no grades available
+            this.noGradesAvailable = true; 
           } else {
-            this.noGradesAvailable = false; // Reset the flag
+            this.noGradesAvailable = false; 
           }
         },
         (error: any) => {
