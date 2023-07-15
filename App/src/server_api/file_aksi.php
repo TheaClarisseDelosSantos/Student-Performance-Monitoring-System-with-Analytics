@@ -416,38 +416,41 @@ if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
     $stmt = $mysqli->prepare("SELECT subject_id, subjectname FROM subjects");
     $stmt->execute();
     $stmt->bind_result($subjectId, $subjectName);
-  
+
     $subjects = array();
     while ($stmt->fetch()) {
-      $subject = array(
-        'subject_id' => $subjectId,
-        'subject_name' => $subjectName
-      );
-      $subjects[] = $subject;
+        $subject = array(
+            'subject_id' => $subjectId,
+            'subject_name' => $subjectName
+        );
+        $subjects[] = $subject;
     }
-  
+
     $response = array('subjects' => $subjects);
     echo json_encode($response);
     exit();
-  }
+}
+
   
   if (isset($postjson) && $postjson['aksi'] == 'get_assigned_sections') {
     $teacherId = $postjson['teacherId'];
   
-    $query = "SELECT sections.gradelevel, sections.sectionname 
-              FROM sections 
-              INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id 
+    $query = "SELECT sections.gradelevel, sections.sectionname, subjects.subjectname
+              FROM sections
+              INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id
+              INNER JOIN subjects ON assign_teacher.subject_id = subjects.subject_id
               WHERE assign_teacher.teacher_id = ?";
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param("i", $teacherId);
     $stmt->execute();
-    $stmt->bind_result($gradeLevel, $sectionName);
+    $stmt->bind_result($gradeLevel, $sectionName, $subjectName);
   
     $sections = array();
     while ($stmt->fetch()) {
       $section = array(
         'gradelevel' => $gradeLevel,
-        'sectionname' => $sectionName
+        'sectionname' => $sectionName,
+        'subjectName' => $subjectName,
       );
       $sections[] = $section;
     }
@@ -457,10 +460,10 @@ if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
     exit();
   }
   
+  
   if (isset($postjson) && $postjson['aksi'] == 'get_subject_ids') {
     $selectedSubjects = $postjson['subjects'];
   
-    // Prepare the query to fetch subject IDs based on subject names
     $query = "SELECT subject_id FROM subjects WHERE subjectname IN ('" . implode("','", $selectedSubjects) . "')";
     $stmt = $mysqli->prepare($query);
     $stmt->execute();

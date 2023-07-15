@@ -17,17 +17,19 @@
       <form [formGroup]="form">
         <div class="input-container">
           <ion-select
-          label-placement="floating"
-          fill="outline"
-          label="Subjects"
-          class="custom-select"
-          formControlName="subjects"
-          (ionChange)="filterSections()"
-        >
+            label-placement="floating"
+            fill="outline"
+            label="Subjects"
+            class="custom-select"
+            formControlName="subjects"
+            (ionChange)="getSubjectIds()"
+          >
+
           <ion-select-option value="">All subjects</ion-select-option> 
           <ion-select-option *ngFor="let subject of subjects" [value]="subject.subject_id">
             {{ subject.subjectname }}
           </ion-select-option>
+          
         </ion-select>
         
         </div>
