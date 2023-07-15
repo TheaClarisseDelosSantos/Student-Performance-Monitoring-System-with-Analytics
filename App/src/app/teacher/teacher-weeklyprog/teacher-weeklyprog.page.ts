@@ -106,31 +106,35 @@ export class TeacherWeeklyprogPage implements OnInit {
   //     }
   //   );
   // }
+
+  
+
+  // Update the filterSections() method
+filterSections() {
+  const selectedSubjectId = this.form.value.subjects;
+
+  if (selectedSubjectId === '') {
+    this.getAssignedSections(); 
+  } else {
+    const body = {
+      aksi: 'filter_sections',
+      teacherId: this.teacherId,
+      subjects: [selectedSubjectId],
+    };
+
+    this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Filtered Sections Response:', response);
+        this.sections = response.sections;
+      },
+      (error: any) => {
+        console.error('Filtered Sections Error:', error);
+      }
+    );
+  }
+}
+
   
   
 
-  filterSections() {
-    const selectedSubjectId = this.form.value.subjects;
-  
-    if (!selectedSubjectId) {
-      this.getAssignedSections();
-    } else {
-      const body = {
-        aksi: 'filter_sections',
-        teacherId: this.teacherId,
-        subjects: [selectedSubjectId],
-      };
-  
-      this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
-        (response: any) => {
-          console.log('Filtered Sections Response:', response);
-          this.sections = response.sections;
-        },
-        (error: any) => {
-          console.error('Filtered Sections Error:', error);
-        }
-      );
-    }
-  }
-  
 }
