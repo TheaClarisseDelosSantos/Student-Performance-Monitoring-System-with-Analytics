@@ -7,7 +7,6 @@
   </ion-toolbar>
 </ion-header> 
 
-
 <ion-content [fullscreen]="true" class="bg-color">
   <ion-card class="ion-no-margin">
     <div class="filterdiv">
@@ -17,40 +16,34 @@
       <form [formGroup]="form">
         <div class="input-container">
           <ion-select
-            label-placement="floating"
-            fill="outline"
-            label="Subjects"
-            class="custom-select"
-            formControlName="subjects"
-            (ionChange)="getSubjectIds()"
-          >
+          label-placement="floating"
+          fill="outline"
+          label="Subjects"
+          class="custom-select"
+          formControlName="subjects"
+          (ionChange)="filterSections()"
+        >
 
-          <ion-select-option value="">All subjects</ion-select-option> 
-          <ion-select-option *ngFor="let subject of subjects" [value]="subject.subject_id">
-            {{ subject.subjectname }}
-          </ion-select-option>
-          
-        </ion-select>
-        
+            <ion-select-option value="">All subjects</ion-select-option> 
+            <ion-select-option *ngFor="let subject of subjects" [value]="subject.subject_id">
+              {{ subject.subjectname }}
+            </ion-select-option>
+          </ion-select>
         </div>
       </form>
-
     </div>
 
     <div class="subject-container">
       <ng-container *ngIf="sections.length > 0; else noSections">
-        <div *ngFor="let section of sections" class="section-item">
+        <div *ngFor="let section of sections" class="section-item" (click)="viewStudents(section.section_id)">
           <div class="section-content">
             <div class="section-header">
               <div class="section-label">{{ section.gradelevel }} - {{ section.sectionname }}</div>
               <p class="subject-name">{{ section.subjectName }}</p>
             </div>
             <ion-icon name="chevron-forward-outline" class="chevron-icon"></ion-icon>
-
           </div>
         </div>
-        
-        
       </ng-container>
       <ng-template #noSections>
         <div class="no-sections">
@@ -60,4 +53,3 @@
     </div>
   </ion-card>
 </ion-content>
-

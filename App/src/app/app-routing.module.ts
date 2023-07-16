@@ -95,11 +95,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/changepass/changepass.module').then( m => m.ChangepassPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['student', 'teacher', 'admin'] } 
-  },
-
-
-
-
+  },  {
+    path: 'students-list',
+    loadChildren: () => import('./teacher/students-list/students-list.module').then( m => m.StudentsListPageModule)
+  }
 
 
 

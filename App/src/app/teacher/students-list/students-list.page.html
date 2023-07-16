@@ -1,0 +1,40 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ selectedSection?.gradelevel }} - {{ selectedSection?.sectionname }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light"text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+<ion-content>
+  <ion-card class="ion-no-margin">
+
+    <div class="listdiv">
+      <h4>List of Students</h4>
+    </div>
+
+    <div *ngIf="students && students.length > 0; else noStudents">
+      <div class="student-div" *ngFor="let student of students">
+        <div class="student-flex">
+          <ion-label>
+            <h2>{{ student.full_name }}</h2>
+          </ion-label>
+          <ion-icon name="chevron-down-outline"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+  
+
+  <!-- <div *ngIf="students.length > 0; else noStudents">
+    {{ students.length }} students available
+  </div> -->
+
+  <ng-template #noStudents>
+    <div class="no-students">
+      No students available for this section.
+    </div>
+  </ng-template>
+</ion-content>
+

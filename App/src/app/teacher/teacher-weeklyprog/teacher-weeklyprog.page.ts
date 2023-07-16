@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { PostProvider } from '../../providers/post-provider';
 import { AlertController } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
+import { NavController } from '@ionic/angular';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-teacher-weeklyprog',
@@ -15,12 +17,17 @@ export class TeacherWeeklyprogPage implements OnInit {
   sections: any[] = [];
   teacherId: number | null = null;
   subjectIds: number[] = [];
+  students: any[] = [];
+  selectedSectionId: number = 0;
+  selectedSubjectId : number = 0;
 
   constructor(
     private formBuilder: FormBuilder,
     private postPvdr: PostProvider,
     private alertController: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    private navCtrl: NavController,
+    private router: Router
   ) {
     this.form = this.formBuilder.group({
       subjects: [''],
@@ -42,7 +49,7 @@ export class TeacherWeeklyprogPage implements OnInit {
 
   getSubjects() {
     const body = { aksi: 'get_teacher_subjects' };
-  
+
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       (response: any) => {
         console.log('Subjects Response:', response);
@@ -50,7 +57,7 @@ export class TeacherWeeklyprogPage implements OnInit {
           subject_id: subject.subject_id,
           subjectname: subject.subject_name,
         }));
-  
+
         console.log('Subjects:', this.subjects);
       },
       (error: any) => {
@@ -58,11 +65,6 @@ export class TeacherWeeklyprogPage implements OnInit {
       }
     );
   }
-  
-  
-  
-  
-  
 
   getAssignedSections() {
     const body = {
@@ -81,7 +83,9 @@ export class TeacherWeeklyprogPage implements OnInit {
           console.log('Sections:', this.sections);
           console.log('Subjects:', this.subjects);
   
-          this.subjectIds = response.subjects.map((subject: any) => subject.subject_id);
+          this.sections.forEach((section: any) => {
+            section.subjectId = section.subject_id; // Set the subject ID for each section in the default state
+          });
         }
       },
       (error: any) => {
@@ -89,11 +93,6 @@ export class TeacherWeeklyprogPage implements OnInit {
       }
     );
   }
-  
-  
-  
-  
-  
   
 
   getSubjectIds() {
@@ -122,7 +121,7 @@ export class TeacherWeeklyprogPage implements OnInit {
       }
     );
   }
-
+  
   
 
   filterSections() {
@@ -144,7 +143,8 @@ export class TeacherWeeklyprogPage implements OnInit {
   
           const subjectName = this.getSubjectName(selectedSubjectId);
           this.sections.forEach((section: any) => {
-            section.subjectname = subjectName;
+            section.subjectName = subjectName;
+            section.subjectId = selectedSubjectId; 
           });
         },
         (error: any) => {
@@ -156,15 +156,56 @@ export class TeacherWeeklyprogPage implements OnInit {
   
   
   
-
+  
+  
   getSubjectName(subjectId: number) {
-    const selectedSubject = this.subjects.find((subject) => subject.subject_id === subjectId);
-    return selectedSubject ? selectedSubject.subject_name : '';
+    const subject = this.subjects.find((subject: any) => subject.subject_id === subjectId);
+    return subject ? subject.subjectname : '';
   }
   
   
 
+  viewStudents(sectionId: number) {
+    this.selectedSectionId = sectionId;
+  
+    const section = this.sections.find((section: any) => section.section_id === sectionId);
+    const subjectId = section.subjectId || section.subject_id; // Use either `subjectId` or `subject_id` based on the availability
+  
+    const body = {
+      aksi: "get_students_by_section_subject",
+      sectionId: this.selectedSectionId,
+      subjectId: subjectId,
+    };
+  
+    this.postPvdr.postData(body, "server_api/file_aksi.php").subscribe(
+      (response: any) => {
+        console.log('Students Response:', response);
+        this.students = response.students;
+  
+        const queryParams: NavigationExtras = {
+          queryParams: {
+            subjectId: subjectId,
+            sectionId: this.selectedSectionId,
+            students: JSON.stringify(this.students)
+          }
+        };
+  
+        this.router.navigate(['/students-list'], queryParams);
+      },
+      (error: any) => {
+        console.error('Error:', error);
+      }
+    );
+  }
   
   
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
 }

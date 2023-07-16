@@ -432,10 +432,10 @@ if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
 }
 
   
-  if (isset($postjson) && $postjson['aksi'] == 'get_assigned_sections') {
+if (isset($postjson) && $postjson['aksi'] == 'get_assigned_sections') {
     $teacherId = $postjson['teacherId'];
   
-    $query = "SELECT sections.gradelevel, sections.sectionname, subjects.subjectname
+    $query = "SELECT sections.gradelevel, sections.sectionname, sections.section_id, subjects.subjectname, subjects.subject_id
               FROM sections
               INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id
               INNER JOIN subjects ON assign_teacher.subject_id = subjects.subject_id
@@ -443,14 +443,16 @@ if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
     $stmt = $mysqli->prepare($query);
     $stmt->bind_param("i", $teacherId);
     $stmt->execute();
-    $stmt->bind_result($gradeLevel, $sectionName, $subjectName);
+    $stmt->bind_result($gradeLevel, $sectionName, $sectionId,$subjectName,$subjectId);
   
     $sections = array();
     while ($stmt->fetch()) {
       $section = array(
         'gradelevel' => $gradeLevel,
         'sectionname' => $sectionName,
+        'section_id' => $sectionId,
         'subjectName' => $subjectName,
+        'subject_id' => $subjectId
       );
       $sections[] = $section;
     }
@@ -482,31 +484,96 @@ if (isset($postjson) && $postjson['aksi'] == 'get_teacher_subjects') {
   if (isset($postjson) && $postjson['aksi'] == 'filter_sections') {
     $teacherId = $postjson['teacherId'];
     $selectedSubjects = $postjson['subjects'];
-  
-    $query = "SELECT sections.gradelevel, sections.sectionname, subjects.subjectname
+
+    $query = "SELECT sections.gradelevel, sections.sectionname, sections.section_id, subjects.subjectname, subjects.subject_id
               FROM sections
               INNER JOIN assign_teacher ON sections.section_id = assign_teacher.section_id
               INNER JOIN subjects ON assign_teacher.subject_id = subjects.subject_id
-              WHERE assign_teacher.teacher_id = ? AND assign_teacher.subject_id = ?";
+              WHERE assign_teacher.teacher_id = ? AND assign_teacher.subject_id IN (".implode(',', $selectedSubjects).")";
     $stmt = $mysqli->prepare($query);
-    $stmt->bind_param("ii", $teacherId, $selectedSubjects[0]);
+    $stmt->bind_param("i", $teacherId);
     $stmt->execute();
-    $stmt->bind_result($gradeLevel, $sectionName, $subjectName);
-  
+    $stmt->bind_result($gradeLevel, $sectionName, $sectionId, $subjectName, $subjectId);
+
     $sections = array();
     while ($stmt->fetch()) {
-      $section = array(
-        'gradelevel' => $gradeLevel,
-        'sectionname' => $sectionName,
-        'subjectName' => $subjectName,
-      );
-      $sections[] = $section;
+        $section = array(
+            'gradelevel' => $gradeLevel,
+            'sectionname' => $sectionName,
+            'section_id' => $sectionId,
+            'subjectName' => $subjectName,
+            'subjectId' => $subjectId
+        );
+        $sections[] = $section;
     }
-  
+
     $response = array('sections' => $sections);
     echo json_encode($response);
     exit();
-  }
+}
+
   
+  if (isset($postjson) && $postjson['aksi'] == 'get_students_by_section_subject') {
+    if (!isset($postjson['sectionId']) || !isset($postjson['subjectId'])) {
+      $response = array('error' => 'Invalid request: sectionId or subjectId is missing');
+      echo json_encode($response);
+      exit();
+    }
+  
+    $sectionId = $postjson['sectionId'];
+    $subjectId = $postjson['subjectId'];
+  
+    $stmt = $mysqli->prepare("SELECT users.user_id, users.firstname, users.lastname
+                              FROM users
+                              INNER JOIN assign_teacher ON users.section_id = assign_teacher.section_id
+                              WHERE assign_teacher.section_id = ? AND assign_teacher.subject_id = ?");
+    $stmt->bind_param("ii", $sectionId, $subjectId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+  
+    $students = array();
+    while ($row = $result->fetch_assoc()) {
+      $student = array(
+        'student_id' => $row['user_id'],
+        'full_name' => $row['lastname'] . ', ' . $row['firstname'],
+      );
+      $students[] = $student;
+    }
+  
+    $response = array('students' => $students);
+    echo json_encode($response);
+    exit();
+  }
+
+  if (isset($postjson) && $postjson['aksi'] == 'get_section_details') {
+    $sectionId = $postjson['sectionId'];
+
+    $stmt = $mysqli->prepare("SELECT gradelevel, sectionname FROM sections WHERE section_id = ?");
+    $stmt->bind_param("i", $sectionId);
+    $stmt->execute();
+    $stmt->bind_result($gradeLevel, $sectionName);
+
+    if ($stmt->fetch()) {
+        $sectionDetails = array(
+            'gradelevel' => $gradeLevel,
+            'sectionname' => $sectionName
+        );
+        echo json_encode($sectionDetails);
+    } else {
+        echo json_encode(array('error' => 'Section not found'));
+    }
+    $stmt->close();
+}
+
+  
+
+
+
+
+
+
+
+  
+
   
 ?>
