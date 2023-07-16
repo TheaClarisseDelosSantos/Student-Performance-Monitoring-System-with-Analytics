@@ -145,11 +145,11 @@ export class WeeklyprogPage implements OnInit {
   }
 
   getIconName(status: string) {
-    if (status === 'Completed') {
+    if (status === 'completed') {
       return 'checkmark-circle';
-    } else if (status === 'Missing') {
+    } else if (status === 'missing') {
       return 'help-circle';
-    } else if (status === 'Failed') {
+    } else if (status === 'failed') {
       return 'close-circle';
     } else {
       return '';
@@ -157,14 +157,14 @@ export class WeeklyprogPage implements OnInit {
   }
 
   getIconColor(status: string): string {
-    if (status === 'Completed') {
+    if (status === 'completed') {
       return 'success';
-    } else if (status === 'Missing') {
+    } else if (status === 'missing') {
       return 'warning';
-    } else if (status === 'Failed') {
+    } else if (status === 'failed') {
       return 'danger';
     } else {
-      return 'medium'; // Default color if status is not recognized
+      return 'medium'; 
     }
   }
 

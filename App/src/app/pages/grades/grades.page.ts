@@ -1,27 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { PostProvider } from 'src/app/providers/post-provider';
-
+import { Storage } from '@ionic/storage';
+ 
 @Component({
   selector: 'app-grades',
   templateUrl: './grades.page.html',
   styleUrls: ['./grades.page.scss'],
 })
 export class GradesPage implements OnInit {
-  selectedQuarter: string = ''; 
-  grades: any[] = []; 
+  selectedQuarter: string = '';
+  grades: any[] = [];
   averageGrade: number = 0;
   subjects: string[] = [];
   noGradesAvailable: boolean = false;
+  studentId: string = '';
 
-  constructor(private postPvdr: PostProvider) { }
+  constructor(private postPvdr: PostProvider, private storage: Storage) {}
 
   ngOnInit() {
     this.fetchSubjects();
-    this.selectedQuarter = "First Quarter";
-    this.filterGrades();
+    this.selectedQuarter = 'First Quarter';
+    this.fetchUserInfo();
   }
 
-  fetchSubjects(){
+  async fetchUserInfo() {
+    const user = await this.storage.get('session_storage');
+    if (user) {
+      this.studentId = user.user_id;
+      this.filterGrades();
+    }
+  }
+
+  fetchSubjects() {
     const body = {
       aksi: 'get_subjects',
     };
@@ -37,24 +47,24 @@ export class GradesPage implements OnInit {
     );
   }
 
-
   filterGrades() {
-    if (this.selectedQuarter) {
+    if (this.selectedQuarter && this.studentId) {
       const body = {
-        aksi: 'get_grades',
+        aksi: 'get_student_grades',
         quarter: this.selectedQuarter,
+        studentId: this.studentId,
       };
-  
+
       this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
         (response: any) => {
           console.log('Grades Response:', response);
           this.grades = response.grades;
           this.calculateAverageGrade();
-  
+
           if (this.grades.length === 0) {
-            this.noGradesAvailable = true; 
+            this.noGradesAvailable = true;
           } else {
-            this.noGradesAvailable = false; 
+            this.noGradesAvailable = false;
           }
         },
         (error: any) => {
@@ -63,24 +73,20 @@ export class GradesPage implements OnInit {
       );
     }
   }
-  
 
   calculateAverageGrade() {
     let totalGrade = 0;
-  
+
     for (let grade of this.grades) {
-      totalGrade += parseFloat(grade.grade); 
+      totalGrade += parseFloat(grade.grade);
     }
-  
+
     if (this.grades.length > 0) {
       this.averageGrade = totalGrade / this.grades.length;
     } else {
       this.averageGrade = 0;
     }
   }
-  
-  ionViewWillEnter(){
-    
-  }
 
+  ionViewWillEnter() {}
 }

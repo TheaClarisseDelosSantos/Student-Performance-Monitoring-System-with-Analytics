@@ -4,7 +4,7 @@ import {AuthGuard} from 'src/app/guards/auth.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'loader',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -95,10 +95,15 @@ const routes: Routes = [
     loadChildren: () => import('./pages/changepass/changepass.module').then( m => m.ChangepassPageModule),
     canActivate: [AuthGuard],
     data: { roles: ['student', 'teacher', 'admin'] } 
-  },  {
+  },
+  {
     path: 'students-list',
     loadChildren: () => import('./teacher/students-list/students-list.module').then( m => m.StudentsListPageModule)
+  },  {
+    path: 'g-students-list',
+    loadChildren: () => import('./teacher/g-students-list/g-students-list.module').then( m => m.GStudentsListPageModule)
   }
+
 
 
 

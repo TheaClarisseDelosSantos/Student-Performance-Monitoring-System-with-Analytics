@@ -318,20 +318,21 @@ if (isset($postjson) && $postjson['aksi'] == 'get_section_id') {
     exit();
 }
 
-if (isset($postjson) && $postjson['aksi'] == 'get_grades') {
+if (isset($postjson) && $postjson['aksi'] == 'get_student_grades') {
     $quarter = $postjson['quarter'];
+    $studentId = $postjson['studentId'];
 
     $stmt = $mysqli->prepare("SELECT subjects.subjectname, grades.grade 
                              FROM grades 
                              INNER JOIN subjects ON grades.subject_id = subjects.subject_id 
-                             WHERE grades.quarter = ?");
-    $stmt->bind_param("s", $quarter);
+                             WHERE grades.quarter = ? AND grades.student_id = ?");
+    $stmt->bind_param("ss", $quarter, $studentId);
     $stmt->execute();
     $stmt->bind_result($subjectName, $grade);
 
     $grades = array();
     while ($stmt->fetch()) {
-        $remark = $grade >= 75 ? 'PASSED' : 'FAILED'; 
+        $remark = $grade >= 75 ? 'PASSED' : 'FAILED';
 
         $gradeData = array(
             'subject' => $subjectName,
@@ -345,6 +346,7 @@ if (isset($postjson) && $postjson['aksi'] == 'get_grades') {
     echo json_encode($response);
     exit();
 }
+
 
 if (isset($postjson) && $postjson['aksi'] == 'fetch_student_data') {
     $query = "SELECT * FROM users WHERE user_id = ?"; 
@@ -749,8 +751,140 @@ if (isset($postjson) && $postjson['aksi'] == 'remove_activity') {
     exit();
 }
 
+if (isset($postjson) && $postjson['aksi'] == 'getg_subjects') {
+    $stmt = $mysqli->prepare("SELECT subject_id, subjectname FROM subjects");
+    $stmt->execute();
+    $stmt->bind_result($subjectId, $subjectName);
+
+    $subjects = array();
+    while ($stmt->fetch()) {
+        $subject = array(
+            'subject_id' => $subjectId,
+            'subject_name' => $subjectName
+        );
+        $subjects[] = $subject;
+    }
+
+    $response = array('subjects' => $subjects);
+    echo json_encode($response);
+    exit();
+}
+
+if (isset($postjson) && $postjson['aksi'] == 'getg_grades') {
+    $studentId = $postjson['studentId'];
+  
+    $stmt = $mysqli->prepare("SELECT grades.grade_id, subjects.subjectname, grades.grade 
+                             FROM grades 
+                             INNER JOIN subjects ON grades.subject_id = subjects.subject_id 
+                             WHERE grades.student_id = ?");
+    $stmt->bind_param("s", $studentId);
+    $stmt->execute();
+    $stmt->bind_result($gradeId, $subjectName, $grade);
+  
+    $grades = array();
+    while ($stmt->fetch()) {
+      $remark = $grade >= 75 ? 'PASSED' : 'FAILED'; 
+  
+      $gradeData = array(
+        'grade_id' => $gradeId,
+        'student_id' => $studentId,
+        'subject' => $subjectName,
+        'grade' => $grade,
+        'remark' => $remark
+      );
+      $grades[] = $gradeData;
+    }
+  
+    $response = array('grades' => $grades);
+    echo json_encode($response);
+    exit();
+  }
+  
+
+
+
+  if (isset($postjson) && $postjson['aksi'] == 'add_grades') {
+    $gradesToSave = $postjson['grades'];
+    $quarter = $postjson['quarter'];
+  
+    $stmt = $mysqli->prepare("INSERT INTO grades (student_id, subject_id, quarter, grade) VALUES (?, ?, ?, ?)");
+  
+    foreach ($gradesToSave as $gradeData) {
+      $studentId = $gradeData['studentId'];
+      $subjectId = $gradeData['subjectId'];
+      $grade = $gradeData['grade'];
+  
+      $stmt->bind_param("ssss", $studentId, $subjectId, $quarter, $grade);
+      $stmt->execute();
+  
+      if ($stmt->affected_rows <= 0) {
+        $response = array('status' => 'error', 'message' => 'Failed to add grades');
+        echo json_encode($response);
+        exit();
+      }
+    }
+  
+    $response = array('status' => 'success', 'message' => 'Grades added successfully');
+    echo json_encode($response);
+    exit();
+  
+  }
+  
+
+
 
   
+  if (isset($postjson) && $postjson['aksi'] == 'get_subject_id') {
+    $subjectName = $postjson['subjectName'];
+  
+    $stmt = $mysqli->prepare("SELECT subject_id FROM subjects WHERE subjectname = ?");
+    $stmt->bind_param("s", $subjectName);
+    $stmt->execute();
+    $stmt->bind_result($subjectId);
+  
+    if ($stmt->fetch()) {
+      $response = array('status' => 'success', 'subjectId' => $subjectId);
+    } else {
+      $response = array('status' => 'error', 'message' => 'Failed to fetch subject ID');
+    }
+  
+    echo json_encode($response);
+    exit();
+}
+
+
+// if (isset($postjson) && $postjson['aksi'] == 'update_grades') {
+//     $gradesToUpdate = $postjson['grades'];
+  
+//     $stmt = $mysqli->prepare("UPDATE grades SET grade = ? WHERE grade_id = ?");
+  
+//     foreach ($gradesToUpdate as $gradeData) {
+//       $gradeId = $gradeData['grade_id'];
+//       $grade = $gradeData['grade'];
+  
+//       $stmt->bind_param("ss", $grade, $gradeId);
+//       $stmt->execute();
+  
+//       if ($stmt->affected_rows <= 0) {
+//         $response = array('status' => 'error', 'message' => 'Failed to update grades');
+//         echo json_encode($response);
+//         exit();
+//       }
+//     }
+  
+//     $response = array('status' => 'success', 'message' => 'Grades updated successfully');
+//     echo json_encode($response);
+//     exit();
+//   }
+  
+  
+
+  
+  
+
+  
+  
+
 
 
 

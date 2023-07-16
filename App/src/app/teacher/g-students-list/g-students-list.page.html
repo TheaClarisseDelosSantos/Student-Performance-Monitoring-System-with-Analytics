@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>{{ selectedSection?.gradelevel }} - {{ selectedSection?.sectionname }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button color="light" text=""></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="ion-no-margin">
+    <div class="listdiv">
+      <h4>List of Students</h4>
+    </div>
+
+    <div class="filterdiv">
+      <ion-label class="filter"><ion-icon name="filter"></ion-icon> Filter</ion-label>
+    </div>
+    <div class="gr-sec">
+      <div class="input-container">
+        <ion-select 
+          label-placement="floating" 
+          fill="outline" 
+          label="Filter" 
+          class="custom-select"
+          name="quarter"
+          [(ngModel)]="selectedQuarter"
+          (ionChange)="filterByQuarter()">
+          <ion-select-option value="First Quarter">First Quarter</ion-select-option>
+          <ion-select-option value="Second Quarter">Second Quarter</ion-select-option>
+          <ion-select-option value="Third Quarter">Third Quarter</ion-select-option>
+          <ion-select-option value="Fourth Quarter">Fourth Quarter</ion-select-option>
+        </ion-select>
+      </div>
+    </div>
+
+    <div *ngIf="students && students.length > 0; else noStudents">
+      <div class="student-div" *ngFor="let student of students">
+        <div class="student-flex" (click)="toggleAccordion(student)">
+          <ion-label>
+            <h2>{{ student.full_name }}</h2>
+          </ion-label>
+          <ion-icon [name]="student.showInput ? 'chevron-up-outline' : 'chevron-down-outline'"></ion-icon>
+        </div>
+        <div class="input-field" *ngIf="student.showInput">
+          <div class="task-container" *ngFor="let subject of student.subjects">
+            <ion-label>{{ subject.subject_name }}</ion-label>
+            <ion-input class="custom-height" placeholder="Grade" [(ngModel)]="subject.grade"></ion-input>
+          </div>
+          
+          <ion-button class="addsubj" color="success" (click)="saveTasks(student)">
+            Submit
+          </ion-button>
+        </div>
+      </div>
+    </div>
+  </ion-card>
+
+  <ng-template #noStudents>
+    <div class="no-students">
+      No students available for this section.
+    </div>
+  </ng-template>
+</ion-content>

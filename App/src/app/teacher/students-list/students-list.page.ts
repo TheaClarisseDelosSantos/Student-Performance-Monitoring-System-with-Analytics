@@ -143,7 +143,6 @@ fetchSectionDetails(sectionId: string) {
       const status_value = task.status_value;
 
       if (task.id) {
-        // If the task has an 'id', it means it already exists and needs to be updated
         const activityBody = {
           aksi: 'update_activity',
           activityId: task.id,
@@ -161,7 +160,6 @@ fetchSectionDetails(sectionId: string) {
           }
         );
       } else {
-        // If the task doesn't have an 'id', it is a new task and needs to be added
         const activityBody = {
           aksi: 'add_activity',
           activityName: activityName,
@@ -176,7 +174,6 @@ fetchSectionDetails(sectionId: string) {
         this.postPvdr.postData(activityBody, 'server_api/file_aksi.php').subscribe(
           async (response: any) => {
             console.log('Add Activity Response:', response);
-            // Assign the 'id' returned by the server to the task for future updates
             task.id = response.id;
             const alert = await this.alert.create({
               header: 'Success',

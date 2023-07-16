@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { TeacherGradesPageRoutingModule } from './teacher-grades-routing.module';
 
 import { TeacherGradesPage } from './teacher-grades.page';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TeacherGradesPageRoutingModule
+    TeacherGradesPageRoutingModule,
+    ReactiveFormsModule
   ],
   declarations: [TeacherGradesPage]
 })
