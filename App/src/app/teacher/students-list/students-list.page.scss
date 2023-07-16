@@ -1,65 +1,63 @@
 * {
     font-family: 'Poppins', sans-serif;
   }
-ion-content {
-    --ion-background-color: transparent;
-    // --overflow: hidden;
-    // --padding-bottom:0;
-  }
-
-
   
-.bg-color {
-  background: #ffffff;
-}
-
-ion-header {
-  position: relative;
-  background-color: #a70000;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-
-ion-title{
-  font-size: 20px;
-  color: white;
-  font-weight: 700;
-  font-family: Poppins;
-
-
-}
-ion-toolbar {
-  --ion-background-color: transparent;
-  --opacity: 0;
-}
-
-ion-card {
-  --ion-background-color: transparent;
-  box-shadow: none !important;
-  margin-right: 25px;
-  margin-left: 25px;
-}
-
-ion-card-title {
-  font-size: 20px;
-  text-align: center;
-}
-.listdiv{
+  ion-content {
+    --ion-background-color: transparent;
+  }
+  
+  .bg-color {
+    background: #ffffff;
+  }
+  
+  ion-header {
+    position: relative;
+    background-color: #a70000;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+  
+  ion-title {
+    font-size: 20px;
+    color: white;
+    font-weight: 700;
+    font-family: Poppins;
+  }
+  
+  ion-toolbar {
+    --ion-background-color: transparent;
+    --opacity: 0;
+  }
+  
+  ion-card {
+    --ion-background-color: transparent;
+    box-shadow: none !important;
+    margin-right: 25px;
+    margin-left: 25px;
+  }
+  
+  ion-card-title {
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .listdiv {
     margin-top: 30px;
     color: #000;
-}
-
-ion-label h2{
+  }
+  
+  ion-label h2 {
     color: #000;
-
-}
-.student-div{
-    background-color: #F8F0F0;
+  }
+  
+  .student-div {
+    background-color: #f8f0f0;
     margin-bottom: 10px;
     padding: 18px;
     border-radius: 10px;
-}
-.student-flex{
+  }
+  
+  .student-flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -68,4 +66,130 @@ ion-label h2{
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-}
+  }
+  
+  .input-field {
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+  }
+  
+  ion-input,
+  ion-select {
+    --background: white;
+    --border-radius: 15px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 44px; /* Set the same height as ion-input */
+  }
+  
+  ion-select {
+    --border-radius: 15px;
+    --padding-start: 10px;
+    --padding-end: 10px;
+    height: 44px; /* Set the same height as ion-input */
+  }
+  
+  ion-select.custom-select,
+  ion-select.custom-select-section {
+    --border-radius: 8px;
+    --padding-start: 4vw;
+    --padding-end: 3vw;
+    --background: white;
+    --color: #333;
+    font-family: 'DM Sans', sans-serif;
+    padding-bottom: 2vh;
+  }
+  
+  ion-select.custom-select,
+  ion-select.custom-select-section {
+    --background: white;
+    --placeholder-color: #1c2120;
+    --color: #333;
+    --padding-start: 12px;
+    --padding-end: 16px;
+    --border-radius: 15px;
+    --selected-text-color: #333;
+    --selected-text-font-weight: 500;
+    --selected-placeholder-color: #999;
+    --selected-background: #ffffff;
+    --icon-color: #999;
+    --icon-size: 20px;
+    --border-width: 1px;
+    --border-color: #e5e5e5;
+    --caret-color: #333;
+    --caret-size: 10px;
+    --caret-margin-end: 4px;
+    --transition-duration: 200ms;
+    --caret-size: 0;
+  }
+  
+  ion-select.custom-select::part(icon),
+  ion-select.custom-select-section::part(icon) {
+    display: none;
+  }
+  
+  ion-select.custom-select::part(text),
+  ion-select.custom-select-section::part(text) {
+    height: 40px;
+    line-height: 40px;
+    font-family: 'DM Sans', sans-serif;
+  }
+  
+  .custom-select::after,
+  .custom-select-section::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #1c2120;
+  }
+  
+  .custom-select-section::after {
+    content: '';
+    position: absolute;
+  }
+  ion-label.task-label{
+    margin-bottom: 5px;
+  }
+
+  .remove-task-icon {
+    font-size: 24px;
+    cursor: pointer;
+    color: red;
+  }
+  
+  .addsubj{
+    height: 30px;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .addsubjicon{
+    margin-right: 5px;
+  }
+
+  .remicon{
+    margin-right: 5px;
+  }
+  .remsubj{
+    height: 30px;
+    font-size: 12px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }

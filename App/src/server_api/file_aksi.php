@@ -565,6 +565,106 @@ if (isset($postjson) && $postjson['aksi'] == 'get_assigned_sections') {
     $stmt->close();
 }
 
+if (isset($postjson) && $postjson['aksi'] == "add_activity") {
+    if (isset($postjson['activityName'], $postjson['subjectId'], $postjson['sectionId'], $postjson['studentId'], $postjson['score_value'], $postjson['status_value'], $postjson['date'])) {
+        $activityName = $postjson['activityName'];
+        $subjectId = $postjson['subjectId'];
+        $sectionId = $postjson['sectionId'];
+        $studentId = $postjson['studentId'];
+        $scoreValue = $postjson['score_value'];
+        $statusValue = $postjson['status_value'];
+        $date = $postjson['date'];
+
+        $stmt = $mysqli->prepare("INSERT INTO activities (activity_name, subject_id, section_id, date) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("siss", $activityName, $subjectId, $sectionId, $date);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $activityId = $stmt->insert_id;
+
+            $stmt2 = $mysqli->prepare("INSERT INTO scores (activity_id, user_id, score_value, status_value) VALUES (?, ?, ?, ?)");
+            $stmt2->bind_param("iiss", $activityId, $studentId, $scoreValue, $statusValue);
+            $stmt2->execute();
+
+            if ($stmt2->affected_rows > 0) {
+                $response = array('success' => true, 'msg' => 'Activity and scores added successfully');
+            } else {
+                $response = array('success' => false, 'msg' => 'Failed to add scores');
+            }
+
+            $stmt2->close();
+        } else {
+            $response = array('success' => false, 'msg' => 'Failed to add activity');
+        }
+    } else {
+        $response = array('success' => false, 'msg' => 'Missing required fields');
+    }
+
+    echo json_encode($response);
+    exit();
+}
+
+
+
+if (isset($postjson) && $postjson['aksi'] == 'save_tasks') {
+    $studentData = $postjson['studentData'];
+
+    foreach ($studentData as $student) {
+        $studentId = $student['student_id'];
+        $activities = $student['activities'];
+        $scores = $student['scores'];
+
+        $stmt = $mysqli->prepare("INSERT INTO activities (activity_name, subject_id, section_id, date) VALUES (?, ?, ?, NOW())");
+        $stmt->bind_param("sii", $activityName, $subjectId, $sectionId);
+
+        foreach ($activities as $activity) {
+            $activityName = $activity['activity_name'];
+            $subjectId = $activity['subject_id'];
+            $sectionId = $activity['section_id'];
+            $stmt->execute();
+
+            $activityId = $stmt->insert_id;
+
+            $stmt2 = $mysqli->prepare("INSERT INTO scores (activity_id, user_id, score_value, status_value) VALUES (?, ?, ?, ?)");
+            $stmt2->bind_param("iiis", $activityId, $studentId, $scoreValue, $statusValue);
+
+            foreach ($scores as $score) {
+                $scoreValue = $score['score_value'];
+                $statusValue = $score['status_value'];
+                $stmt2->execute();
+            }
+
+            $stmt2->close();
+        }
+
+        $stmt->close();
+    }
+
+    $response = array('success' => true);
+    echo json_encode($response);
+    exit();
+}
+
+if (isset($postjson) && $postjson['aksi'] == 'add_score') {
+    $activityId = $postjson['activityId'];
+    $studentId = $postjson['studentId'];
+    $scoreValue = $postjson['scoreValue'];
+    $statusValue = $postjson['statusValue'];
+
+    $stmt = $mysqli->prepare("INSERT INTO scores (activity_id, user_id, score_value, status_value) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("iiis", $activityId, $studentId, $scoreValue, $statusValue);
+    $stmt->execute();
+
+    if ($stmt->affected_rows > 0) {
+        $response = array('success' => true, 'msg' => 'Score added successfully');
+    } else {
+        $response = array('success' => false, 'msg' => 'Failed to add score');
+    }
+
+    echo json_encode($response);
+    exit();
+}
+
   
 
 
