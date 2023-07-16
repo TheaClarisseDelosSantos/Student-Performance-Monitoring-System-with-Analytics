@@ -665,6 +665,91 @@ if (isset($postjson) && $postjson['aksi'] == 'add_score') {
     exit();
 }
 
+if (isset($postjson) && $postjson['aksi'] == 'get_activities') {
+    $studentId = $postjson['studentId'];
+
+    $stmt = $mysqli->prepare("SELECT a.activity_id, a.activity_name, s.score_value, s.status_value FROM activities AS a INNER JOIN scores AS s ON a.activity_id = s.activity_id WHERE s.user_id = ?");
+    $stmt->bind_param("i", $studentId);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    $activities = array();
+    while ($row = $result->fetch_assoc()) {
+        $activity = array(
+            'id' => $row['activity_id'],
+            'activity_name' => $row['activity_name'],
+            'score_value' => $row['score_value'],
+            'status_value' => $row['status_value']
+        );
+        $activities[] = $activity;
+    }
+
+    $response = array('activities' => $activities);
+    echo json_encode($response);
+    exit();
+}
+
+
+if (isset($postjson) && $postjson['aksi'] == 'update_activity') {
+    if (isset($postjson['activityId'], $postjson['activityName'], $postjson['score_value'], $postjson['status_value'])) {
+        $activityId = $postjson['activityId'];
+        $activityName = $postjson['activityName'];
+        $scoreValue = $postjson['score_value'];
+        $statusValue = $postjson['status_value'];
+
+        $stmt = $mysqli->prepare("UPDATE activities AS a INNER JOIN scores AS s ON a.activity_id = s.activity_id SET a.activity_name = ?, s.score_value = ?, s.status_value = ? WHERE a.activity_id = ?");
+        $stmt->bind_param("sssi", $activityName, $scoreValue, $statusValue, $activityId);
+        $stmt->execute();
+
+        if ($stmt->affected_rows > 0) {
+            $response = array('success' => true, 'msg' => 'Activity and scores updated successfully');
+        } else {
+            $response = array('success' => false, 'msg' => 'Failed to update activity and scores');
+        }
+    } else {
+        $response = array('success' => false, 'msg' => 'Invalid request parameters');
+    }
+
+    echo json_encode($response);
+    exit();
+}
+
+
+
+if (isset($postjson) && $postjson['aksi'] == 'remove_activity') {
+    $activityId = $postjson['activityId'];
+
+    $stmt = $mysqli->prepare("SELECT activity_id FROM activities WHERE activity_id = ?");
+    $stmt->bind_param("i", $activityId);
+    $stmt->execute();
+    $stmt->store_result();
+    $activityExists = $stmt->num_rows > 0;
+    $stmt->close();
+
+    if (!$activityExists) {
+        $response = array('status' => 'error', 'message' => 'Activity does not exist');
+        echo json_encode($response);
+        exit();
+    }
+
+    $stmt = $mysqli->prepare("DELETE FROM scores WHERE activity_id = ?");
+    $stmt->bind_param("i", $activityId);
+    $stmt->execute();
+    $stmt->close();
+
+    $stmt = $mysqli->prepare("DELETE FROM activities WHERE activity_id = ?");
+    $stmt->bind_param("i", $activityId);
+    $stmt->execute();
+    $stmt->close();
+
+    
+
+    $response = array('status' => 'success', 'message' => 'Activity and associated scores have been deleted');
+    echo json_encode($response);
+    exit();
+}
+
+
   
 
 
