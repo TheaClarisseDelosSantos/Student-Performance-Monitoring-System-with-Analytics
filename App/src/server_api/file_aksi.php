@@ -669,9 +669,10 @@ if (isset($postjson) && $postjson['aksi'] == 'add_score') {
 
 if (isset($postjson) && $postjson['aksi'] == 'get_activities') {
     $studentId = $postjson['studentId'];
+    $subjectId = $postjson['subjectId'];
 
-    $stmt = $mysqli->prepare("SELECT a.activity_id, a.activity_name, s.score_value, s.status_value FROM activities AS a INNER JOIN scores AS s ON a.activity_id = s.activity_id WHERE s.user_id = ?");
-    $stmt->bind_param("i", $studentId);
+    $stmt = $mysqli->prepare("SELECT a.activity_id, a.activity_name, s.score_value, s.status_value FROM activities AS a INNER JOIN scores AS s ON a.activity_id = s.activity_id WHERE s.user_id = ? AND a.subject_id = ?");
+    $stmt->bind_param("ii", $studentId, $subjectId);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -681,7 +682,8 @@ if (isset($postjson) && $postjson['aksi'] == 'get_activities') {
             'id' => $row['activity_id'],
             'activity_name' => $row['activity_name'],
             'score_value' => $row['score_value'],
-            'status_value' => $row['status_value']
+            'status_value' => $row['status_value'],
+            'subject_id' => $subjectId,
         );
         $activities[] = $activity;
     }

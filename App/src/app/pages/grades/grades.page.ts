@@ -76,17 +76,18 @@ export class GradesPage implements OnInit {
 
   calculateAverageGrade() {
     let totalGrade = 0;
-
+  
     for (let grade of this.grades) {
       totalGrade += parseFloat(grade.grade);
     }
-
+  
     if (this.grades.length > 0) {
-      this.averageGrade = totalGrade / this.grades.length;
+      const average = totalGrade / this.grades.length;
+      this.averageGrade = parseFloat(average.toFixed(2));
     } else {
       this.averageGrade = 0;
     }
   }
-
+  
   ionViewWillEnter() {}
 }

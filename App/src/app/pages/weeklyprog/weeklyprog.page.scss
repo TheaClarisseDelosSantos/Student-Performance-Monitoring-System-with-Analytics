@@ -229,9 +229,30 @@ position: absolute;
 .iconcircle{
   flex: 1;
   text-align: center;
+
+  @media (min-width: 360px) {
+    font-size: 12px;
+  }
+  @media (min-width: 414px) {
+    font-size: 25px;
+  }
+  @media (min-width: 390px) {
+    font-size: 12px;
+  }
+  
 }
 
 .iconss{
-  font-size: 15px;
   align-items: center;
+
+  @media (min-width: 360px) {
+    font-size: 12px;
+  }
+  @media (min-width: 414px) {
+    font-size: 25px;
+  }
+  @media (min-width: 390px) {
+    font-size: 12px;
+  }
+
 }

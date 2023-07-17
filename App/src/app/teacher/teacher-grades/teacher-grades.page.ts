@@ -35,7 +35,6 @@ export class TeacherGradesPage implements OnInit {
   }
 
   ngOnInit() {
-    this.getSubjects();
     this.fetchTeacherId();
   }
 
@@ -44,6 +43,7 @@ export class TeacherGradesPage implements OnInit {
     if (user) {
       this.teacherId = user.user_id;
       this.getAssignedSections();
+      this.getSubjects();
     }
   }
 
@@ -84,7 +84,8 @@ export class TeacherGradesPage implements OnInit {
           console.log('Subjects:', this.subjects);
   
           this.sections.forEach((section: any) => {
-            section.subjectId = section.subject_id; // Set the subject ID for each section in the default state
+            section.subjectName = this.getSubjectName(section.subject_id);
+            section.subjectId = section.subject_id; 
           });
         }
       },
@@ -93,6 +94,7 @@ export class TeacherGradesPage implements OnInit {
       }
     );
   }
+  
   
 
   getSubjectIds() {
@@ -169,7 +171,7 @@ export class TeacherGradesPage implements OnInit {
     this.selectedSectionId = sectionId;
   
     const section = this.sections.find((section: any) => section.section_id === sectionId);
-    const subjectId = section.subjectId || section.subject_id; // Use either `subjectId` or `subject_id` based on the availability
+    const subjectId = section.subjectId || section.subject_id; 
   
     const body = {
       aksi: "get_students_by_section_subject",
@@ -197,6 +199,7 @@ export class TeacherGradesPage implements OnInit {
       }
     );
   }
+  
   
 
 }

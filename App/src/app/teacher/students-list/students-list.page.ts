@@ -61,17 +61,18 @@ fetchSectionDetails(sectionId: string) {
   toggleAccordion(student: any) {
     student.showInput = !student.showInput;
     if (student.showInput && !student.tasks) {
-      this.fetchActivities(student.student_id);
+      this.fetchActivities(student.student_id, this.subjectId);
       student.tasks = [{}];
     }
   }
 
-  fetchActivities(studentId: string) {
+  fetchActivities(studentId: string, subjectId: string) {
     const body = {
       aksi: 'get_activities',
       studentId: studentId,
+      subjectId: subjectId,
     };
-  
+
     this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
       (response: any) => {
         console.log('Activities Response:', response);
