@@ -876,7 +876,72 @@ if (isset($postjson) && $postjson['aksi'] == 'getg_grades') {
 //     echo json_encode($response);
 //     exit();
 //   }
+
+if (isset($postjson) && $postjson['aksi'] == 'fetch_teacher_data') {
+    $query = "SELECT * FROM teachers WHERE user_id = ?"; 
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("i", $postjson['teacherId']);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    
+    
+    if ($result->num_rows > 0) {
+      $teacherData = $result->fetch_assoc();
+      $response = array('success' => true, 'data' => $teacherData);
+    } else {
+      $response = array('success' => false, 'msg' => 'Teacher data not found');
+    }
+    
+    echo json_encode($response);
+    exit();
+  }
   
+  if (isset($postjson) && $postjson['aksi'] == 'update_teacher_data') {
+    $query = "UPDATE teachers SET firstname = ?, middlename = ?, lastname = ?, address = ?, phone = ?, gender = ?, birthdate = ? WHERE user_id = ?"; 
+    $stmt = $mysqli->prepare($query);
+    $stmt->bind_param("sssssssi", $postjson['firstName'], $postjson['middleName'], $postjson['lastName'], $postjson['address'], $postjson['phoneNumber'], $postjson['gender'], $postjson['birthdate'], $postjson['teacherId']);
+    $stmt->execute();
+  
+    if ($stmt->affected_rows > 0) {
+      $response = array('success' => true, 'msg' => 'Teacher data updated successfully');
+    } else {
+      $response = array('success' => false, 'msg' => 'Failed to update teacher data');
+    }
+  
+    echo json_encode($response);
+    exit();
+  }
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST' && $postjson['aksi'] === 'teacher_change_password') {
+    $currentPassword = $postjson['currentPassword'];
+    $newPassword = $postjson['newPassword'];
+    $teacherId = $postjson['teacherId'];
+
+    $stmt = $mysqli->prepare("SELECT password FROM teachers WHERE user_id = ?");
+    $stmt->bind_param("i", $teacherId);
+    $stmt->execute();
+    $stmt->bind_result($hashedPassword);
+    $stmt->fetch();
+    $stmt->close();
+
+    if (password_verify($currentPassword, $hashedPassword)) {
+        $newHashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        $stmt = $mysqli->prepare("UPDATE teachers SET password = ? WHERE user_id = ?");
+        $stmt->bind_param("si", $newHashedPassword, $teacherId);
+        $stmt->execute();
+        $stmt->close();
+
+        $response = array('success' => true);
+    } else {
+        $response = array('success' => false);
+    }
+
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
+}
   
 
   

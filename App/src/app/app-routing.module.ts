@@ -102,6 +102,14 @@ const routes: Routes = [
   },  {
     path: 'g-students-list',
     loadChildren: () => import('./teacher/g-students-list/g-students-list.module').then( m => m.GStudentsListPageModule)
+  },
+  {
+    path: 'teacher-edit-profile',
+    loadChildren: () => import('./teacher/teacher-edit-profile/teacher-edit-profile.module').then( m => m.TeacherEditProfilePageModule)
+  },
+  {
+    path: 'teacher-changepass',
+    loadChildren: () => import('./teacher/teacher-changepass/teacher-changepass.module').then( m => m.TeacherChangepassPageModule)
   }
 
 

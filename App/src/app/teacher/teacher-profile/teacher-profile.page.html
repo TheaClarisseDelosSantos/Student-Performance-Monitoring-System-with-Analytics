@@ -1,13 +1,67 @@
-<ion-header [translucent]="true">
+<ion-header class="ion-no-border">
   <ion-toolbar>
-    <ion-title>teacher-profile</ion-title>
+    <ion-title>PROFILE</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button text=""></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">teacher-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true" class="bg-color">
+  <ion-card class="ion-no-margin">
+    <div class="profile-container">
+      <div class="profile-picture">
+        <img src="../../../assets/icon/pf.png" alt="Profile Picture">
+      </div>
+      <div class="profile-info">
+        <h5>{{lastName}}, {{firstName}} {{middleName}}</h5>
+        <p>{{email}}</p>
+      </div>
+    </div>
+    <div class="edit-prof" (click)="editProfile()">
+      <div class="edit-prof-text">
+        <div class="editdiv">
+          <div class="editicon"><ion-icon class="edit" name="pencil"></ion-icon></div>
+        </div>
+        <div class="edit-prof-label">Edit Profile</div>
+        <div class="right-icon"><ion-icon name="chevron-forward"></ion-icon></div>
+      </div>
+    </div>
+
+    <div class="gensettingdiv">
+      <ion-label class="gensettings">GENERAL SETTINGS</ion-label>
+    </div>
+    <div class="edit-prof" (click)="about()">
+      <div class="edit-prof-text">
+        <div class="editdiv">
+          <div class="editicon"><ion-icon class="help" name="help-circle"></ion-icon></div>
+        </div>
+        <div class="edit-prof-label">About</div>
+        <div class="right-icon"><ion-icon name="chevron-forward"></ion-icon></div>
+      </div>
+    </div>
+
+    <div class="edit-prof" (click)="changePassword()">
+      <div class="edit-prof-text">
+        <div class="editdiv">
+          <div class="editicon"><ion-icon class="lock" name="lock-closed"></ion-icon></div>
+        </div>
+        <div class="edit-prof-label">Change Password</div>
+        <div class="right-icon"><ion-icon name="chevron-forward"></ion-icon></div>
+      </div>
+    </div>
+
+    <div class="edit-prof">
+      <div class="edit-prof-text">
+        <div class="editdiv">
+          <div class="editicon"><ion-icon class="logout" name="log-out"></ion-icon></div>
+        </div>
+        <div class="edit-prof-label">Logout</div>
+        <div class="right-icon" (click)="logout()">
+          
+            <ion-icon name="chevron-forward"></ion-icon>
+        </div>
+      </div>
+    </div>
+  </ion-card>
 </ion-content>
