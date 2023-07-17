@@ -774,12 +774,13 @@ if (isset($postjson) && $postjson['aksi'] == 'getg_subjects') {
 
 if (isset($postjson) && $postjson['aksi'] == 'getg_grades') {
     $studentId = $postjson['studentId'];
+    $quarter = $postjson['quarter'];
   
     $stmt = $mysqli->prepare("SELECT grades.grade_id, subjects.subjectname, grades.grade 
-                             FROM grades 
-                             INNER JOIN subjects ON grades.subject_id = subjects.subject_id 
-                             WHERE grades.student_id = ?");
-    $stmt->bind_param("s", $studentId);
+                            FROM grades 
+                            INNER JOIN subjects ON grades.subject_id = subjects.subject_id 
+                            WHERE grades.student_id = ? AND grades.quarter = ?");
+    $stmt->bind_param("ss", $studentId,  $quarter);
     $stmt->execute();
     $stmt->bind_result($gradeId, $subjectName, $grade);
   
@@ -854,30 +855,26 @@ if (isset($postjson) && $postjson['aksi'] == 'getg_grades') {
     exit();
 }
 
+if (isset($postjson) && $postjson['aksi'] == 'delete_grades') {
+    $studentId = $postjson['studentId'];
+    $quarter = $postjson['quarter'];
+  
+    $stmt = $mysqli->prepare("DELETE FROM grades WHERE student_id = ? AND quarter = ?");
+    $stmt->bind_param("ss", $studentId, $quarter);
+    $stmt->execute();
+  
+    if ($stmt->affected_rows > 0) {
+      $response = array('status' => 'success', 'message' => 'Grades deleted successfully');
+    } else {
+      $response = array('status' => 'success', 'message' => 'No grades found to delete');
+    }
+  
+    echo json_encode($response);
+    exit();
+  }
+  
 
-// if (isset($postjson) && $postjson['aksi'] == 'update_grades') {
-//     $gradesToUpdate = $postjson['grades'];
-  
-//     $stmt = $mysqli->prepare("UPDATE grades SET grade = ? WHERE grade_id = ?");
-  
-//     foreach ($gradesToUpdate as $gradeData) {
-//       $gradeId = $gradeData['grade_id'];
-//       $grade = $gradeData['grade'];
-  
-//       $stmt->bind_param("ss", $grade, $gradeId);
-//       $stmt->execute();
-  
-//       if ($stmt->affected_rows <= 0) {
-//         $response = array('status' => 'error', 'message' => 'Failed to update grades');
-//         echo json_encode($response);
-//         exit();
-//       }
-//     }
-  
-//     $response = array('status' => 'success', 'message' => 'Grades updated successfully');
-//     echo json_encode($response);
-//     exit();
-//   }
+
 
 if (isset($postjson) && $postjson['aksi'] == 'fetch_teacher_data') {
     $query = "SELECT * FROM teachers WHERE user_id = ?"; 

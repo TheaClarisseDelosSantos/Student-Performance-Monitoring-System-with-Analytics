@@ -147,7 +147,7 @@ export class AddTeacherPage{
       (response: any) => {
         console.log('Sections Response:', response);
         this.sections = response.sections;
-        this.sectionIds = response.sectionIds; // Assign the section IDs
+        this.sectionIds = response.sectionIds; 
       },
       (error: any) => {
         console.error('Sections Error:', error);
@@ -219,7 +219,6 @@ export class AddTeacherPage{
       return;
     }
 
-    // this.phoneError = false;
     const sectionIndex = this.sections.indexOf(value.section);
     const sectionId = this.sectionIds[sectionIndex];
   

@@ -55,6 +55,7 @@
     margin-bottom: 10px;
     padding: 18px;
     border-radius: 10px;
+    margin-top: 10px;
   }
   
   .student-flex {
@@ -80,6 +81,7 @@
     --border-radius: 15px;
     --padding-start: 10px;
     --padding-end: 10px;
+    
   }
   
   ion-select.custom-select,
@@ -91,11 +93,12 @@
     --color: #333;
     font-family: 'DM Sans', sans-serif;
     padding-bottom: 2vh;
+    
   }
   
   ion-select.custom-select,
   ion-select.custom-select-section {
-    --background: white;
+    --background: #f8f0f0;
     --placeholder-color: #1c2120;
     --color: #333;
     --padding-start: 12px;

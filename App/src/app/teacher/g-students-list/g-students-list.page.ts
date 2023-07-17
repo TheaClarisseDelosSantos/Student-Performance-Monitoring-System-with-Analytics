@@ -57,9 +57,13 @@ export class GStudentsListPage implements OnInit {
   }
 
   filterByQuarter() {
-    // Implement filtering logic based on the selected quarter
     console.log('Selected Quarter:', this.selectedQuarter);
+  
+    for (const student of this.students) {
+      this.fetchGrades(student.student_id);
+    }
   }
+  
 
   toggleAccordion(student: any) {
     student.showInput = !student.showInput;
@@ -70,7 +74,6 @@ export class GStudentsListPage implements OnInit {
     }
   
     if (student.showInput) {
-      // Get the student ID of the selected accordion
       const studentId = student.student_id;
       console.log('Selected Student ID:', studentId);
     }
@@ -98,7 +101,6 @@ export class GStudentsListPage implements OnInit {
           });
         }
   
-        // Call fetchGrades after subjects are fetched
         this.fetchGrades(studentId);
       },
       (error: any) => {
@@ -120,25 +122,31 @@ export class GStudentsListPage implements OnInit {
         console.log('Grades Response:', response);
         const student = this.students.find((s) => s.student_id === studentId);
         if (student) {
-          student.subjects.forEach((subject: any) => {
-            const grade = response.grades.find((g: any) => g.subject === subject.subject_name);
-            if (grade) {
-              subject.grade_id = grade.grade_id;
-              subject.grade = grade.grade;
-              subject.remarks = grade.remark;
-            }
-          });
+          if (student.subjects) {
+            student.subjects.forEach((subject: any) => {
+              const grade = response.grades.find((g: any) => g.subject === subject.subject_name);
+              if (grade) {
+                subject.grade_id = grade.grade_id;
+                subject.grade = grade.grade;
+                subject.remarks = grade.remark;
+              } else {
+                subject.grade_id = '';
+                subject.grade = '';
+                subject.remarks = '';
+              }
+            });
+          }
         } else {
           console.error('No grades found for the student');
         }
-        console.log('Updated Students:', this.students); // Add this line
+        console.log('Updated Students:', this.students); 
       },
       (error: any) => {
         console.error('Grades Error:', error);
       }
     );
   }
-  
+
   saveTasks(student: any) {
     const studentId = student.student_id;
     const gradesToSave: any[] = [];
@@ -184,39 +192,83 @@ export class GStudentsListPage implements OnInit {
   }
   
   saveGrades(studentId: string, gradesToSave: any[]) {
-    const savePromises = gradesToSave.map((gradeData) => {
-      const subjectId = gradeData.subjectId;
-      const grade = gradeData.grade;
+    const deleteGradesBody = {
+      aksi: 'delete_grades',
+      studentId: studentId,
+      quarter: this.selectedQuarter,
+    };
   
-      const saveGradeBody = {
-        aksi: 'add_grades',
-        quarter: this.selectedQuarter, // Add quarter parameter
-        grades: [
-          {
-            studentId: studentId,
-            subjectId: subjectId,
-            grade: grade,
-          },
-        ],
-      };
+    this.postPvdr.postData(deleteGradesBody, 'server_api/file_aksi.php').subscribe(
+      (response: any) => {
+        console.log('Delete Grades Response:', response);
+        if (response.status === 'success') {
+          const savePromises = gradesToSave.map((gradeData) => {
+            const subjectId = gradeData.subjectId;
+            const grade = gradeData.grade;
   
-      return this.postPvdr.postData(saveGradeBody, 'server_api/file_aksi.php').toPromise();
-    });
+            const saveGradeBody = {
+              aksi: 'add_grades',
+              quarter: this.selectedQuarter,
+              grades: [
+                {
+                  studentId: studentId,
+                  subjectId: subjectId,
+                  grade: grade,
+                },
+              ],
+            };
   
-    Promise.all(savePromises)
-      .then((responses: any[]) => {
-        console.log('Add Grades Responses:', responses);
-        const saveSuccess = responses.every((res) => res.status === 'success');
-        if (saveSuccess) {
-          this.fetchGrades(studentId); // Fetch grades again after successful addition
+            return this.postPvdr.postData(saveGradeBody, 'server_api/file_aksi.php').toPromise();
+          });
+  
+          Promise.all(savePromises)
+            .then((responses: any[]) => {
+              console.log('Add Grades Responses:', responses);
+  
+              const saveSuccess = responses.every((res) => res && res.status === 'success');
+              if (saveSuccess) {
+                this.fetchGrades(studentId);
+                this.presentAlert('Grades added successfully');
+              } else {
+                throw new Error('Failed to save grades. Please try again.');
+              }
+            })
+            .catch((error: any) => {
+              console.error('Save Grades Error:', error);
+              this.presentAlert('Failed to save grades. Please try again.');
+            });
         } else {
-          throw new Error('Failed to save grades');
+          throw new Error('Failed to delete previous grades. Please try again.');
         }
-      })
-      .catch((error: any) => {
-        console.error('Save Grades Error:', error);
-      });
+      },
+      (error: any) => {
+        console.error('Delete Grades Error:', error);
+        this.presentAlert('Failed to delete previous grades. Please try again.');
+      }
+    );
   }
+  
+  async presentAlert(message: string) {
+    const alert = await this.alert.create({
+      header: 'Grade Update',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
+
+ 
+
+
+  
+  findGradeBySubjectId(studentId: string, subjectId: string) {
+    const student = this.students.find((s) => s.student_id === studentId);
+    if (student && student.subjects) {
+      return student.subjects.find((subject:any) => subject.subject_id === subjectId) || {};
+    }
+    return {};
+  }
+  
   
   
   

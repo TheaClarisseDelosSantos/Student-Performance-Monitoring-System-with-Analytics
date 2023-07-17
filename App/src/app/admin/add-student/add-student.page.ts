@@ -121,19 +121,6 @@ export class AddStudentPage implements OnInit {
     );
   }
 
-  // getSections(gradeLevel:string){
-  //   const body = {aksi: 'get_sections', gradeLevel: gradeLevel};
-
-  //   this.postPvdr.postData(body, 'server_api/file_aksi.php').subscribe(
-  //     (response: any) => {
-  //       console.log('Sections Response:', response);
-  //       this.sections = response.sections;
-  //     },
-  //     (error: any) => {
-  //       console.error('Sections Error:', error);
-  //     }
-  //   );
-  // }
 
   getSections(gradeLevel: string) {
     const body = { aksi: 'get_sections', gradeLevel: gradeLevel };
@@ -142,7 +129,7 @@ export class AddStudentPage implements OnInit {
       (response: any) => {
         console.log('Sections Response:', response);
         this.sections = response.sections;
-        this.sectionIds = response.sectionIds; // Assign the section IDs
+        this.sectionIds = response.sectionIds; 
       },
       (error: any) => {
         console.error('Sections Error:', error);

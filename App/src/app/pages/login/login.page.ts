@@ -71,7 +71,6 @@ export class LoginPage implements OnInit {
         async (response: any) => {
           console.log('Response:', response);
           if (response.success) {
-            // Set the role property in the user object
             response.result.role = role;
             
             this.storage.set('session_storage', response.result);
