@@ -20,7 +20,7 @@ the teachers. Therefore, the developers proposed a Mobile-Based Student Performa
 teachers and students, Lipa Grace Academy seeks to contribute to the achievement of SDG 4 and provide its students with a quality education.</p>
 
 ## DEVELOPMENT MODEL
-<img src="Documentation%20Assets/agile1.png" alt="Agile" width="90%" height="90%">
+<img src="Documentation%20Assets/agile1.png" alt="Agile">
 
 <p align="justify">The developers will utilize an agile methodology to ensure the project is completed efficiently. This method is an iterative approach that involves collaboration between cross-functional teams to deliver a product that meets the client's needs. This methodology will allow the project to be completed promptly and efficiently, ensuring that the final product meets the objectives set.</p>
 
