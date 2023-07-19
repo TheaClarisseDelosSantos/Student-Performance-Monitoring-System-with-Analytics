@@ -40,7 +40,7 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <p align="justify">The project proceeds to the deployment phase after successful testing and debugging. The Mobile-Based Student Performance Monitoring System is installed and will be accessible to students and teachers in the school. </p>
 
 <b>Review/Monitoring</b>
-<p align="justify"></p>
+<p align="justify">The project team examines and monitors the application's performance on a regular basis. User feedback will be actively collected in order to discover areas for development and additions. </p>
 
 
 ## SYSTEM ARCHITECTURE
