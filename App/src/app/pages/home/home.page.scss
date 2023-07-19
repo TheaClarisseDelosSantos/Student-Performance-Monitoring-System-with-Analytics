@@ -7,11 +7,12 @@ ion-content {
   // --overflow: hidden;
   
 }
-ion-header{
-}
+
 
 .bg-color {
-  background: #ffffff;
+  background-image: url("../../../assets/icon/wave.png");
+  background-repeat: no-repeat;
+  background-size:100%;
 }
 
 ion-title {
@@ -30,6 +31,7 @@ ion-card {
   box-shadow: none !important;
   margin-left: 25px;
   margin-right: 20px;
+  margin-top: 10px;
 }
 
 ion-card-content{
@@ -40,7 +42,7 @@ ion-card-title {
   font-size: 30px;
   text-align: left;
   
-  color: #1E293B;
+  color: #ffff;
 }
 
 .custom-datetime {
