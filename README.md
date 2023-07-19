@@ -23,3 +23,5 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <img src="Documentation%20Assets/agile.png" alt="Agile" width="90%" height="90%">
 
 <p align="justify">The developers will utilize an agile methodology to ensure the project is completed efficiently. This method is an iterative approach that involves collaboration between cross-functional teams to deliver a product that meets the client's needs. This methodology will allow the project to be completed promptly and efficiently, ensuring that the final product meets the objectives set.</p>
+
+## GRAPHICAL USER INTERFACE
