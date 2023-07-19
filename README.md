@@ -31,7 +31,7 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <p align="justify">The team creates the application's blueprint during the Designing phase. To ensure an intuitive and user-friendly design, wireframes and prototypes are created to depict the app's user interface. </p>
 
 <b>Development</b>
-<p align="justify">The Development phase focuses on implementing the proposed features and functionalities. The team divides the requirements into smaller tasks and works on them iteratively.  </p>
+<p align="justify">The Development phase focuses on implementing the proposed features and functionalities. The team divides the requirements into smaller tasks and works on them iteratively. To handle any issues and ensure progress is in line with the project timeline, frequent communication and coordination are maintained.</p>
 
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
