@@ -27,8 +27,8 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <b>Requirement Analysis</b>
 <p align="justify">The Initiation and Requirement Analysis phase of the project begins with the development team investigating into understanding the specific demands and challenges experienced in monitoring student performance at Lipa Grace Academy. To identify the major features and objectives of the Mobile-Based Student Performance Monitoring System, requirements are gathered and prioritized.</p>
 
-<b>DESIGNING</b>
-<p align="justify">The Initiation and Requirement Analysis phase of the project begins with the development team investigating into understanding the specific demands and challenges experienced in monitoring student performance at Lipa Grace Academy. To identify the major features and objectives of the Mobile-Based Student Performance Monitoring System, requirements are gathered and prioritized.</p>
+<b>Designing</b>
+<p align="justify">The team creates the application's blueprint during the Designing phase. To ensure an intuitive and user-friendly design, wireframes and prototypes are created to depict the app's user interface. </p>
 
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
