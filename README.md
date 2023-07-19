@@ -36,6 +36,8 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <b>Testing</b>
 <p align="justify">The developed functionalities are rigorously tested throughout App Testing and Debugging. Automated tests are implemented to assure code integrity, while manual testing ensures that the application works as it should. Any errors or bugs that are detected are handled as soon as possible to create a robust and reliable application.</p>
 
+<b>Launch</b>
+
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
   <img src="Documentation%20Assets/usecase.png">
