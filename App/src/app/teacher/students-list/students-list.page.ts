@@ -30,6 +30,8 @@ export class StudentsListPage implements OnInit {
   
     this.fetchSectionDetails(this.sectionId);
   });
+  this.sortStudentsByName();
+
 }
 
 
@@ -192,6 +194,14 @@ fetchSectionDetails(sectionId: string) {
   } else {
     console.error('No tasks found for the student');
   }
+}
+
+sortStudentsByName() {
+  this.students.sort((a, b) => {
+    const nameA = a.full_name.toLowerCase();
+    const nameB = b.full_name.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
 }
 
   

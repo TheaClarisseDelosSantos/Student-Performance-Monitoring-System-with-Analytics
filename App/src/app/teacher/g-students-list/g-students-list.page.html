@@ -43,6 +43,12 @@
           <div class="task-container" *ngFor="let subject of student.subjects">
             <ion-label>{{ subject.subject_name }}</ion-label>
             <ion-input class="custom-height" placeholder="Grade" [(ngModel)]="subject.grade"></ion-input>
+
+          </div>
+
+          <div class="task-container">
+            <ion-label class="gwa-text">G.W.A </ion-label>
+           <ion-input class="custom-height" [ngClass]="{ 'green-text': getAverageGrade(student) >= 75, 'red-text': getAverageGrade(student) < 75 }" [value]="getAverageGrade(student)"></ion-input>
           </div>
           
           <ion-button class="addsubj" color="success" (click)="saveTasks(student)">

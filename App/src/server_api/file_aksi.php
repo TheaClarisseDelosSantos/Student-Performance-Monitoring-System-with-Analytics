@@ -68,11 +68,11 @@ if (isset($postjson) && $postjson['aksi'] == "get_sections") {
     $stmt->bind_result($sectionName, $sectionId);
 
     $sections = array();
-    $sectionIds = array(); // Add an array to store section IDs
+    $sectionIds = array(); 
 
     while ($stmt->fetch()) {
         $sections[] = $sectionName;
-        $sectionIds[] = $sectionId; // Store section IDs in the array
+        $sectionIds[] = $sectionId; 
     }
 
     $response = array('sections' => $sections, 'sectionIds' => $sectionIds);
@@ -126,7 +126,7 @@ if (isset($postjson) && $postjson['aksi'] == 'add_teacher') {
             $gradeLevel = $assignment['gradelevel'];
             $subjects = implode(',', $assignment['subjects']);
 
-            // Get the section ID based on the selected grade level and section name
+            
             $stmt = $mysqli->prepare("SELECT section_id FROM sections WHERE CONCAT(gradelevel, ' - ', sectionname) = ?");
             $stmt->bind_param("s", $assignment['gradelevel']);
             $stmt->execute();
@@ -134,7 +134,7 @@ if (isset($postjson) && $postjson['aksi'] == 'add_teacher') {
             $stmt->fetch();
             $stmt->close();
 
-            // Get the subject IDs based on the selected subjects
+            
             $subjectIds = array();
             foreach($assignment['subjects'] as $subjectName){
                 $stmt = $mysqli->prepare("SELECT subject_id FROM subjects WHERE subjectname = ?");
@@ -146,7 +146,7 @@ if (isset($postjson) && $postjson['aksi'] == 'add_teacher') {
                 $stmt->close();
             }
 
-            // Insert the data into the assign_teacher table
+            
             foreach($subjectIds as $subjectId){
                 $stmt = $mysqli->prepare("INSERT INTO assign_teacher (teacher_id, section_id, subject_id) VALUES (?,?,?)");
                 $stmt->bind_param("iii", $teacherId, $sectionId, $subjectId);
@@ -180,8 +180,7 @@ if (isset($postjson) && $postjson['aksi'] == "login") {
     $password = $postjson['password'];
     $role = $postjson['role'];
 
-    $table = ''; // Specify the correct table name based on the role
-
+    $table = ''; 
     switch ($role) {
         case 'student':
             $table = 'users';
@@ -197,7 +196,6 @@ if (isset($postjson) && $postjson['aksi'] == "login") {
             echo json_encode($response);
             exit();
     }
-    // Prepare and execute the query
     $stmt = $mysqli->prepare("SELECT * FROM $table WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();
@@ -229,7 +227,6 @@ if ($result->num_rows > 0) {
     $response = array('success' => false, 'msg' => 'Email not found');
 }
 
-// Set the response headers
 header('Content-Type: application/json');
 echo json_encode($response);
 exit();

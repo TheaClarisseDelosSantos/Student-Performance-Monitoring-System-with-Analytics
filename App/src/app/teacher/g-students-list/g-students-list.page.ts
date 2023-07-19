@@ -34,6 +34,9 @@ export class GStudentsListPage implements OnInit {
 
       this.fetchSectionDetails(this.sectionId);
     });
+
+    this.sortStudentsByName();
+
   }
 
   fetchSectionDetails(sectionId: string) {
@@ -267,6 +270,29 @@ export class GStudentsListPage implements OnInit {
       return student.subjects.find((subject:any) => subject.subject_id === subjectId) || {};
     }
     return {};
+  }
+  
+  
+  getAverageGrade(student: any): number {
+    if (!student.subjects || student.subjects.length === 0) {
+      return 0;
+    }
+  
+    const sum = student.subjects.reduce((total:any, subject:any) => {
+      const grade = parseFloat(subject.grade);
+      return total + (isNaN(grade) ? 0 : grade);
+    }, 0);
+  
+    const average = sum / student.subjects.length;
+    return parseFloat(average.toFixed(2));
+  }
+  
+  sortStudentsByName() {
+    this.students.sort((a, b) => {
+      const nameA = a.full_name.toLowerCase();
+      const nameB = b.full_name.toLowerCase();
+      return nameA.localeCompare(nameB);
+    });
   }
   
   

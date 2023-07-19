@@ -8,26 +8,38 @@ ion-content {
     --padding-bottom:0;
   }
 
-
-  
 .bg-color {
-  background: #ffffff;
+  background: #a70000;
 }
 
 ion-header {
   position: relative;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+  background: #a70000;
 }
 
-ion-card-title{
-  font-size: 30px;
-  color: #1C2120;
+.edit-div{
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 40px;
+  align-items: center;
+  justify-content: center;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  height:1000px;
+  width: 100%;
+
+}
+
+ion-title{
+  font-size: 20px;
+  color: white;
   font-weight: 700;
   font-family: Poppins;
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 10px;
 }
+
 ion-toolbar {
   --ion-background-color: transparent;
   --opacity: 0;
@@ -36,8 +48,6 @@ ion-toolbar {
 ion-card {
   --ion-background-color: transparent;
   box-shadow: none !important;
-  margin-right: 35px;
-  margin-left: 35px;
 }
 
 .round-input{
@@ -90,11 +100,12 @@ ion-card {
 .inputdiv{
     margin-right: 20px;
     margin-left: 20px;
+    
 }
   
 .currPass {
     position: relative;
-  }
+}
   
   ion-input {
     padding-right: 30px;

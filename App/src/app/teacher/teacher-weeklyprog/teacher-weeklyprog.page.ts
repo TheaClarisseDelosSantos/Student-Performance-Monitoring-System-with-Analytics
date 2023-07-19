@@ -84,7 +84,7 @@ export class TeacherWeeklyprogPage implements OnInit {
           console.log('Subjects:', this.subjects);
   
           this.sections.forEach((section: any) => {
-            section.subjectId = section.subject_id; // Set the subject ID for each section in the default state
+            section.subjectId = section.subject_id; 
           });
         }
       },
@@ -169,7 +169,7 @@ export class TeacherWeeklyprogPage implements OnInit {
     this.selectedSectionId = sectionId;
   
     const section = this.sections.find((section: any) => section.section_id === sectionId);
-    const subjectId = section.subjectId || section.subject_id; // Use either `subjectId` or `subject_id` based on the availability
+    const subjectId = section.subjectId || section.subject_id; 
   
     const body = {
       aksi: "get_students_by_section_subject",

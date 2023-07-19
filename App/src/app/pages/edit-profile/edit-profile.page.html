@@ -1,75 +1,75 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+      <ion-back-button color="light"  icon="caret-back"></ion-back-button>
     </ion-buttons>
+    <ion-title>EDIT PROFILE</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="bg-color">
   <ion-card class="ion-no-margin">
-    <ion-card-title>EDIT PROFILE</ion-card-title>
-
-    <div class="profile-container">
-      <div class="profile-picture">
-        <img src="../../../assets/icon/pf.png" alt="Profile Picture">
+    <div class="edit-div">
+      
+      <div class="profile-container">
+        <div class="profile-picture">
+          <img src="../../../assets/icon/pf.png" alt="Profile Picture">
+        </div>
+        
       </div>
-      <div class="addimg">
-        <ion-button class="addimgbutton" type="button">
-          <ion-icon class="add-circ" name="add-circle"></ion-icon>
-          Add Image
-        </ion-button>
+  
+      <div class="profile-info">
+        <h5>PERSONAL INFORMATION</h5>
       </div>
-    </div>
+      
+      <div class="input-container-parent">
 
-    <div class="profile-info">
-      <h5>PERSONAL INFORMATION</h5>
-    </div>
-
-    <div class="fmname">
-      <div class="input-container">
-        <ion-input class="round-input" type="text" name="fname" placeholder="First Name" [(ngModel)]="firstName"></ion-input>
+        <div class="fmname">
+          <div class="input-container">
+            <ion-input class="round-input" type="text" name="fname" placeholder="First Name" [(ngModel)]="firstName"></ion-input>
+          </div>
+    
+          <div class="input-container">
+            <ion-input class="round-input" type="text" placeholder="Middle Name" name="mname" [(ngModel)]="middleName"></ion-input>
+          </div>
+        </div>
+    
+        <div class="lname">
+          <ion-input class="round-input" type="text" name="lname" placeholder="Last Name" [(ngModel)]="lastName"></ion-input>
+        </div>
+    
+        <div class="address">
+          <ion-input class="round-input" type="text" name="address" placeholder="Address" [(ngModel)]="address"></ion-input>
+        </div>
+    
+        <div class="address">
+          <ion-input class="round-input" type="tel" name="phone" placeholder="Phone Number" inputmode="numeric" [(ngModel)]="phoneNumber"></ion-input>
+        </div>
+    
+        <div class="gend-bday">
+          <div class="input-container">
+            <ion-input class="round-input" type="text" name="gender" placeholder="Gender" [(ngModel)]="gender"></ion-input>
+          </div>
+    
+          <div class="input-container">
+            <ion-input id="open-modal" class="round-input-calendar" type="text" name="birthdate" [(ngModel)]="birthdate" readonly>
+              <ion-icon name="calendar" icon="calendar-outline" slot="start"></ion-icon>
+            </ion-input>
+    
+            <ion-modal trigger="open-modal" mode="md">
+              <ng-template>
+                <ion-content>
+                  <ion-datetime [presentation]="date" #date size="cover" showDefaultButtons="true"></ion-datetime>
+                </ion-content>
+              </ng-template>
+            </ion-modal>
+          </div>
+        </div>
+    
+        <div class="savediv">
+          <ion-button class="savebutton" type="submit" (click)="saveChanges()">Save Changes</ion-button>
+        </div>
       </div>
-
-      <div class="input-container">
-        <ion-input class="round-input" type="text" placeholder="Middle Name" name="mname" [(ngModel)]="middleName"></ion-input>
-      </div>
-    </div>
-
-    <div class="lname">
-      <ion-input class="round-input" type="text" name="lname" placeholder="Last Name" [(ngModel)]="lastName"></ion-input>
-    </div>
-
-    <div class="address">
-      <ion-input class="round-input" type="text" name="address" placeholder="Address" [(ngModel)]="address"></ion-input>
-    </div>
-
-    <div class="address">
-      <ion-input class="round-input" type="tel" name="phone" placeholder="Phone Number" inputmode="numeric" [(ngModel)]="phoneNumber"></ion-input>
-    </div>
-
-    <div class="gend-bday">
-      <div class="input-container">
-        <ion-input class="round-input" type="text" name="gender" placeholder="Gender" [(ngModel)]="gender"></ion-input>
-      </div>
-
-      <div class="input-container">
-        <ion-input id="open-modal" class="round-input-calendar" type="text" name="birthdate" [(ngModel)]="birthdate" readonly>
-          <ion-icon name="calendar" icon="calendar-outline" slot="start"></ion-icon>
-        </ion-input>
-
-        <ion-modal trigger="open-modal" mode="md">
-          <ng-template>
-            <ion-content>
-              <ion-datetime [presentation]="date" #date size="cover" showDefaultButtons="true"></ion-datetime>
-            </ion-content>
-          </ng-template>
-        </ion-modal>
-      </div>
-    </div>
-
-    <div class="savediv">
-      <ion-button class="savebutton" type="submit" (click)="saveChanges()">Save Changes</ion-button>
     </div>
 
   </ion-card>

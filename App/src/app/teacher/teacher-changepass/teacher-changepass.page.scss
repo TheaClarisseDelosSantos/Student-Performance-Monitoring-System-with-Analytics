@@ -1,119 +1,129 @@
 *{
-    font-family: 'Poppins',sans-serif;
+  font-family: 'Poppins',sans-serif;
 }
 
 ion-content {
-    --ion-background-color: transparent;
-    // --overflow: hidden;
-    --padding-bottom:0;
-  }
+  --ion-background-color: transparent;
+  // --overflow: hidden;
+  --padding-bottom:0;
+}
 
-
-  
 .bg-color {
-  background: #ffffff;
+background: #a70000;
 }
 
 ion-header {
-  position: relative;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
+position: relative;
+background: #a70000;
 }
 
-ion-card-title{
-  font-size: 30px;
-  color: #1C2120;
-  font-weight: 700;
-  font-family: Poppins;
-  text-align: center;
-  margin-top: 20px;
+.edit-div{
+background-color: white;
+padding-left: 10px;
+padding-right: 10px;
+padding-top: 40px;
+align-items: center;
+justify-content: center;
+border-top-left-radius: 30px;
+border-top-right-radius: 30px;
+height:1000px;
+width: 100%;
+
 }
+
+ion-title{
+font-size: 20px;
+color: white;
+font-weight: 700;
+font-family: Poppins;
+text-align: center;
+margin-bottom: 10px;
+}
+
 ion-toolbar {
-  --ion-background-color: transparent;
-  --opacity: 0;
+--ion-background-color: transparent;
+--opacity: 0;
 }
 
 ion-card {
-  --ion-background-color: transparent;
-  box-shadow: none !important;
-  margin-right: 35px;
-  margin-left: 35px;
+--ion-background-color: transparent;
+box-shadow: none !important;
 }
 
 .round-input{
-    --border-radius: 8px;
-    --padding-start: 4vw;
-    --padding-end: 3vw;
-    --background: #f4f4f4;
-    --color: #333;
-    font-family: 'DM Sans', sans-serif;
-    padding-top: 2vh;
-    padding-bottom: 2vh;
-    width: 100%;
-    border: none;
-    border-bottom: none;
-    text-decoration: none;
-    outline: none;
-    font-family: 'DM Sans', sans-serif;
-    margin-bottom: 20px;
-    height: 56px;
+  --border-radius: 8px;
+  --padding-start: 4vw;
+  --padding-end: 3vw;
+  --background: #f4f4f4;
+  --color: #333;
+  font-family: 'DM Sans', sans-serif;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  width: 100%;
+  border: none;
+  border-bottom: none;
+  text-decoration: none;
+  outline: none;
+  font-family: 'DM Sans', sans-serif;
+  margin-bottom: 20px;
+  height: 56px;
 }
 
 .round-input::placeholder{
-    font-family: 'DM Sans', sans-serif;
-    font-size: 11px;
-    font-weight: 800;
-    color: #999;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  color: #999;
 }
 
 .change-password-button {
-    
-    justify-content: center;
-    align-items: center;
-    border-radius: 15px;
-    background: #a70000;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 600;
-    margin-right: 20px;
-    margin-left: 20px;
-    color: white;
-    padding: 15px 25px 15px 25px;
-    width: 100%;
-  }
+  
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: #a70000;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  margin-right: 20px;
+  margin-left: 20px;
+  color: white;
+  padding: 15px 25px 15px 25px;
+  width: 100%;
+}
 
-  .changepassdiv{
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-  }
+.changepassdiv{
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+}
 
 .inputdiv{
-    margin-right: 20px;
-    margin-left: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  
 }
-  
-.currPass {
-    position: relative;
-  }
-  
-  ion-input {
-    padding-right: 30px;
-  }
-  
-  .password-toggle {
-    position: absolute;
-    top: 63%;
-    right: 10px;
-    transform: translateY(-50%);
-    cursor: pointer;
-    border: none;
-    background-color: transparent;
-    z-index: 2;
-  }
 
-  ion-icon{
-    padding-right: 6px;
-    font-size: 20px;
+.currPass {
+  position: relative;
 }
-  
-  
+
+ion-input {
+  padding-right: 30px;
+}
+
+.password-toggle {
+  position: absolute;
+  top: 63%;
+  right: 10px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  z-index: 2;
+}
+
+ion-icon{
+  padding-right: 6px;
+  font-size: 20px;
+}
+

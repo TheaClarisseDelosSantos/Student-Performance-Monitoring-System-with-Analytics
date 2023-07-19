@@ -1,38 +1,41 @@
 <ion-header class="ion-no-border">
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button text="Previous" icon="caret-back"></ion-back-button>
+      <ion-back-button color="light"  icon="caret-back"></ion-back-button>
     </ion-buttons>
+    <ion-title>CHANGE PASSWORD</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="bg-color">
-  <ion-card-title>CHANGE PASSWORD</ion-card-title>
+  <ion-card class="ion-no-margin">
+    
 
-  <ion-card>
+    <div class="edit-div">
+      <div class="input-container-parent">
 
-    <div>
-      <div class="inputdiv">
-        <div class="currPass">
-          <ion-label position="floating">Current Password</ion-label>
-          <ion-input class="round-input" type="password" type="{{ passwordVisible ? 'text' : 'password' }}" [(ngModel)]="currentPassword"></ion-input>
-          <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
-            <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
-          </button>
+        <div class="inputdiv">
+          <div class="currPass">
+            <ion-label position="floating">Current Password</ion-label>
+            <ion-input class="round-input" type="password" type="{{ passwordVisible ? 'text' : 'password' }}" [(ngModel)]="currentPassword"></ion-input>
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+              <ion-icon [name]="passwordVisible ? 'eye-off' : 'eye'"></ion-icon>
+            </button>
+          </div>
+          
+          <div class="currPass">
+            <ion-label position="floating">New Password</ion-label>
+            <ion-input class="round-input" type="password" type="password" type="{{ passwordVisible1 ? 'text' : 'password' }}" [(ngModel)]="newPassword"></ion-input>
+            <button type="button" class="password-toggle" (click)="togglePasswordVisibility1()">
+              <ion-icon [name]="passwordVisible1 ? 'eye-off' : 'eye'"></ion-icon>
+            </button>
+          </div>
+  
         </div>
-        
-        <div class="currPass">
-          <ion-label position="floating">New Password</ion-label>
-          <ion-input class="round-input" type="password" type="password" type="{{ passwordVisible1 ? 'text' : 'password' }}" [(ngModel)]="newPassword"></ion-input>
-          <button type="button" class="password-toggle" (click)="togglePasswordVisibility1()">
-            <ion-icon [name]="passwordVisible1 ? 'eye-off' : 'eye'"></ion-icon>
-          </button>
+  
+        <div class="changepassdiv">
+          <button expand="full" (click)="changePassword()" class="change-password-button">Change Password</button>
         </div>
-
-      </div>
-
-      <div class="changepassdiv">
-        <button expand="full" (click)="changePassword()" class="change-password-button">Change Password</button>
       </div>
     </div>
   </ion-card>

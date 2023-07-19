@@ -168,11 +168,16 @@
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
     margin-bottom: 10px;
+    width: 100%;
+    margin-top: 10px;
   }
   .addsubjicon{
     margin-right: 5px;
   }
-
+  .gwa-text{
+    font-weight: 700;
+  }
+  
   .remicon{
     margin-right: 5px;
   }
@@ -203,4 +208,15 @@
   width: 35%;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.green-text {
+  color: green;
+  font-weight: 700;
+}
+
+.red-text {
+  color: red;
+  font-weight: 700;
+
 }
