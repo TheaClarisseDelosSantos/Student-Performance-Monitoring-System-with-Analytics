@@ -33,6 +33,9 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <b>Development</b>
 <p align="justify">The Development phase focuses on implementing the proposed features and functionalities. The team divides the requirements into smaller tasks and works on them iteratively. To handle any issues and ensure progress is in line with the project timeline, frequent communication and coordination are maintained.</p>
 
+<b>Testing</b>
+<p align="justify"></p>
+
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
   <img src="Documentation%20Assets/usecase.png">
