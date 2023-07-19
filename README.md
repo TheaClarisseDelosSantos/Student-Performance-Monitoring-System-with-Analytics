@@ -27,6 +27,9 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
   <img src="Documentation%20Assets/usecase.png">
+
+  ### SEQUENCE DIAGRAM
+  <img src="Documentation%20Assets/sequence.png">
   
 
 ## GRAPHICAL USER INTERFACE
