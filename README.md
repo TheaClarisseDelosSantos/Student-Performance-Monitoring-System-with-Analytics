@@ -30,6 +30,9 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <b>Designing</b>
 <p align="justify">The team creates the application's blueprint during the Designing phase. To ensure an intuitive and user-friendly design, wireframes and prototypes are created to depict the app's user interface. </p>
 
+<b>Development</b>
+<p align="justify">The team creates the application's blueprint during the Designing phase. To ensure an intuitive and user-friendly design, wireframes and prototypes are created to depict the app's user interface. </p>
+
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
   <img src="Documentation%20Assets/usecase.png">
