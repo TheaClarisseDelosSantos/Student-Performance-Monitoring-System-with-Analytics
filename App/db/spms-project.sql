@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2023 at 01:04 PM
+-- Generation Time: Jul 19, 2023 at 01:05 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -116,12 +116,6 @@ INSERT INTO `grades` (`grade_id`, `student_id`, `subject_id`, `quarter`, `grade`
 (1, 9, 1, 'First Quarter', '95', ''),
 (2, 9, 2, 'First Quarter', '90', ''),
 (3, 9, 5, 'Second Quarter', '89', ''),
-(36, 14, 1, 'First Quarter', '90', ''),
-(37, 14, 6, 'First Quarter', '95', ''),
-(38, 14, 3, 'First Quarter', '97', ''),
-(39, 14, 2, 'First Quarter', '98', ''),
-(40, 14, 4, 'First Quarter', '96', ''),
-(41, 14, 5, 'First Quarter', '95', ''),
 (126, 10, 6, 'Second Quarter', '90', ''),
 (127, 10, 1, 'Second Quarter', '99', ''),
 (128, 10, 2, 'Second Quarter', '98', ''),
@@ -139,7 +133,13 @@ INSERT INTO `grades` (`grade_id`, `student_id`, `subject_id`, `quarter`, `grade`
 (230, 10, 2, 'Third Quarter', '96', ''),
 (231, 10, 3, 'Third Quarter', '93', ''),
 (232, 10, 4, 'Third Quarter', '92', ''),
-(233, 10, 1, 'Third Quarter', '99', '');
+(233, 10, 1, 'Third Quarter', '99', ''),
+(240, 14, 1, 'First Quarter', '95', ''),
+(241, 14, 2, 'First Quarter', '98', ''),
+(242, 14, 3, 'First Quarter', '97', ''),
+(243, 14, 6, 'First Quarter', '95', ''),
+(244, 14, 4, 'First Quarter', '96', ''),
+(245, 14, 5, 'First Quarter', '95', '');
 
 -- --------------------------------------------------------
 
@@ -239,7 +239,7 @@ CREATE TABLE `teachers` (
 --
 
 INSERT INTO `teachers` (`user_id`, `section_id`, `firstname`, `middlename`, `lastname`, `address`, `phone`, `gender`, `birthdate`, `email`, `password`) VALUES
-(6, 1, 'Perla', 'Perez', 'Delos Santos', 'San Roque', '09123213121', 'female', '2023-07-15', 'perla@gmail.com', '$2y$10$1iAeMBJGZEj8Ez4AwBqyOul7MSKmmoImIB1uOH4TtXzbd7QcEOqCW'),
+(6, 1, 'Perla', 'Perez', 'Delos Santos', 'San Roque', '09123213121', 'female', '2023-07-15', 'perla@gmail.com', '$2y$10$3v5y.V9pkCCiQpHHlK9yde/.3cpwqSA0yrQsy5drHKxEYcCFnH3Fm'),
 (7, 4, 'Katherine', 'Perez', 'Delos Santos ', 'Test1', '12312313123', 'female', '2023-07-01', 'kaye@gmail.com', '$2y$10$a7yCzNqjYpxa8FcL8hYghuOKx4Fpjk7kW90Jxu2R4MJ2FS/hk2Gp2'),
 (8, 5, 'John Michael', 'Perez', 'Delos Santos', 'San Roque', '09123123123', 'male', '2023-07-14', 'jm@gmail.com', '$2y$10$HMyPxW3EeDQCEBggl2vRt.wPI.Xf0AJc6UiYu3lb2rNzMDEFrRBta');
 
@@ -253,7 +253,7 @@ CREATE TABLE `users` (
   `user_id` int(11) NOT NULL,
   `section_id` int(11) NOT NULL,
   `firstname` varchar(50) NOT NULL,
-  `middlename` varchar(50) NOT NULL,
+  `middlename` varchar(50) DEFAULT NULL,
   `lastname` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -274,7 +274,14 @@ INSERT INTO `users` (`user_id`, `section_id`, `firstname`, `middlename`, `lastna
 (11, 5, 'Jussel', '', 'Elejorde', 'San Antonio', '11312312313', 'female', '2023-07-06', 'jussel@gmail.com', '$2y$10$PgYJArvQXVyIYau1/klxIOYCOt7QlU3MgzsOdx7bO9fNIq1psPYCW'),
 (12, 2, 'Test1', 'Test1', 'Test1', 'Test1', '09123123123', 'female', '2023-07-14', 'test2@gmail.com', '$2y$10$VUBrzBIVUuV0OZqDNVxEWuTcp5yS11IWLCy//cJtMggIMRPQMjI0K'),
 (13, 5, 'Kaycee', '', 'Panaligan', 'Batangas City', '09112312312', 'Female', '2023-07-07', 'kaycee@gmail.com', '$2y$10$qmM8HOQ5inAajIHyoY.G9es6ZzGzAE6aFBfuIdjFy/xzAMFBjgT9a'),
-(14, 3, 'Janelle', '', 'De Chavez', 'Batangas City', '12312312313', 'Female', '2023-07-21', 'janelle@gmail.com', '$2y$10$8mzaYGDbIshesVDMkIHjcOiV1nDrWxcDFWsLNsK5gfQZz5OJ3T/..');
+(14, 3, 'Janelle', '', 'De Chavez', 'Batangas City', '12312312313', 'Female', '2023-07-21', 'janelle@gmail.com', '$2y$10$8mzaYGDbIshesVDMkIHjcOiV1nDrWxcDFWsLNsK5gfQZz5OJ3T/..'),
+(15, 3, 'Thea Clarisse', 'Perez', 'Delos Santos', 'San Roque, Rosario, Batangas', '09083444771', 'Female', '2023-07-29', 'thead@gmail.com', '$2y$10$al9PWgkknwGe54vCVT4K5ubyHi8HP0vTaII1M/s9YAOD72FP/slNu'),
+(16, 3, 'Michael', NULL, 'Padua', 'Padre Garcia, Batangas', '09123434343', 'Male', '2002-04-03', 'michael@gmail.com', '$2y$10$tX/7lGbeiTATVTsX2wmpI.57.wr9NGjU6Py5sY56h7WJh3u.Hj5Ey'),
+(17, 3, 'Alvin', 'Elejorde', 'Arpia', 'Rosario, Batangas', '09877665534', 'Male', '2002-07-19', 'alvin@gmail.com', '$2y$10$U/DH40HODLOqT374ZPKdP.LZkiue0czMRFD1IOZ6cpe5Vg3Kd4Qo6'),
+(18, 3, 'Angelica', 'Morales', 'Alapaap', 'Padre Garcia, Batangas', '09126597987', 'Female', '2002-01-02', 'angelica@gmail.com', '$2y$10$z5UlgcAnToQWeb0gQLWi5.99fiLYijzKkOXQsNwhPLPc4y9ZcTgDe'),
+(19, 3, 'Morienda', NULL, 'Alagito', 'Alangilan, Batangas City', '09145678678', 'Female', '2002-04-03', 'morienda@gmail.com', '$2y$10$TtKKw5nHvaPfB4jWVVGJuOtVjuxvX/MTYsMs3ZXE6lB8m/ItM0zYa'),
+(20, 3, 'Kenneth', '', 'Mindanao', 'Namuco, Rosario, Batangas', '09234234324', 'Male', '2000-04-29', 'kenneth@gmail.com', '$2y$10$bg2VS54n805qKaxokRnxTOLssD8sppoP2Av/TkHqnCzKZdUznLelG'),
+(21, 5, 'Joseph', NULL, 'Cortez', 'Batangas City', '09123123131', 'Male', '2002-01-16', 'joseph@gmail.com', '$2y$10$WbkpxoApHR3S3q15.2aysOrXCkpc4bfjdDABXZA2MbJZ6ZOMWGGKi');
 
 --
 -- Indexes for dumped tables
@@ -366,7 +373,7 @@ ALTER TABLE `assign_teacher`
 -- AUTO_INCREMENT for table `grades`
 --
 ALTER TABLE `grades`
-  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
+  MODIFY `grade_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT for table `scores`
@@ -396,7 +403,7 @@ ALTER TABLE `teachers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
