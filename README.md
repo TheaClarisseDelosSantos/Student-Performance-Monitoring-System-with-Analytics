@@ -29,7 +29,7 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
   <img src="Documentation%20Assets/usecase.png">
 
   ### SEQUENCE DIAGRAM
-  <img src="Documentation%20Assets/sequence.png">
+  <img src="Documentation%20Assets/sequence1.png">
   
 
 ## GRAPHICAL USER INTERFACE
