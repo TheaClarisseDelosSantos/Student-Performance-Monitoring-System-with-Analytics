@@ -25,6 +25,7 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
 <p align="justify">The developers will utilize an agile methodology to ensure the project is completed efficiently. This method is an iterative approach that involves collaboration between cross-functional teams to deliver a product that meets the client's needs. This methodology will allow the project to be completed promptly and efficiently, ensuring that the final product meets the objectives set.</p>
 
 <b>Requirement Analysis</b>
+<p align="justify">The Initiation and Requirement Analysis phase of the project begins with the development team investigating into understanding the specific demands and challenges experienced in monitoring student performance at Lipa Grace Academy. </p>
 
 ## SYSTEM ARCHITECTURE
   ### USE CASE DIAGRAM
