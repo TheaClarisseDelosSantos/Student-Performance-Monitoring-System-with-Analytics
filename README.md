@@ -52,3 +52,11 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
   
 
 ## GRAPHICAL USER INTERFACE
+
+  <img src="Documentation%20Assets/login.png">
+  <img src="Documentation%20Assets/student.png">
+  <img src="Documentation%20Assets/teacher.png">
+
+
+
+
