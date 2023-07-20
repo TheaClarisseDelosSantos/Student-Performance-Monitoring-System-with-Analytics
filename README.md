@@ -58,6 +58,6 @@ teachers and students, Lipa Grace Academy seeks to contribute to the achievement
   <img src="Documentation%20Assets/teacher.png">
 
 ## TEAM MEMBERS
-
+<img src="Documentation%20Assets/team.PNG" width="100%">
 
 
